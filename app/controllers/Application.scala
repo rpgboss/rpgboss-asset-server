@@ -7,6 +7,10 @@ import play.api.mvc._
 import play.api.db._
 import play.api.Play.current
 
+import java.util.Collections
+
+class SlugName(name:String, slug:String) {}
+
 object Application extends Controller {
 
   def index = Action {
@@ -15,28 +19,34 @@ object Application extends Controller {
 		// Create an SQL query
 		val selectCategories = SQL("select id,name,slug from category")
 		 
-		val packages = Set()
+		val packages:Set[Any] = Set()
 
 		// Transform the resulting Stream[Row] to a List[(String,String)]
 		val countries = selectCategories().map( row => 
 			row[String]("name") -> row[String]("slug")
 		).toList
 
-		/*
+		
 		var selectedPackages:anorm.SqlQuery = null
-		var packageList:List[(String,String)] = null;
+		var packageList:List[Any] = List();
 
-		selectCategories().foreach( row =>
-			selectedPackages = SQL("select name,slug from package WHERE `id`="+row[Int]("id")+" ORDER BY created_at DESC LIMIT 3")
+		/*
+		selectCategories().foreach { row =>
+			var sqlQuery = "select `name`,`slug` from package WHERE `id`="+row[Int]("id")+" ORDER BY created_at DESC LIMIT 3"
 
-			packageList = selectedPackages().map( row2 => 
-				row2[String]("name") -> row2[String]("slug")
-			).toList
-			packages ++= packageList
-		)
+			selectedPackages = SQL(sqlQuery)
+
+			packageList = selectedPackages().map{ row2 => 
+
+				Collections.addAll(packages,SlugName(row2[String]("name"), row2[String]("slug")))
+			}
+
+		}
 		*/
+		
+		var counter:Iterator[Int] = Stream.iterate(0)(_ + 1).iterator;
 
-		Ok(views.html.store(countries))
+		Ok(views.html.store(countries, packages,counter))
     }
   }
 

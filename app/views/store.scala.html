@@ -1,4 +1,4 @@
-@(categories: List[(String, String)])
+@(categories: List[(String, String)], packages: Set[Any],counter:Iterator[Int])
 
 @main("RPGBOSS Asset Server") {
 
@@ -24,8 +24,9 @@
               <h1>@key</h1>
               <div class="line"></div>
               <ul>
-                  
+                 
               </ul>
+              
           </div>
         } 
     </div>
