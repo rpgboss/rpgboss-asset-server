@@ -1,0 +1,47 @@
+.slider {
+	background: $lightgray;
+	padding-top:50px;
+}
+
+.bx-wrapper .bx-viewport {
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	border: none;
+	background: transparent;
+}
+
+.bx-wrapper .bx-prev,
+.bx-wrapper .bx-next {
+	background-image:url(../images/controls.png);
+}
+
+.slider h1 {
+	font-size:26px;
+	color:black;
+}
+
+.slider ul {
+	list-style-type: square;
+}
+
+.slider p,
+.slider li {
+	color:$gray;
+}
+
+.slider-text {
+	padding-left:10%;
+}
+
+.slider-image {
+	padding-right:10%;
+}
+
+.bx-wrapper .bx-pager.bx-default-pager a:hover, .bx-wrapper .bx-pager.bx-default-pager a.active {
+	background: $orange;
+}
+
+.bx-wrapper .bx-pager.bx-default-pager a {
+	background:$gray;
+}

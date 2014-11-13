@@ -7,6 +7,7 @@ Pre-requisites
 +  git
 +  sbt - http://www.scala-sbt.org/
 +  Java 6, 7, or 8.
++  Sass gem installed globally ( http://sass-lang.com/ )
 +  Activator usable in command line (https://typesafe.com/activator)
 
 Run the server
@@ -16,6 +17,13 @@ Run the server
     ```
 
 It can be accessed using http://127.0.0.1:9000
+
+Preventing sass errors
+--------
+Copy your
++ sass
++ sass.bat
+in your root directory
 
 Setting up database
 --------

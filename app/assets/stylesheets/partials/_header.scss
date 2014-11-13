@@ -1,0 +1,35 @@
+.header {
+    background: white;
+    border-bottom: 1px solid $orange;
+}
+
+.header ul {
+    list-style: none;
+}
+
+.header li a {
+    float: left;
+    display:block;
+    font-size: 20px;
+    font-weight:400;
+    color: $gray;
+    text-decoration: none;
+    padding: 22px 20px;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.header li a.active,
+.header li a:hover {
+    color: $orange;
+}
+
+.header .logo {
+    vertical-align:middle;
+}
+
+.header .logo a {
+    font-size:30px;
+    text-decoration: none;
+    color: $orange;
+}

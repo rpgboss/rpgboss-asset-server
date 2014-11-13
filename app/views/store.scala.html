@@ -1,0 +1,33 @@
+@(categories: List[(String, String)])
+
+@main("RPGBOSS Asset Server") {
+
+    <div class="col-xs-3">
+        <div class="box notfixed gap">
+        <h1>Ressources</h1>
+        <ul>
+            <li><a href="/">Home</a></li>
+        @categories.map { case (key, value) =>
+          <li><a href="/c/@value">@key</a></li>
+        } 
+        </ul>
+        </div>
+        <div class="box notfixed gap">
+            <h1>Sign Up</h1>
+            <p>Register to be able to import directly into your editor.</p>
+            <a href="/register" class="button full">Sign Up</a>
+        </div>
+    </div>
+    <div class="col-xs-9">
+        @categories.map { case (key, value) =>
+          <div class="category-list">
+              <h1>@key</h1>
+              <div class="line"></div>
+              <ul>
+                  
+              </ul>
+          </div>
+        } 
+    </div>
+
+}

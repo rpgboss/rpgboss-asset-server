@@ -1,0 +1,94 @@
+.box-container {
+	margin: 30px auto;
+}
+
+.box {
+	border:1px solid $lightgray;
+	padding:15px;
+	height:260px;
+}
+
+.box.notfixed {
+	height: auto;
+}
+
+.box.gap {
+	margin: 20px 0;
+}
+
+.box a.button,
+.box a.button:hover {
+	color: $white;
+}
+
+.box h1 {
+	font-size:26px;
+	color: $orange;
+	margin:0;
+	padding:0;
+	padding-bottom:15px;
+}
+
+.box ul {
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+
+.box a {
+	color: $gray;
+	text-decoration: none;
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	display: block;
+	padding: 5px 0;
+}
+
+.box a.active,
+.box a:hover {
+	color: $orange;
+}
+
+.feed {
+	border-bottom:1px solid $lightgray;
+	padding: 5px 0;
+	margin: 10px 0;
+}
+
+.feed.last {
+	border:none;
+}
+
+.feed .title {
+	width:100%;
+	white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.feed .media img {
+	width:30px;
+}
+
+.feed .title a {
+	font-size:14px;
+	color:$gray;
+	font-weight:400;
+  text-decoration:none;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.feed .title a:hover {
+	color: $black;
+}
+
+.feed .author a {
+	font-size:14px;
+	color:$orange;
+	text-decoration:none;
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+.feed .author a:hover {
+	color: $lightorange;
+}

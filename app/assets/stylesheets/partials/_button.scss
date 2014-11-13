@@ -1,0 +1,63 @@
+.button {
+	background: $orange;
+	color: $white;
+	font-size:20px;
+	text-decoration:none;
+	padding:10px 0;
+	text-align: center;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+	color: $white;
+	text-decoration:none;
+  background: $lightorange;
+}
+
+.button.full {
+	display:block;
+	margin: 10px 0;
+}
+
+.button.icon {
+	text-align: left;
+	padding-left: 60px;
+}
+
+.icon-linux {
+	background: $orange url(../images/linux.png) left center no-repeat;
+}
+.icon-linux:hover {
+	background: $lightorange url(../images/linux.png) left center no-repeat;
+}
+
+.icon-windows {
+	background: $orange url(../images/windows.png) left center no-repeat;
+}
+.icon-windows:hover {
+	background: $lightorange url(../images/windows.png) left center no-repeat;
+}
+
+.icon-osx {
+	background: $orange url(../images/osx.png) left center no-repeat;
+}
+.icon-osx:hover {
+	background: $lightorange url(../images/osx.png) left center no-repeat;
+}
+
+.icon-link {
+	vertical-align: middle;
+	color: $gray;
+	font-size: 20px;
+	display: block;
+	margin: 20px 0;
+	text-decoration: none;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.icon-link:hover {
+	text-decoration: none;
+	color: $orange;
+}

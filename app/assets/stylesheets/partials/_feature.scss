@@ -1,0 +1,20 @@
+.feature img {
+	width:100%;
+}
+
+.feature h2 {
+	color:$black;
+	font-size:26px;
+	margin:0;
+	padding:0;
+	padding-bottom:20px;
+}
+
+.feature p {
+	color:$gray;
+	font-size:18px;
+}
+
+.feature.right .col-md-6 {
+	float:right;
+}
