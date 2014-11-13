@@ -1,4 +1,5 @@
-@(categories: List[(String, String)], packages: Set[Any],counter:Iterator[Int])
+@import scala.collection.mutable._ 
+@(categories: List[(String, String)], packages: Map[String, MutableList[SlugName]],currentCategory:SlugName)
 
 @main("RPGBOSS Asset Server") {
 
@@ -6,9 +7,17 @@
         <div class="box notfixed gap">
         <h1>Ressources</h1>
         <ul>
+          @if(currentCategory.slug == "") {
+            <li><a class="active" href="/">Home</a></li>
+          } else {
             <li><a href="/">Home</a></li>
+          }
         @categories.map { case (key, value) =>
-          <li><a href="/c/@value">@key</a></li>
+          @if(currentCategory.slug != value) {
+            <li><a href="/c/@value">@key</a></li>
+          } else {
+            <li><a class="active" href="/c/@value">@key</a></li>
+          }
         } 
         </ul>
         </div>
@@ -19,13 +28,21 @@
         </div>
     </div>
     <div class="col-xs-9">
+        <h1>Latest Packages</h1>
+        <br><br>
         @categories.map { case (key, value) =>
           <div class="category-list">
-              <h1>@key</h1>
+              <h2>@key</h2>
               <div class="line"></div>
-              <ul>
-                 
-              </ul>
+              <div class="row">
+                 @packages(key).map { row:SlugName =>
+                  <a href="/c/@value/@row.slug">
+                    <div class="box gap col-md-4">
+                      <h1>@row.name</h1>
+                    </div>
+                  </a>
+                 }
+              </div>
               
           </div>
         } 

@@ -1,6 +1,10 @@
 .userheader {
 	border-bottom: 1px solid $lightgray;
 	padding: 10px 0;
+
+	.hello-col {
+		text-align:right;
+	}
 }
 
 .userheader a {

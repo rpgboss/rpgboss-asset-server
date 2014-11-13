@@ -3,8 +3,10 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
-GET     /login                           controllers.Application.login
+GET     /                                     controllers.Application.index()
+GET     /login                                controllers.Application.login()
+GET     /c/:catslug/:packageslug              controllers.Application.assetpackage(catslug:String,packageslug:String)
+GET     /c/:catslug                           controllers.Application.category(catslug:String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

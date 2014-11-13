@@ -47,6 +47,8 @@ CREATE TABLE Package (
   PRIMARY KEY (id)
 ) ENGINE=INNODB;
 
+INSERT INTO Package VALUES (NULL, 1,"My Animation","my-animation","url","pictures","This is my Animation", NULL);
+
 CREATE TABLE Comment (
   id INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,
