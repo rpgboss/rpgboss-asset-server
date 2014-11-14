@@ -11,9 +11,6 @@ import scala.collection.mutable._
 
 import models._
 
-class SlugName(val name:String,val slug:String, val id:Int) {}
-class AssetPackage(val name:String,val slug:String, val id:Int, val description:String, val url:String, val pictures:String) {}
-
 object Application extends Controller {
 
   def index = Action {
@@ -22,7 +19,7 @@ object Application extends Controller {
 		// Create an SQL query
 		val selectCategories = SQL("select id,name,slug from category")
 		 
-		val packages:Map[String, MutableList[SlugName]] = Map()
+		val packages:Map[String, MutableList[models.Category]] = Map()
 
 		// Transform the resulting Stream[Row] to a List[(String,String)]
 		val countries = selectCategories().map( row => 
@@ -33,7 +30,7 @@ object Application extends Controller {
 		var selectedPackages:anorm.SqlQuery = null
 		var packageList:Stream[Any] = Stream();
 
-		var packagesContainer:MutableList[SlugName] = MutableList()
+		var packagesContainer:MutableList[models.Category] = MutableList()
 
 		
 		selectCategories().foreach { row =>
@@ -45,14 +42,14 @@ object Application extends Controller {
 
 			packageList = selectedPackages().map{ row2 => 
 
-				packagesContainer += new SlugName(row2[String]("name"), row2[String]("slug"),row2[Int]("id"))
+				packagesContainer += new models.Category(row2[String]("name"), row2[String]("slug"),row2[Int]("id"))
 			}
 
 			packages(row[String]("name")) = packagesContainer
 
 		}
 
-		Ok(views.html.store(countries, packages, new SlugName("","",0)))
+		Ok(views.html.store(countries, packages, new models.Category("","",0)))
     }
   }
 
@@ -69,10 +66,10 @@ object Application extends Controller {
 
   		var sqlQuery2 = "select * from category WHERE `slug`=\""+catslug+"\";"
 
-  		var currentCategory:SlugName = null
+  		var currentCategory:models.Category = null
  			SQL(sqlQuery2)().map{ row2 => 
 
-				currentCategory = new SlugName(row2[String]("name"), row2[String]("slug"),row2[Int]("id"))
+				currentCategory = new models.Category(row2[String]("name"), row2[String]("slug"),row2[Int]("id"))
 			}
 
 	  	var sqlQuery3 = "select * from package WHERE `slug`=\""+packageslug+"\" AND `category_id`="+currentCategory.id
@@ -98,10 +95,10 @@ object Application extends Controller {
 
   		var sqlQuery2 = "select * from category WHERE `slug`=\""+catslug+"\";"
 
-  		var currentCategory:SlugName = null
+  		var currentCategory:models.Category = null
  			SQL(sqlQuery2)().map{ row2 => 
 
-				currentCategory = new SlugName(row2[String]("name"), row2[String]("slug"),row2[Int]("id"))
+				currentCategory = new models.Category(row2[String]("name"), row2[String]("slug"),row2[Int]("id"))
 			}
 
 			var sqlQuery = "select * from package WHERE `category_id`="+currentCategory.id+" ORDER BY created_at DESC LIMIT 3"

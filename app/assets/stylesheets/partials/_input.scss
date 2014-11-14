@@ -1,0 +1,27 @@
+input.form-control,
+input {
+	padding: 10px;
+	color: $gray;
+	border: 1px solid $lightgray;
+	display: block;
+	width:100%;
+	box-shadow: none;
+	border-radius: 0;
+}
+
+input.form-control:focus,
+input:focus {
+	border:1px solid $orange;
+box-shadow: none;
+-moz-box-shadow: none;
+-webkit-box-shadow: none;
+}
+
+input.button {
+	border: none;
+	padding: 10px 20px;
+}
+
+input.button.full {
+	width:100%;
+}

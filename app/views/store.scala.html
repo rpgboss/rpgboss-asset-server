@@ -1,5 +1,5 @@
 @import scala.collection.mutable._ 
-@(categories: List[(String, String)], packages: Map[String, MutableList[SlugName]],currentCategory:SlugName)
+@(categories: List[(String, String)], packages: Map[String, MutableList[models.Category]],currentCategory:models.Category)
 
 @main("RPGBOSS Asset Server") {
 
@@ -35,7 +35,7 @@
               <h2>@key</h2>
               <div class="line"></div>
               <div class="row">
-                 @packages(key).map { row:SlugName =>
+                 @packages(key).map { row:Category =>
                   <a href="/c/@value/@row.slug">
                     <div class="box gap col-md-4">
                       <h1>@row.name</h1>
