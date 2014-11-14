@@ -9,12 +9,13 @@ CREATE TABLE User (
   password CHAR(41) NOT NULL,
   session VARCHAR(100) NOT NULL,
   admin INT(1) NOT NULL DEFAULT 0,
+  activated INT(1) NOT NULL DEFAULT 0,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 ) ENGINE=INNODB;
 
-INSERT INTO User VALUES (NULL, "info@rpgboss.com","The Admin","a94a8fe5ccb19ba61c4c0873d391e987982fbbd3","f6b970054ea32e1d87bb26f3076980cdc51255a8", 1, NULL);
-INSERT INTO User VALUES (NULL, "test@rpgboss.com","The User","a94a8fe5ccb19ba61c4c0873d391e987982fbbd3","f6b970054ea32e1d87bb26f3076980cdc51255a8", 0, NULL);
+INSERT INTO User VALUES (NULL, "info@rpgboss.com","The Admin","a94a8fe5ccb19ba61c4c0873d391e987982fbbd3","f6b970054ea32e1d87bb26f3076980cdc51255a8", 1,1, NULL);
+INSERT INTO User VALUES (NULL, "test@rpgboss.com","The User","a94a8fe5ccb19ba61c4c0873d391e987982fbbd3","f6b970054ea32e1d87bb26f3076980cdc51255a8", 1,0, NULL);
 
 CREATE TABLE Category (
   id INT NOT NULL AUTO_INCREMENT,
@@ -35,6 +36,16 @@ INSERT INTO Category VALUES (NULL, "Tileset","tileset");
 INSERT INTO Category VALUES (NULL, "Windowskin","windowskin");
 INSERT INTO Category VALUES (NULL, "Project","project");
 
+CREATE TABLE Settings (
+  id INT NOT NULL AUTO_INCREMENT,
+  `key` VARCHAR(80) NOT NULL DEFAULT "",
+  `value` VARCHAR(255) NOT NULL DEFAULT "",
+  PRIMARY KEY (id)
+) ENGINE=INNODB;
+
+INSERT INTO Settings VALUES (NULL, "LoggedInToDownload","1");
+INSERT INTO Settings VALUES (NULL, "PackagesNeedToBeVerifiedByAdmin","1");
+
 CREATE TABLE Package (
   id INT NOT NULL AUTO_INCREMENT,
   category_id INT NOT NULL,
@@ -43,11 +54,13 @@ CREATE TABLE Package (
   url VARCHAR(255) NOT NULL,
   pictures text NOT NULL,
   description text NOT NULL,
+  verified INT(1) NOT NULL DEFAULT 0,
   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 ) ENGINE=INNODB;
 
-INSERT INTO Package VALUES (NULL, 1,"My Animation","my-animation","url","pictures","This is my Animation", NULL);
+INSERT INTO Package VALUES (NULL, 1,"My Animation","my-animation","url","pictures","This is my Animation", 1,NULL);
+INSERT INTO Package VALUES (NULL, 2,"My Unverified Package","unverified-package","url","pictures","This is my unverified package.", 0,NULL);
 
 CREATE TABLE Comment (
   id INT NOT NULL AUTO_INCREMENT,

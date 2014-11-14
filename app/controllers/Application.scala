@@ -34,7 +34,7 @@ object Application extends Controller {
 
 		
 		selectCategories().foreach { row =>
-			var sqlQuery = "select `id`,`name`,`slug` from package WHERE `id`="+row[Int]("id")+" ORDER BY created_at DESC LIMIT 3"
+			var sqlQuery = "select `id`,`name`,`slug` from package WHERE `id`="+row[Int]("id")+" AND `verified`=1 ORDER BY created_at DESC LIMIT 3"
 
 			selectedPackages = SQL(sqlQuery)
 
@@ -51,6 +51,14 @@ object Application extends Controller {
 
 		Ok(views.html.store(countries, packages, new models.Category("","",0)))
     }
+  }
+
+  def forgot_pwd = Action {
+    Ok(views.html.forgot_pwd(""))
+  }
+
+  def register = Action {
+    Ok(views.html.register(""))
   }
 
   def login = Action {
@@ -72,7 +80,7 @@ object Application extends Controller {
 				currentCategory = new models.Category(row2[String]("name"), row2[String]("slug"),row2[Int]("id"))
 			}
 
-	  	var sqlQuery3 = "select * from package WHERE `slug`=\""+packageslug+"\" AND `category_id`="+currentCategory.id
+	  	var sqlQuery3 = "select * from package WHERE `slug`=\""+packageslug+"\" AND `verified`=1 AND `category_id`="+currentCategory.id
 
   		var currentPackage:AssetPackage = null
  			SQL(sqlQuery3)().map{ row2 => 
@@ -101,7 +109,7 @@ object Application extends Controller {
 				currentCategory = new models.Category(row2[String]("name"), row2[String]("slug"),row2[Int]("id"))
 			}
 
-			var sqlQuery = "select * from package WHERE `category_id`="+currentCategory.id+" ORDER BY created_at DESC LIMIT 3"
+			var sqlQuery = "select * from package WHERE `category_id`="+currentCategory.id+" AND `verified`=1 ORDER BY created_at DESC LIMIT 3"
 			var selectedPackages:anorm.SqlQuery = null
 			var packageList:Stream[Any] = Stream();
 			selectedPackages = SQL(sqlQuery)

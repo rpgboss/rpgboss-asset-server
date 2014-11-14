@@ -35,6 +35,7 @@
               <h2>@key</h2>
               <div class="line"></div>
               <div class="row">
+                @if(packages(key).size!=0) {
                  @packages(key).map { row:Category =>
                   <a href="/c/@value/@row.slug">
                     <div class="box gap col-md-4">
@@ -42,6 +43,11 @@
                     </div>
                   </a>
                  }
+                } else {
+                  <div class="notice">
+                    There are no packages in this category.
+                  </div>
+                }
               </div>
               
           </div>

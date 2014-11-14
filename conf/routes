@@ -4,6 +4,8 @@
 
 # Home page
 GET     /                                     controllers.Application.index()
+GET     /register                             controllers.Application.register()
+GET     /forgot-password                      controllers.Application.forgot_pwd()
 GET     /login                                controllers.Application.login()
 GET     /c/:catslug/:packageslug              controllers.Application.assetpackage(catslug:String,packageslug:String)
 GET     /c/:catslug                           controllers.Application.category(catslug:String)
