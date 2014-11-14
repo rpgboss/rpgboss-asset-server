@@ -1,7 +1,7 @@
 @import scala.collection.mutable._ 
-@(categories: List[(String, String)], packages: MutableList[models.AssetPackage],currentCategory:models.Category)
+@(categories: List[(String, String)], packages: MutableList[models.AssetPackage],currentCategory:models.Category, isAuthed:Boolean, user:models.User)
 
-@main("RPGBOSS Asset Server - @currentCategory.name") {
+@main("RPGBOSS Asset Server - @currentCategory.name",isAuthed, user) {
 
     <div class="col-xs-3">
         <div class="box notfixed gap">

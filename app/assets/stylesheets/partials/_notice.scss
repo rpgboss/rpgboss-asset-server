@@ -3,3 +3,8 @@
 	color: $gray;
 	padding:15px;
 }
+
+.notice.error {
+	background: $error;
+	color: $white;
+}

@@ -9,4 +9,23 @@
 
 .userheader a {
 	padding: 5px 15px;
+
+	font-size:14px;
+
+	color:$gray;
+	text-decoration:none;
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+
+	&:hover {
+		color: $orange;
+	}
+
+	&:before {
+		padding-right:10px;
+	}
+
+	&.button {
+		color: $white;
+	}
 }

@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String, isAuthed:Boolean, user:models.User)(content: Html)
 
 <!DOCTYPE html>
 
@@ -35,10 +35,20 @@
         <div class="userheader">
             <div class="container">
                 <div class="col-md-8">
-                    
+                    @if(isAuthed) {
+                      <a class="icon-package" href="/submitpackage">Submit a package</a>
+                      <a class="icon-profile" href="/profile">Profile</a>
+                      @if(user.admin==1) {
+                        <a class="icon-settings" href="/adminpanel">Admin</a>
+                      }
+                    }
                 </div>
                 <div class="col-md-4 hello-col">
-                    <strong>Hello, Guest</strong>&nbsp;&nbsp;&nbsp;<a href="/login" class="button">Login</a>
+                    @if(isAuthed) {
+                      <strong>Hello, @user.display_name</strong>&nbsp;&nbsp;&nbsp;<a href="/logout" class="button">Logout</a>
+                    } else {
+                      <strong>Hello, Guest</strong>&nbsp;&nbsp;&nbsp;<a href="/login" class="button">Login</a>
+                    }
                 </div>
             </div>
         </div>

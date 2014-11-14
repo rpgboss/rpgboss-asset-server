@@ -13,8 +13,14 @@ import models._
 
 object Application extends Controller {
 
-  def index = Action {
-	
+  def index = Action { implicit request =>
+
+  // Authed
+  Auth.Check(request.cookies.get("session").get.value)
+	var isAuthed = Auth.IsAuthed
+	var user = Auth.GetUser
+	/////////////////
+
 	DB.withConnection { implicit connection =>
 		// Create an SQL query
 		val selectCategories = SQL("select id,name,slug from category")
@@ -49,23 +55,50 @@ object Application extends Controller {
 
 		}
 
-		Ok(views.html.store(countries, packages, new models.Category("","",0)))
+		Ok(views.html.store(countries, packages, new models.Category("","",0), isAuthed, user))
     }
   }
 
-  def forgot_pwd = Action {
-    Ok(views.html.forgot_pwd(""))
+  def forgot_pwd = Action { implicit request =>
+
+	  // Authed
+	  Auth.Check(request.cookies.get("session").get.value)
+		var isAuthed = Auth.IsAuthed
+		var user = Auth.GetUser
+		/////////////////
+
+    Ok(views.html.forgot_pwd("",isAuthed, user))
   }
 
-  def register = Action {
-    Ok(views.html.register(""))
+  def register = Action { implicit request =>
+
+	  // Authed
+	  Auth.Check(request.cookies.get("session").get.value)
+		var isAuthed = Auth.IsAuthed
+		var user = Auth.GetUser
+		/////////////////
+
+    Ok(views.html.register("",isAuthed, user))
   }
 
-  def login = Action {
-    Ok(views.html.login(""))
+  def login(messageType:Int) = Action { implicit request =>
+
+	  // Authed
+	  Auth.Check(request.cookies.get("session").get.value)
+		var isAuthed = Auth.IsAuthed
+		var user = Auth.GetUser
+		/////////////////
+
+    Ok(views.html.login(messageType, isAuthed, user))
   }
 
-  def assetpackage(catslug:String,packageslug:String) = Action {
+  def assetpackage(catslug:String,packageslug:String) = Action { implicit request =>
+
+	  // Authed
+	  Auth.Check(request.cookies.get("session").get.value)
+		var isAuthed = Auth.IsAuthed
+		var user = Auth.GetUser
+		/////////////////
 
   	DB.withConnection { implicit connection =>
 
@@ -88,12 +121,19 @@ object Application extends Controller {
 				currentPackage = new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"))
 			}
 
-  		Ok(views.html.assetpackage(categories,currentCategory,currentPackage))
+  		Ok(views.html.assetpackage(categories,currentCategory,currentPackage, isAuthed, user))
 
   	}
   }
 
-  def category(catslug: String) = Action {
+  def category(catslug: String) = Action { implicit request =>
+
+	  // Authed
+	  Auth.Check(request.cookies.get("session").get.value)
+		var isAuthed = Auth.IsAuthed
+		var user = Auth.GetUser
+		/////////////////
+
   	DB.withConnection { implicit connection =>
 
   		var dbCalls = new FrontendDbCalls()
@@ -121,7 +161,7 @@ object Application extends Controller {
 				packagesContainer += new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"))
 			}
 
-  		Ok(views.html.category(categories,packagesContainer,currentCategory))
+  		Ok(views.html.category(categories,packagesContainer,currentCategory, isAuthed, user))
   	}
   }
 

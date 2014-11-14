@@ -18,17 +18,19 @@ Run the server
 
 It can be accessed using http://127.0.0.1:9000
 
-Preventing sass errors
+Preventing sass errors (first run)
 --------
 Copy your
 + sass
 + sass.bat
-in your root directory
+
+in your root directory if you are on windows
 
 Setting up database
 --------
 
-Inside of conf/application.conf you can change the settings to your environment
+Inside of conf/application.conf you can change the settings to your environment.
+MYSQL as default
 
 	```
 	# Database configuration

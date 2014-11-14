@@ -1,6 +1,6 @@
-@(message: String)
+@(message: String, isAuthed:Boolean, user:models.User)
 
-@main("RPGBOSS Asset Server - Register") {
+@main("RPGBOSS Asset Server - Register",isAuthed, user) {
 
     <div class="login-area">
     	<h1>Register an Account</h1>
