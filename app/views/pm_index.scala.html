@@ -1,0 +1,108 @@
+@import scala.collection.mutable._ 
+@(isAuthed:Boolean, user:models.User, mypackages:MutableList[AssetPackage], categories:MutableList[Category], currentPackage:models.AssetPackage)
+
+@main("RPGBOSS Asset Server - Package Management",isAuthed, user,1) {
+		
+		<div class="pm-area">
+	    <div class="col-md-4">
+	    	<div class="box notfixed gap">
+	    		<h1>Options</h1>
+	    		<a href="/packagemanagement" class="button full">Submit a package</a>
+	    	</div>
+	    	<div class="box notfixed gap">
+	    		<h1>Your Packages</h1>
+	    		@if(mypackages.size==0) {
+						<div class="notice">
+							You have no packages created yet.
+						</div>
+	    		} else {
+	    			<ul>
+						@mypackages.map { mypackage:AssetPackage =>
+							<li> <span title="@if(mypackage.verified==1) { Verified by admin } else { Unverified }" class="icon-status @if(mypackage.verified==1) { success } else { error }"></span>&nbsp;&nbsp;<a class="@if(currentPackage!=null && currentPackage.id==mypackage.id) { active }" href="/packagemanagement/@mypackage.id">@mypackage.name</a></li>
+						}
+						</ul>
+	    		}
+	    	</div>
+	    </div>
+	    <div class="col-md-8">
+	    	<div class="box notfixed gap">
+	    		@if(currentPackage!=null) {
+						<h1>Edit a Package</h1>
+	    		} else {
+	    			<h1>Submit a Package</h1>
+	    		}
+	    		
+	    		@if(currentPackage!=null){
+	    			@if(currentPackage.verified==1) {
+		    			<div class="notice success">
+		    				This Package was checked by the admin and will be listed at the store.
+		    			</div>
+	    			} else {
+		    			<div class="notice error">
+		    				This Package wasnt checked by the admin yet.
+		    			</div>
+	    			}
+	    			<br>
+	    		}
+					<form enctype="multipart/form-data" class="form-horizontal" method="post" role="form" action="@if(currentPackage==null){/packagemanagement/submit}else{/packagemanagement/edit/@currentPackage.id}">
+						<div class="form-group">
+					    <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+					    <div class="col-sm-10">
+					      <input type="text" name="name" value="@if(currentPackage!=null){@currentPackage.name}" class="form-control" id="inputEmail3" placeholder="The Package Title">
+					    </div>
+					  </div>
+						<div class="form-group">
+					    <label for="inputEmail3" class="col-sm-2 control-label">Download Link</label>
+					    <div class="col-sm-10">
+					      <input type="text" name="url" value="@if(currentPackage!=null){@currentPackage.url}" class="form-control" id="inputEmail3" placeholder="Your package link">
+					    </div>
+					  </div>
+						<div class="form-group">
+					    <label for="inputEmail3" class="col-sm-2 control-label">Category</label>
+					    <div class="col-sm-10">
+					      <select class="form-control" name="category_id" id="">
+					      	@categories.map { category:models.Category =>
+										<option @if(currentPackage!=null && currentPackage.id==category.id){selected="selected"} value="@category.id">@category.name</option>
+					      	}
+					      </select>
+					    </div>
+					  </div>
+						<div class="form-group">
+					    <label for="inputEmail3" class="col-sm-2 control-label">Images</label>
+					    <div class="col-sm-10">
+					      <input type="file" name="image">
+					    </div>
+					  </div>	
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Description</label>
+							<div class="col-sm-10">
+								<span>You have <strong><span id="charsleft">0 / 512</span></strong> of characters left.</span>
+					    	<textarea class="form-control" name="text" id="text" cols="30" rows="10">@if(currentPackage!=null){@currentPackage.description}</textarea>
+					    </div>
+					  </div>		  	
+		    		<input class="button full" type="submit" name="submit" value="@if(currentPackage!=null){Update}else{Create}">
+		    	</form>
+	    	</div>
+	    </div>
+    </div>
+
+		<script src="@routes.Assets.at("javascripts/ckeditor/ckeditor.js")"></script>
+		<script>
+
+		function UpdateTextLength() {
+    	var current = CKEDITOR.instances['text'].getData().length,
+    			maxlength = 512;
+
+    	document.getElementById('charsleft').innerHTML = (maxlength-current) + " / " + maxlength;
+		}
+
+    CKEDITOR.replace( 'text' );
+		CKEDITOR.instances['text'].on('key', UpdateTextLength);
+		CKEDITOR.instances['text'].on('paste', UpdateTextLength);
+		CKEDITOR.instances['text'].on('keypress', UpdateTextLength);
+		CKEDITOR.instances['text'].on('blur', UpdateTextLength);
+		CKEDITOR.instances['text'].on('change', UpdateTextLength);
+		UpdateTextLength();
+    </script>
+
+}

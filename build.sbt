@@ -13,5 +13,6 @@ libraryDependencies ++= Seq(
   anorm,
   cache,
   ws,
-  "mysql" % "mysql-connector-java" % "5.1.18"
+  "mysql" % "mysql-connector-java" % "5.1.18",
+  "org.jsoup" % "jsoup" % "1.7.2"
 )

@@ -1,4 +1,4 @@
-@(title: String, isAuthed:Boolean, user:models.User)(content: Html)
+@(title: String, isAuthed:Boolean, user:models.User, loggedInActive:Int=0)(content: Html)
 
 <!DOCTYPE html>
 
@@ -36,10 +36,11 @@
             <div class="container">
                 <div class="col-md-8">
                     @if(isAuthed) {
-                      <a class="icon-package" href="/submitpackage">Submit a package</a>
-                      <a class="icon-profile" href="/profile">Profile</a>
+                      <a class="icon-package @if(loggedInActive==1) { active }" href="/packagemanagement">Packagemanagement</a>
+
+                      <a class="icon-profile @if(loggedInActive==2) { active }" href="/profile">Profile</a>
                       @if(user.admin==1) {
-                        <a class="icon-settings" href="/adminpanel">Admin</a>
+                        <a class="icon-settings @if(loggedInActive==3) { active }" href="/adminpanel/unapproved">Admin</a>
                       }
                     }
                 </div>

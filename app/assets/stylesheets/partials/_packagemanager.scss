@@ -1,0 +1,16 @@
+.pm-area {
+	.box a {
+		display:inline;
+	}
+	.box a.button {
+		display:block;
+	}
+
+	.box li span.error {
+		color: $error;
+	}
+
+	.box li span.success {
+		color: $success;
+	}
+}

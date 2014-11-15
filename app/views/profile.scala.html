@@ -1,0 +1,55 @@
+@(messageType:Int,isAuthed:Boolean, user:models.User)
+
+@main("RPGBOSS Asset Server - Your profile",isAuthed, user, 2) {
+
+    <div class="profile-area">
+    	<h1>Your Profile</h1>
+    	<p>Change your Settings to your liking.</p>
+			@if(messageType==1) {
+				<div class="notice success">
+					Your password was changed.
+				</div>
+				<br>
+			}
+			@if(messageType==2) {
+				<div class="notice error">
+					Your old password was wrong.
+				</div>
+				<br>
+			}
+			@if(messageType==3) {
+				<div class="notice error">
+					Your new password must atleast be 6 characters long.
+				</div>
+				<br>
+			}
+    	<form class="form-horizontal" method="post" role="form" action="/profile/save">
+			<div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+		    <div class="col-sm-10">
+		      <div class="fixed">@user.email</div> 
+		    </div>
+		  </div>
+			<div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">Display Name</label>
+		    <div class="col-sm-10">
+		      <div class="fixed">@user.display_name</div> 
+		    </div>
+		  </div>
+			<div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">Old Password</label>
+		    <div class="col-sm-10">
+		      <input type="password" name="old_password" class="form-control" id="inputEmail3" placeholder="Old Password">
+		    </div>
+		  </div>		  
+			<div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">New Password</label>
+		    <div class="col-sm-10">
+		      <input type="password" name="new_password" class="form-control" id="inputEmail3" placeholder="New Password">
+		    </div>
+		  </div>		
+    		<input class="button full" type="submit" name="submit" value="Save">
+    	</form>
+    </div>
+
+}

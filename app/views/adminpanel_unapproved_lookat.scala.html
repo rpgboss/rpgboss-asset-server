@@ -1,0 +1,22 @@
+@import scala.collection.mutable._ 
+@(isAuthed:Boolean, user:models.User, currentPackage:AssetPackage)
+
+@main("RPGBOSS Asset Server - Package Management",isAuthed, user,3) {
+		
+		<div class="adminpanel-area">
+	    <div class="col-md-4">
+			@adminpanel_leftcol(0)
+	    </div>
+	    <div class="col-md-8">
+	    	<div class="row box notfixed gap">
+					<h1>@currentPackage.name</h1>
+					<div class="description">@Html(currentPackage.description)</div>
+					<a href="@currentPackage.url" class="button full">Download Package</a>
+					<div class="row">
+						<div class="col-md-6"><a href="" class="button full">Approve</a></div>
+						<div class="col-md-6"><a href="" class="button full">Reject</a></div>
+					</div>
+	    	</div>
+	    </div>
+		</div>
+}

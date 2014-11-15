@@ -1,28 +1,9 @@
 @import scala.collection.mutable._ 
-@(categories: List[(String, String)], packages: MutableList[models.AssetPackage],currentCategory:models.Category, isAuthed:Boolean, user:models.User)
+@(categories: MutableList[Category], packages: MutableList[models.AssetPackage],currentCategory:models.Category, isAuthed:Boolean, user:models.User)
 
 @main("RPGBOSS Asset Server - @currentCategory.name",isAuthed, user) {
 
-    <div class="col-xs-3">
-        <div class="box notfixed gap">
-        <h1>Ressources</h1>
-        <ul>
-            <li><a href="/">Home</a></li>
-        @categories.map { case (key, value) =>
-          @if(currentCategory.slug != value) {
-            <li><a href="/c/@value">@key</a></li>
-          } else {
-            <li><a class="active" href="/c/@value">@key</a></li>
-          }
-        } 
-        </ul>
-        </div>
-        <div class="box notfixed gap">
-            <h1>Sign Up</h1>
-            <p>Register to be able to import directly into your editor.</p>
-            <a href="/register" class="button full">Sign Up</a>
-        </div>
-    </div>
+    @leftcol(categories, currentCategory)
     <div class="col-xs-9">
         <h1>@currentCategory.name</h1>
         <br><br>

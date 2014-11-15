@@ -1,0 +1,28 @@
+@import scala.collection.mutable._ 
+@(categories: MutableList[Category], currentCategory:models.Category)
+
+<div class="col-xs-3">
+    <div class="box notfixed gap">
+    <h1>Ressources</h1>
+    <ul>
+    @if(currentCategory.slug=="") {
+        <li><a class="active" href="/">Home</a></li>
+    } else {
+        <li><a href="/">Home</a></li>
+    }
+
+    @categories.map { category:models.Category =>
+      @if(currentCategory.slug != category.slug) {
+        <li><a href="/c/@category.slug">@category.name</a></li>
+      } else {
+        <li><a class="active" href="/c/@category.slug">@category.name</a></li>
+      }
+    } 
+    </ul>
+    </div>
+    <div class="box notfixed gap">
+        <h1>Sign Up</h1>
+        <p>Register to be able to import directly into your editor.</p>
+        <a href="/register" class="button full">Sign Up</a>
+    </div>
+</div>

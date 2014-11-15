@@ -49,6 +49,7 @@ INSERT INTO Settings VALUES (NULL, "PackagesNeedToBeVerifiedByAdmin","1");
 CREATE TABLE Package (
   id INT NOT NULL AUTO_INCREMENT,
   category_id INT NOT NULL,
+  user_id INT NOT NULL,
   name VARCHAR(80) NOT NULL,
   slug VARCHAR(80) NOT NULL,
   url VARCHAR(255) NOT NULL,
@@ -59,8 +60,8 @@ CREATE TABLE Package (
   PRIMARY KEY (id)
 ) ENGINE=INNODB;
 
-INSERT INTO Package VALUES (NULL, 1,"My Animation","my-animation","url","pictures","This is my Animation", 1,NULL);
-INSERT INTO Package VALUES (NULL, 2,"My Unverified Package","unverified-package","url","pictures","This is my unverified package.", 0,NULL);
+INSERT INTO Package VALUES (NULL, 1,1,"My Animation","my-animation","url","pictures","This is my Animation", 1,NULL);
+INSERT INTO Package VALUES (NULL, 2,1,"My Unverified Package","unverified-package","url","pictures","This is my unverified package.", 0,NULL);
 
 CREATE TABLE Comment (
   id INT NOT NULL AUTO_INCREMENT,
@@ -71,6 +72,8 @@ CREATE TABLE Comment (
   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 ) ENGINE=INNODB;
+
+INSERT INTO Comment VALUES (NULL, 1,1,5,"This is a good package. No Problems.",NULL);
  
 # --- !Downs
  
@@ -78,3 +81,4 @@ DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS Category;
 DROP TABLE IF EXISTS Package;
 DROP TABLE IF EXISTS Comment;
+DROP TABLE IF EXISTS Settings;

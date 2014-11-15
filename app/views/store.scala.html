@@ -1,43 +1,20 @@
 @import scala.collection.mutable._ 
-@(categories: List[(String, String)], packages: Map[String, MutableList[models.Category]],currentCategory:models.Category, isAuthed:Boolean, user:models.User)
+@(categories: MutableList[Category], packages: Map[String, MutableList[models.Category]],currentCategory:models.Category, isAuthed:Boolean, user:models.User)
 
 @main("RPGBOSS Asset Server", isAuthed, user) {
 
-    <div class="col-xs-3">
-        <div class="box notfixed gap">
-        <h1>Ressources</h1>
-        <ul>
-          @if(currentCategory.slug == "") {
-            <li><a class="active" href="/">Home</a></li>
-          } else {
-            <li><a href="/">Home</a></li>
-          }
-        @categories.map { case (key, value) =>
-          @if(currentCategory.slug != value) {
-            <li><a href="/c/@value">@key</a></li>
-          } else {
-            <li><a class="active" href="/c/@value">@key</a></li>
-          }
-        } 
-        </ul>
-        </div>
-        <div class="box notfixed gap">
-            <h1>Sign Up</h1>
-            <p>Register to be able to import directly into your editor.</p>
-            <a href="/register" class="button full">Sign Up</a>
-        </div>
-    </div>
+    @leftcol(categories, currentCategory)
     <div class="col-xs-9">
         <h1>Latest Packages</h1>
         <br><br>
-        @categories.map { case (key, value) =>
+        @categories.map { category:models.Category =>
           <div class="category-list">
-              <h2>@key</h2>
+              <h2>@category.name</h2>
               <div class="line"></div>
               <div class="row">
-                @if(packages(key).size!=0) {
-                 @packages(key).map { row:Category =>
-                  <a href="/c/@value/@row.slug">
+                @if(packages(category.name).size!=0) {
+                 @packages(category.name).map { row:Category =>
+                  <a href="/c/@category.slug/@row.slug">
                     <div class="box gap col-md-4">
                       <h1>@row.name</h1>
                     </div>

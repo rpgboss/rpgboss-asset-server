@@ -49,6 +49,13 @@
 	color: $orange;
 }
 
+.box.package a {
+	display:inline;
+}
+.box.package a.button {
+	display:block;
+}
+
 .feed {
 	border-bottom:1px solid $lightgray;
 	padding: 5px 0;
