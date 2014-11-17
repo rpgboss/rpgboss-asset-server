@@ -10,13 +10,13 @@ import play.api.Play.current
 import scala.collection.mutable._
 
 import models._
+import actions._
 
 object Application extends Controller {
 
-  def index = Action { implicit request =>
+  def index = AuthAction { implicit request =>
 
-  // Authed
-  Auth.Check(request.cookies.get("session").get.value)
+  	// Authed
 	var isAuthed = Auth.IsAuthed
 	var user = Auth.GetUser
 	/////////////////
@@ -57,10 +57,9 @@ object Application extends Controller {
     }
   }
 
-  def forgot_pwd = Action { implicit request =>
+  def forgot_pwd = AuthAction { implicit request =>
 
-	  // Authed
-	  Auth.Check(request.cookies.get("session").get.value)
+	  	// Authed
 		var isAuthed = Auth.IsAuthed
 		var user = Auth.GetUser
 		/////////////////
@@ -68,10 +67,9 @@ object Application extends Controller {
     Ok(views.html.forgot_pwd("",isAuthed, user))
   }
 
-  def register = Action { implicit request =>
+  def register = AuthAction { implicit request =>
 
 	  // Authed
-	  Auth.Check(request.cookies.get("session").get.value)
 		var isAuthed = Auth.IsAuthed
 		var user = Auth.GetUser
 		/////////////////
@@ -79,10 +77,9 @@ object Application extends Controller {
     Ok(views.html.register("",isAuthed, user))
   }
 
-  def login(messageType:Int) = Action { implicit request =>
+  def login(messageType:Int) = AuthAction { implicit request =>
 
 	  // Authed
-	  Auth.Check(request.cookies.get("session").get.value)
 		var isAuthed = Auth.IsAuthed
 		var user = Auth.GetUser
 		/////////////////
@@ -90,10 +87,9 @@ object Application extends Controller {
     Ok(views.html.login(messageType, isAuthed, user))
   }
 
-  def assetpackage(catslug:String,packageslug:String) = Action { implicit request =>
+  def assetpackage(catslug:String,packageslug:String) = AuthAction { implicit request =>
 
 	  // Authed
-	  Auth.Check(request.cookies.get("session").get.value)
 		var isAuthed = Auth.IsAuthed
 		var user = Auth.GetUser
 		/////////////////
@@ -124,10 +120,9 @@ object Application extends Controller {
   	}
   }
 
-  def category(catslug: String) = Action { implicit request =>
+  def category(catslug: String) = AuthAction { implicit request =>
 
-	  // Authed
-	  Auth.Check(request.cookies.get("session").get.value)
+	  	// Authed
 		var isAuthed = Auth.IsAuthed
 		var user = Auth.GetUser
 		/////////////////
@@ -163,19 +158,14 @@ object Application extends Controller {
   	}
   }
 
-  def profile(messageType:Int) = Action { implicit request =>
-	  // Authed
-	  Auth.Check(request.cookies.get("session").get.value)
+  def profile(messageType:Int) = AuthAction { implicit request =>
+	    // Authed
 		var isAuthed = Auth.IsAuthed
 		var user = Auth.GetUser
-
-		if(!isAuthed) {
-			Redirect("/")
-		} else {
 		/////////////////
 
   		Ok(views.html.profile(messageType, isAuthed, user))
-  	}
+
   }
 
 }

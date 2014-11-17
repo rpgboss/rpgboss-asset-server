@@ -10,6 +10,7 @@ import play.api.Play.current
 import scala.collection.mutable._
 
 import models._
+import actions._
 
 import play.api.data._
 import play.api.data.Forms._
@@ -30,9 +31,8 @@ object PackageManagement extends Controller {
 	  )
 	)
 
-	def editpackage(packageid:Int) = Action { implicit request =>
-	  // Authed
-	  Auth.Check(request.cookies.get("session").get.value)
+	def editpackage(packageid:Int) = AuthAction { implicit request =>
+	  	// Authed
 		var isAuthed = Auth.IsAuthed
 		var user = Auth.GetUser
 
@@ -65,12 +65,11 @@ object PackageManagement extends Controller {
 		}
 	}
 
-	def editindex(packageid:Int) = Action { implicit request =>
-	  // Authed
-	  Auth.Check(request.cookies.get("session").get.value)
+	def editindex(packageid:Int) = AuthAction { implicit request =>
+	  	// Authed
 		var isAuthed = Auth.IsAuthed
 		var user = Auth.GetUser
-		println(isAuthed)
+
 		if(!isAuthed) {
 			Redirect("/")
 		} else {
@@ -90,9 +89,8 @@ object PackageManagement extends Controller {
 		}
 	}
 
-	def index = Action { implicit request =>
+	def index = AuthAction { implicit request =>
 	  // Authed
-	  Auth.Check(request.cookies.get("session").get.value)
 		var isAuthed = Auth.IsAuthed
 		var user = Auth.GetUser
 
@@ -115,9 +113,8 @@ object PackageManagement extends Controller {
 		}
 	}
 
-  def submit = Action(parse.multipartFormData) { implicit request =>
-	  // Authed
-	  Auth.Check(request.cookies.get("session").get.value)
+  def submit = AuthAction(parse.multipartFormData) { implicit request =>
+	  	// Authed
 		var isAuthed = Auth.IsAuthed
 		var user = Auth.GetUser
 
@@ -159,10 +156,6 @@ object PackageManagement extends Controller {
 
 				redirectUrl = "/packagemanagement/"+rowid
 
-			}
-
-			if(!isAuthed) {
-				Redirect("/")
 			}
 
 			Redirect(redirectUrl)

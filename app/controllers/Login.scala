@@ -10,6 +10,7 @@ import play.api.Play.current
 import scala.collection.mutable._
 
 import models._
+import actions._
 
 import play.api.data._
 import play.api.data.Forms._
@@ -23,14 +24,13 @@ object Login extends Controller {
 	  )
 	)
 
-	def logout = Action { implicit request =>
-  	Auth.Check(request.cookies.get("session").get.value)
-  	Auth.Logout(Auth.GetUser)
+	def logout = AuthAction { implicit request =>
+	  	Auth.Logout(Auth.GetUser)
 
-  	Redirect("/").withCookies(Cookie("session", ""))
+	  	Redirect("/").withCookies(Cookie("session", ""))
 	}
 
-	def attempt = Action { implicit request =>
+	def attempt = AuthAction { implicit request =>
 
 		DB.withConnection { implicit connection =>
 

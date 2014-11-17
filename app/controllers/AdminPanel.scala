@@ -10,6 +10,7 @@ import play.api.Play.current
 import scala.collection.mutable._
 
 import models._
+import actions._
 
 import play.api.data._
 import play.api.data.Forms._
@@ -23,10 +24,9 @@ object AdminPanel extends Controller {
 	  )
 	)
 
-	def lookat(packageid:Int) = Action { implicit request =>
+	def lookat(packageid:Int) = AuthAction { implicit request =>
 
-	  // Authed
-	  Auth.Check(request.cookies.get("session").get.value)
+	  	// Authed
 		var isAuthed = Auth.IsAuthed
 		var user = Auth.GetUser
 
@@ -45,9 +45,8 @@ object AdminPanel extends Controller {
 		}
 	}
 
-  def unapprovedindex = Action { implicit request =>
-	  // Authed
-	  Auth.Check(request.cookies.get("session").get.value)
+  def unapprovedindex = AuthAction { implicit request =>
+	  	// Authed
 		var isAuthed = Auth.IsAuthed
 		var user = Auth.GetUser
 

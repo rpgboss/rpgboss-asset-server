@@ -10,6 +10,7 @@ import play.api.Play.current
 import scala.collection.mutable._
 
 import models._
+import actions._
 
 import play.api.data._
 import play.api.data.Forms._
@@ -23,9 +24,8 @@ object Profile extends Controller {
 	  )
 	)
 
-  def save = Action { implicit request =>
-	  // Authed
-	  Auth.Check(request.cookies.get("session").get.value)
+  def save = AuthAction { implicit request =>
+	  	// Authed
 		var isAuthed = Auth.IsAuthed
 		var user = Auth.GetUser
 
