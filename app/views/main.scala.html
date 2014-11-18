@@ -36,11 +36,11 @@
             <div class="container">
                 <div class="col-md-8">
                     @if(isAuthed) {
-                      <a class="icon-package @if(loggedInActive==1) { active }" href="/packagemanagement">Packagemanagement</a>
+                      <a class="@if(loggedInActive==1) { active }" href="/packagemanagement"><span class="icon-package"></span>Packagemanagement</a>
 
-                      <a class="icon-profile @if(loggedInActive==2) { active }" href="/profile">Profile</a>
+                      <a class="@if(loggedInActive==2) { active }" href="/profile"><span class="icon-profile"></span>Profile</a>
                       @if(user.admin==1) {
-                        <a class="icon-settings @if(loggedInActive==3) { active }" href="/adminpanel/unapproved">Admin</a>
+                        <a class="@if(loggedInActive==3) { active }" href="/adminpanel/unapproved"><span class="icon-settings"></span>Admin</a>
                       }
                     }
                 </div>

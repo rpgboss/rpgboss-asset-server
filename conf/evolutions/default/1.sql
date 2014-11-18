@@ -56,12 +56,13 @@ CREATE TABLE Package (
   pictures text NOT NULL,
   description text NOT NULL,
   verified INT(1) NOT NULL DEFAULT 0,
+  rejection_text VARCHAR(255) NOT NULL DEFAULT "",
   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 ) ENGINE=INNODB;
 
-INSERT INTO Package VALUES (NULL, 1,1,"My Animation","my-animation","url","pictures","This is my Animation", 1,NULL);
-INSERT INTO Package VALUES (NULL, 2,1,"My Unverified Package","unverified-package","url","pictures","This is my unverified package.", 0,NULL);
+INSERT INTO Package VALUES (NULL, 1,1,"My Animation","my-animation","url","pictures","This is my Animation", 1,"",NULL);
+INSERT INTO Package VALUES (NULL, 2,1,"My Unverified Package","unverified-package","url","pictures","This is my unverified package.", 0,"",NULL);
 
 CREATE TABLE Comment (
   id INT NOT NULL AUTO_INCREMENT,

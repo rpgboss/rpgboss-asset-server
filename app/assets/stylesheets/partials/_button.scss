@@ -25,6 +25,13 @@
 	padding-left: 60px;
 }
 
+.button.success {
+	background: $success;
+}
+.button.error {
+	background: $error;
+}
+
 .icon-linux {
 	background: $orange url(../images/linux.png) left center no-repeat;
 }

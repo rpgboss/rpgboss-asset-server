@@ -17,6 +17,10 @@
 	-webkit-transition: all 0.3s ease;
 	transition: all 0.3s ease;
 
+	span {
+		padding-right: 10px;
+	}
+
 	&.active,
 	&:hover {
 		color: $orange;

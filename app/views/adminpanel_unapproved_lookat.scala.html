@@ -12,11 +12,48 @@
 					<h1>@currentPackage.name</h1>
 					<div class="description">@Html(currentPackage.description)</div>
 					<a href="@currentPackage.url" class="button full">Download Package</a>
-					<div class="row">
-						<div class="col-md-6"><a href="" class="button full">Approve</a></div>
-						<div class="col-md-6"><a href="" class="button full">Reject</a></div>
-					</div>
 	    	</div>
+			<div class="row box notfixed gap">
+				<div class="col-md-12">
+					<a href="/adminpanel/unapproved/lookat/@currentPackage.id/approve" class="button full success">Approve Package</a>
+				</div>
+			</div>
+			@if(currentPackage.rejection_text!="") {
+			<div class="row box notfixed gap">
+				<h1>Package was rejected before due to reason:</h1>
+				<p>@Html(currentPackage.rejection_text)</p>
+			</div>
+			}
+			<div class="row box notfixed gap">
+				<div class="col-md-12">
+					<form method="post" action="/adminpanel/unapproved/lookat/@currentPackage.id/reject">
+						<h1>Reason for Rejection</h1>
+						<span>You have <strong><span id="charsleft">0 / 255</span></strong> of characters left.</span>
+						<textarea name="rejection_text" id="rejection_text" cols="30" rows="10"></textarea>
+						<input class="button full error" type="submit" value="Reject Package">
+					</form>
+				</div>
+			</div>
+		</div>
 	    </div>
 		</div>
+
+		<script src="@routes.Assets.at("javascripts/ckeditor/ckeditor.js")"></script>
+		<script>
+
+		function UpdateTextLength() {
+	    	var current = CKEDITOR.instances['rejection_text'].getData().length,
+	    			maxlength = 255;
+
+	    	document.getElementById('charsleft').innerHTML = (maxlength-current) + " / " + maxlength;
+		}
+
+    	CKEDITOR.replace( 'rejection_text' );
+		CKEDITOR.instances['rejection_text'].on('key', UpdateTextLength);
+		CKEDITOR.instances['rejection_text'].on('paste', UpdateTextLength);
+		CKEDITOR.instances['rejection_text'].on('keypress', UpdateTextLength);
+		CKEDITOR.instances['rejection_text'].on('blur', UpdateTextLength);
+		CKEDITOR.instances['rejection_text'].on('change', UpdateTextLength);
+		UpdateTextLength();
+    </script>
 }

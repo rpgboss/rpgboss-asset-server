@@ -33,11 +33,24 @@
 	    		}
 	    		
 	    		@if(currentPackage!=null){
+	    			@if(currentPackage.verified==2) {
+		    			<div class="notice error">
+		    				This Package was checked by the admin and was rejected due to reason:
+		    			</div>
+		    			<br>
+		    			<div class="notice">
+		    				<h1>Reason for rejection:</h1>
+		    				<div class="line"></div>
+		    				<p>@Html(currentPackage.rejection_text)</p>
+		    			</div>
+		    			<a href="/packagemanagement/@currentPackage.id/requestapproval" class="button full">Request another approval</a>
+	    			}
 	    			@if(currentPackage.verified==1) {
 		    			<div class="notice success">
 		    				This Package was checked by the admin and will be listed at the store.
 		    			</div>
-	    			} else {
+	    			} 
+	    			@if(currentPackage.verified==0) {
 		    			<div class="notice error">
 		    				This Package wasnt checked by the admin yet.
 		    			</div>

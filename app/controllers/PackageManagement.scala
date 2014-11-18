@@ -65,6 +65,33 @@ object PackageManagement extends Controller {
 		}
 	}
 
+	def requestapproval(packageid:Int) =  AuthAction { implicit request =>
+	  	// Authed
+		var isAuthed = Auth.IsAuthed
+		var user = Auth.GetUser
+
+		if(!isAuthed) {
+			Redirect("/")
+		} else {
+		/////////////////
+
+			DB.withConnection { implicit connection =>
+
+				var dbCalls = new FrontendDbCalls()
+				var currentPackage = dbCalls.GetPackageById(packageid)
+				if(currentPackage.verified==2) {
+
+					var sqlQuery2 = "UPDATE package SET `verified`=0 WHERE `id`=\""+packageid+"\";"
+					SQL(sqlQuery2).executeUpdate()
+
+				}
+
+			}
+
+			Redirect("/packagemanagement/"+packageid)
+		}
+	}
+
 	def editindex(packageid:Int) = AuthAction { implicit request =>
 	  	// Authed
 		var isAuthed = Auth.IsAuthed

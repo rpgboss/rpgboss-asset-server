@@ -36,7 +36,7 @@ class FrontendDbCalls {
 			val query = SQL("select * from `package` WHERE id="+id+";")
 			
 			query().map { row2 =>
-				thepackage = new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"))
+				thepackage = new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"))
 			}
 		}
 		return thepackage
@@ -48,7 +48,7 @@ class FrontendDbCalls {
 		DB.withConnection { implicit connection =>
 			var sqlQuery2 = "SELECT * from package WHERE `user_id`="+id+" ORDER BY `created_at` DESC;"
 			SQL(sqlQuery2)().foreach { row2 =>
-				mypackages += new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"))
+				mypackages += new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"))
 			}
 		}
 

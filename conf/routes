@@ -16,9 +16,12 @@ POST    /profile/save                         controllers.Profile.save()
 
 POST    /packagemanagement/edit/:packageid    controllers.PackageManagement.editpackage(packageid:Int)
 POST    /packagemanagement/submit             controllers.PackageManagement.submit()
+GET     /packagemanagement/:packageid/requestapproval         controllers.PackageManagement.requestapproval(packageid:Int)
 GET     /packagemanagement/:packageid         controllers.PackageManagement.editindex(packageid:Int)
 GET     /packagemanagement                    controllers.PackageManagement.index()
 
+GET    /adminpanel/unapproved/lookat/:packageid/approve    controllers.AdminPanel.approvepackage(packageid:Int)
+POST    /adminpanel/unapproved/lookat/:packageid/reject    controllers.AdminPanel.rejectpackage(packageid:Int)
 GET     /adminpanel/unapproved/lookat/:packageid  controllers.AdminPanel.lookat(packageid:Int)
 GET     /adminpanel/unapproved                    controllers.AdminPanel.unapprovedindex()
 
