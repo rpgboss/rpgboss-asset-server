@@ -67,16 +67,6 @@ object Application extends Controller {
     Ok(views.html.forgot_pwd("",isAuthed, user))
   }
 
-  def register = AuthAction { implicit request =>
-
-	  // Authed
-		var isAuthed = Auth.IsAuthed
-		var user = Auth.GetUser
-		/////////////////
-
-    Ok(views.html.register("",isAuthed, user))
-  }
-
   def login(messageType:Int) = AuthAction { implicit request =>
 
 	  // Authed
