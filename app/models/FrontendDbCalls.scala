@@ -12,6 +12,38 @@ import scala.collection.mutable._
 import models._
 
 class FrontendDbCalls {
+
+	def GetDisplayName(name:String):Boolean = {
+
+		var result:Boolean = false
+		
+		DB.withConnection { implicit connection =>
+
+			val query = SQL("select id from `user` WHERE display_name=\""+name+"\";")
+			query().foreach { row =>
+				result = true
+			}
+
+			return result
+
+		}
+	}
+
+	def GetEmail(email:String):Boolean = {
+
+		var result:Boolean = false
+		
+		DB.withConnection { implicit connection =>
+
+			val query = SQL("select id from `user` WHERE email=\""+email+"\";")
+			query().foreach { row =>
+				result = true
+			}
+
+			return result
+
+		}
+	}
 	
 	def GetCategories():MutableList[Category] = {
 		DB.withConnection { implicit connection =>

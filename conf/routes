@@ -6,7 +6,9 @@
 GET     /                                     controllers.Application.index()
 GET     /forgot-password                      controllers.Application.forgot_pwd()
 
-GET     /register                             controllers.Register.index()
+GET     /check/email/:email              			controllers.Register.checkemail(email:String)
+GET     /check/displayname/:name              controllers.Register.checkname(name:String)
+GET     /register                             controllers.Register.index(error:Int ?= 0)
 POST     /register/attempt                    controllers.Register.attempt()
 
 POST    /login/attempt                        controllers.Login.attempt()

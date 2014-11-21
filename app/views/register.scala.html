@@ -1,4 +1,4 @@
-@(message: String, isAuthed:Boolean, user:models.User)
+@(message: String, isAuthed:Boolean, user:models.User, error:Int)
 
 @main("RPGBOSS Asset Server - Register",isAuthed, user) {
 
@@ -11,11 +11,13 @@
     		When you register an Account, an email will be send to you.<br>
     		You have to verify the account by clicking on an confirmation link in that email.
     	</p>
-    	<form class="form-horizontal" role="form" action="/register/attempt">
+    	<form method="post" class="form-horizontal" role="form" action="/register/attempt">
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
 		    <div class="col-sm-10">
-		      <input type="email" class="form-control" id="inputEmail3" name="email" placeholder="Email">
+		      <input type="email" class="form-control" id="emailInput" name="email" placeholder="Email">
+		      <div id="email_success" class="notice success">You can use this email.</div>
+		      <div id="email_error" class="notice error">This email is already taken.</div>
 		    </div>
 		  </div>
 		  <div class="form-group">
@@ -27,17 +29,38 @@
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-sm-2 control-label">Repeat password</label>
 		    <div class="col-sm-10">
-		      <input type="password" class="form-control" id="inputEmail3" name="password2" placeholder="Repeat password">
+		      <input type="password" class="form-control" id="inputEmail3" name="password_repeat" placeholder="Repeat password">
 		    </div>
 		  </div>	 
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-sm-2 control-label">Displayed Name</label>
 		    <div class="col-sm-10">
-		      <input type="password" class="form-control" id="inputEmail3" name="display_name" placeholder="Your name">
+		      <input type="text" class="form-control" id="displayNameInput" name="display_name" placeholder="Your name">
+		      <div id="name_success" class="notice success">You can use this name.</div>
+		      <div id="name_error" class="notice error">This name is already taken.</div>
 		    </div>
 		  </div>	 
     		<input class="button full" type="submit" name="submit" value="Register">
     	</form>
+    	@if(error==1) {
+    		<br>
+    		<div class="notice error">
+    			Passwort mismatch or wrong email.
+    		</div>
+    	}
     </div>
+
+		<style>
+		#name_success,
+		#name_error {
+			display: none;
+		}
+		#email_success,
+		#email_error {
+			display: none;
+		}
+		</style>
+
+    <script src="@routes.Assets.at("javascripts/register.js")"></script>
 
 }
