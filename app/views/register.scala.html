@@ -48,6 +48,15 @@
     			Passwort mismatch or wrong email.
     		</div>
     	}
+    	@if(error==2) {
+    		<br>
+    		<div class="notice error">
+    			Password length must atleast be 6 chars.<br>
+    			Repeat Password length must atleast be 6 chars.<br>
+    			Displayed Name length must atleast be 3 chars.<br>
+    			Email length must atleast be 6 chars.
+    		</div>
+    	}
     </div>
 
 		<style>

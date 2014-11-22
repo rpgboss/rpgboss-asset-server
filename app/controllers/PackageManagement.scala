@@ -27,7 +27,8 @@ object PackageManagement extends Controller {
 	    "name" -> text,
 	    "url" -> text,
 	    "text" -> text,
-	    "category_id" -> number
+	    "category_id" -> number,
+	    "version" -> text
 	  )
 	)
 
@@ -43,7 +44,7 @@ object PackageManagement extends Controller {
 
 			DB.withConnection { implicit connection =>
 
-				val (name, url, text, category_id) = packageForm.bindFromRequest.get
+				val (name, url, text, category_id, version) = packageForm.bindFromRequest.get
 
 				var dbCalls = new FrontendDbCalls()
 
@@ -55,7 +56,7 @@ object PackageManagement extends Controller {
 	  		var slug = Util.slugify(name)
 	  		var safeDescription = Jsoup.clean(cuttedText, Whitelist.basic());
 
-	  		var sqlQuery2 = "UPDATE package SET `category_id`="+category_id+" , `name`='"+name+"' , `slug`='"+slug+"' ,`url`= '"+url+"',`description`='"+safeDescription+"' WHERE `id`="+packageid+";"
+	  		var sqlQuery2 = "UPDATE package SET `category_id`="+category_id+" , `name`='"+name+"', `version`='"+version+"' , `slug`='"+slug+"' ,`url`= '"+url+"',`description`='"+safeDescription+"' WHERE `id`="+packageid+";"
 
 	  		SQL(sqlQuery2).executeUpdate()
 
@@ -154,7 +155,7 @@ object PackageManagement extends Controller {
 
 			DB.withConnection { implicit connection =>
 
-				val (name, url, text, category_id) = packageForm.bindFromRequest.get
+				val (name, url, text, category_id, version) = packageForm.bindFromRequest.get
 
 				var slug = Util.slugify(name)
 
@@ -165,9 +166,11 @@ object PackageManagement extends Controller {
 
 				var safeDescription = Jsoup.clean(cuttedText, Whitelist.basic());
 
-				var sqlQuery2 = "INSERT INTO package values(NULL, "+category_id+", "+user.id+", '"+name+"','"+slug+"', '"+url+"','','"+safeDescription+"',0,NULL);"
+				var sqlQuery2 = "INSERT INTO package values(NULL, "+category_id+", "+user.id+", '"+name+"','"+slug+"', '"+url+"','','"+safeDescription+"',0,'','"+version+"',NULL);"
 				
-				var rowid = SQL(sqlQuery2).executeInsert()
+				var rowid:Long = 0
+
+				SQL(sqlQuery2).executeInsert().map(id => rowid = id)
 				
 				/*
 				request.body.file("picture").map { picture =>
@@ -181,7 +184,7 @@ object PackageManagement extends Controller {
 
 				}*/
 
-				redirectUrl = "/packagemanagement/"+rowid
+				redirectUrl = "/packagemanagement/"+rowid.toString()
 
 			}
 

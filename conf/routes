@@ -10,6 +10,7 @@ GET     /check/email/:email              			controllers.Register.checkemail(emai
 GET     /check/displayname/:name              controllers.Register.checkname(name:String)
 GET     /register                             controllers.Register.index(error:Int ?= 0)
 POST     /register/attempt                    controllers.Register.attempt()
+GET     /register/confirmation_notice         controllers.Register.confirmation_notice()
 
 POST    /login/attempt                        controllers.Login.attempt()
 GET     /login                                controllers.Application.login(messageType:Int ?= 0)

@@ -6,6 +6,7 @@
     @leftcol(categories, currentCategory)
     <div class="col-xs-9">
         <h1>@currentPackage.name</h1>
+        <h4>@currentPackage.version</h4>
         <br><br>
         <p>@Html(currentPackage.description)</p>
         @if(isAuthed) {

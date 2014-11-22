@@ -102,7 +102,7 @@ object Application extends Controller {
   		var currentPackage:AssetPackage = null
  			SQL(sqlQuery3)().map{ row2 => 
 
-				currentPackage = new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"))
+				currentPackage = new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"),row2[String]("version"),row2[Int]("category_id"),row2[Int]("user_id"))
 			}
 
   		Ok(views.html.assetpackage(categories,currentCategory,currentPackage, isAuthed, user))
@@ -141,7 +141,7 @@ object Application extends Controller {
 
 			packageList = selectedPackages().map{ row2 => 
 
-				packagesContainer += new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"))
+				packagesContainer += new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"),row2[String]("version"),row2[Int]("category_id"),row2[Int]("user_id"))
 			}
 
   		Ok(views.html.category(categories,packagesContainer,currentCategory, isAuthed, user))

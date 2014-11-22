@@ -14,5 +14,6 @@ libraryDependencies ++= Seq(
   cache,
   ws,
   "mysql" % "mysql-connector-java" % "5.1.18",
-  "org.jsoup" % "jsoup" % "1.7.2"
+  "org.jsoup" % "jsoup" % "1.7.2",
+  "com.typesafe.play.plugins" %% "play-plugins-mailer" % "2.3.1"
 )
