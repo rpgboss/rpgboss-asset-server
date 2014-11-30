@@ -50,6 +50,7 @@ Deployment
 --------
 
 First you need to create the standalone package
+
 	```
 	sbt dist
 	```
@@ -59,6 +60,7 @@ Next you have to unzip the file on your server.
 Upload the run-asset-server.sh inside of the rpgboss-asset-server-x.x folder.
 
 Edit the application.conf in rpgboss-asset-server-x.x/conf folder
+
 	```
 	# Database configuration
 	# ~~~~~
@@ -76,11 +78,13 @@ Edit the application.conf in rpgboss-asset-server-x.x/conf folder
 Make sure that you have a mysql server installed and a assetserver database created.
 
 Make the run-asset-server.sh executable
+
 	```
 	chmod +x run-asset-server.sh
 	```
 
 Test you can run the server
+
 	´´´
 	./run-asset-server.sh
 	´´´
@@ -90,6 +94,7 @@ Test you can run the server
 #### Edit the run-asset-server.sh
 
 You have to set the path to the bin file as absolute path everywhere.
+
 	```
 	/home/root/rpgboss-asset-server-1.0/bin/rpgboss-asset-server -J-server -J-Xms32M -J-Xmx64M -Dhttp.port=80 -Dconfig.file=/home/root/rpgboss-asset-server-1.0/conf/application.conf -DapplyEvolutions.default=true
 	```
@@ -101,6 +106,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-manage-super
 Install supervisor
 
 Create a file rpgboss.conf with similar content:
+
 	```
 	[program:rpgboss]
 	command=sh /home/root/rpgboss-asset-server-1.0/run-asset-server.sh
