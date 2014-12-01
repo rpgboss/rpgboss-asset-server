@@ -1,5 +1,5 @@
 @import scala.collection.mutable._ 
-@(categories: MutableList[Category],currentCategory:models.Category, currentPackage:models.AssetPackage, isAuthed:Boolean, user:models.User)
+@(categories: MutableList[Category],currentCategory:models.Category, currentPackage:models.AssetPackage, isAuthed:Boolean, user:models.User, packageComments:MutableList[Comment])
 
 @main("RPGBOSS Asset Server - @currentCategory.name",isAuthed, user) {
 
@@ -14,6 +14,45 @@
         } else {
         	<a href="/login" class="button full">Login to download</a>
         }
+        <div class="box notfixed gap">
+            <h1>User Comments</h1>
+            @packageComments.map { row:Comment =>
+            <div class="comment">
+                <h4>@row.User.display_name</h4>
+                <p>@row.content</p>
+                <div class="line"></div>
+                <span class="date">@row.created_at</span>
+            </div>
+            }
+        </div>
+        @if(isAuthed) {
+            <h3>Comment</h3>
+            <form method="post" action="/c/animation/@currentPackage.slug/comment">
+                <span>You have <strong><span id="charsleft">0 / 255</span></strong> of characters left.</span>
+                <textarea name="commentText" id="" cols="30" rows="10"></textarea>
+                <br>
+                <input type="submit" class="button" value="Make a Comment">
+            </form>
+        }
     </div>
+
+        <script src="@routes.Assets.at("javascripts/ckeditor/ckeditor.js")"></script>
+        <script>
+
+        function UpdateTextLength() {
+            var current = CKEDITOR.instances['commentText'].getData().length,
+                    maxlength = 255;
+
+            document.getElementById('charsleft').innerHTML = (maxlength-current) + " / " + maxlength;
+        }
+
+        CKEDITOR.replace( 'commentText' );
+        CKEDITOR.instances['commentText'].on('key', UpdateTextLength);
+        CKEDITOR.instances['commentText'].on('paste', UpdateTextLength);
+        CKEDITOR.instances['commentText'].on('keypress', UpdateTextLength);
+        CKEDITOR.instances['commentText'].on('blur', UpdateTextLength);
+        CKEDITOR.instances['commentText'].on('change', UpdateTextLength);
+        UpdateTextLength();
+    </script>
 
 }
