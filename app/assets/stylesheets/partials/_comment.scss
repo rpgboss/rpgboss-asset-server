@@ -1,8 +1,10 @@
 .comment {
 	height:auto;
-	border:1px solid $lightgray;
+	border:1px solid $darkgray;
+	background: yellow;
 
 	.line {
 		margin: 10px 0;
 	}
+
 }

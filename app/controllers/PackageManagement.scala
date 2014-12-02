@@ -32,7 +32,7 @@ object PackageManagement extends Controller {
 	  )
 	)
 
-	def editpackage(packageid:Int) = AuthAction { implicit request =>
+	def editpackage(packageid:Int) = AuthAction(parse.multipartFormData) { implicit request =>
 	  	// Authed
 		var isAuthed = Auth.IsAuthed
 		var user = Auth.GetUser
@@ -56,7 +56,23 @@ object PackageManagement extends Controller {
 	  		var slug = Util.slugify(name)
 	  		var safeDescription = Jsoup.clean(cuttedText, Whitelist.basic());
 
-	  		var sqlQuery2 = "UPDATE package SET `category_id`="+category_id+" , `name`='"+name+"', `version`='"+version+"' , `slug`='"+slug+"' ,`url`= '"+url+"',`description`='"+safeDescription+"' WHERE `id`="+packageid+";"
+	  		var imagefile = ""
+
+			request.body.file("image").map { picture =>
+			    import java.io.File
+			    val filename = picture.filename
+			    var x = filename.split('.')
+			    var ext = x(x.size-1)
+			    val contentType = picture.contentType
+			    var cf = Play.current.configuration
+			    imagefile = category_id+"-"+slug+"-"+packageid+"."+ext
+			    var path = cf.getString("upload.path").getOrElse("")
+			    picture.ref.moveTo(new File(path+"/"+imagefile))
+			}.getOrElse {
+
+			}
+
+	  		var sqlQuery2 = "UPDATE package SET `category_id`="+category_id+" , `pictures`=\""+imagefile+"\",`name`='"+name+"', `version`='"+version+"' , `slug`='"+slug+"' ,`url`= '"+url+"',`description`='"+safeDescription+"' WHERE `id`="+packageid+";"
 
 	  		SQL(sqlQuery2).executeUpdate()
 
@@ -173,7 +189,7 @@ object PackageManagement extends Controller {
 				SQL(sqlQuery2).executeInsert().map(id => rowid = id)
 				
 				/*
-				request.body.file("picture").map { picture =>
+				request.body.file("image").map { picture =>
 				    import java.io.File
 				    val filename = picture.filename
 				    val contentType = picture.contentType
@@ -182,7 +198,8 @@ object PackageManagement extends Controller {
 				    picture.ref.moveTo(new File(routes.Assets.at(s"uploads/package/")))
 				}.getOrElse {
 
-				}*/
+				}
+				*/
 
 				redirectUrl = "/packagemanagement/"+rowid.toString()
 

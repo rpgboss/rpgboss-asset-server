@@ -13,6 +13,7 @@ dist
 /.project
 /RUNNING_PID
 /.settings
+/public/images/packages
 sass
 sass.bat
 .sass-cache

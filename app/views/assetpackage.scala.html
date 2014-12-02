@@ -7,6 +7,9 @@
     <div class="col-xs-9">
         <h1>@currentPackage.name</h1>
         <h4>@currentPackage.version</h4>
+        @if(currentPackage.pictures!="") {
+            <img src="@routes.Assets.at("images/packages/"+currentPackage.pictures)" alt="">
+        }
         <br><br>
         <p>@Html(currentPackage.description)</p>
         @if(isAuthed) {

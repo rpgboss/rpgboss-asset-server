@@ -1,5 +1,5 @@
 @import scala.collection.mutable._ 
-@(categories: MutableList[Category], packages: Map[String, MutableList[models.Category]],currentCategory:models.Category, isAuthed:Boolean, user:models.User)
+@(categories: MutableList[Category], packages: Map[String, MutableList[models.AssetPackage]],currentCategory:models.Category, isAuthed:Boolean, user:models.User)
 
 @main("RPGBOSS Asset Server", isAuthed, user) {
 
@@ -13,10 +13,13 @@
               <div class="line"></div>
               <div class="row">
                 @if(packages(category.name).size!=0) {
-                 @packages(category.name).map { row:Category =>
+                 @packages(category.name).map { row:AssetPackage =>
                   <a href="/c/@category.slug/@row.slug">
                     <div class="box gap col-md-4">
                       <h1>@row.name</h1>
+                      @if(row.pictures!="") {
+                          <img src="@routes.Assets.at("images/packages/"+row.pictures)" alt="">
+                      }
                     </div>
                   </a>
                  }

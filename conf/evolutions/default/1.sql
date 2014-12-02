@@ -62,8 +62,8 @@ CREATE TABLE package (
   PRIMARY KEY (id)
 ) ENGINE=INNODB;
 
-INSERT INTO package VALUES (NULL, 1,1,"My Animation","my-animation","url","pictures","This is my Animation", 1,"","1.0",NULL);
-INSERT INTO package VALUES (NULL, 2,1,"My Unverified Package","unverified-package","url","pictures","This is my unverified package.", 0,"","0.5 Beta",NULL);
+INSERT INTO package VALUES (NULL, 1,1,"My Animation","my-animation","url","","This is my Animation", 1,"","1.0",NULL);
+INSERT INTO package VALUES (NULL, 2,1,"My Unverified Package","unverified-package","url","","This is my unverified package.", 0,"","0.5 Beta",NULL);
 
 CREATE TABLE comment (
   id INT NOT NULL AUTO_INCREMENT,

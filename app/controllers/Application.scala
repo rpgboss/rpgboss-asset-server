@@ -25,7 +25,7 @@ object Application extends Controller {
 		// Create an SQL query
 		val selectCategories = SQL("select id,name,slug from category")
 		 
-		val packages:Map[String, MutableList[models.Category]] = Map()
+		val packages:Map[String, MutableList[models.AssetPackage]] = Map()
 
  		var dbCalls = new FrontendDbCalls()
   		var categories = dbCalls.GetCategories()
@@ -34,7 +34,7 @@ object Application extends Controller {
 		var selectedPackages:anorm.SqlQuery = null
 		var packageList:Stream[Any] = Stream();
 
-		var packagesContainer:MutableList[models.Category] = MutableList()
+		var packagesContainer:MutableList[models.AssetPackage] = MutableList()
 
 		
 		selectCategories().foreach { row =>
@@ -46,7 +46,7 @@ object Application extends Controller {
 
 			packageList = selectedPackages().map{ row2 => 
 
-				packagesContainer += new models.Category(row2[String]("name"), row2[String]("slug"),row2[Int]("id"))
+				packagesContainer += dbCalls.GetPackageById(row2[Int]("id"))
 			}
 
 			packages(row[String]("name")) = packagesContainer

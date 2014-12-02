@@ -12,6 +12,9 @@
           <a href="/c/@currentCategory.slug/@row.slug">
             <div class="box gap col-md-4">
               <h1>@row.name</h1>
+              @if(row.pictures!="") {
+                  <img src="@routes.Assets.at("images/packages/"+row.pictures)" alt="">
+              }
             </div>
           </a>
          }
