@@ -21,6 +21,7 @@ POST    /profile/save                         controllers.Profile.save()
 
 POST    /packagemanagement/edit/:packageid    controllers.PackageManagement.editpackage(packageid:Int)
 POST    /packagemanagement/submit             controllers.PackageManagement.submit()
+GET     /packagemanagement/removeimage/:imagefile/:packageid         controllers.PackageManagement.removefile(imagefile:String, packageid:Int)
 GET     /packagemanagement/:packageid/requestapproval         controllers.PackageManagement.requestapproval(packageid:Int)
 GET     /packagemanagement/:packageid         controllers.PackageManagement.editindex(packageid:Int)
 GET     /packagemanagement                    controllers.PackageManagement.index()
@@ -29,6 +30,8 @@ GET    /adminpanel/unapproved/lookat/:packageid/approve    controllers.AdminPane
 POST    /adminpanel/unapproved/lookat/:packageid/reject    controllers.AdminPanel.rejectpackage(packageid:Int)
 GET     /adminpanel/unapproved/lookat/:packageid  controllers.AdminPanel.lookat(packageid:Int)
 GET     /adminpanel/unapproved                    controllers.AdminPanel.unapprovedindex()
+
+POST     /comment/add/:packageid              controllers.Comment.addComment(packageid:Int, redirect:String ?= "")
 
 GET     /c/:catslug/:packageslug              controllers.Application.assetpackage(catslug:String,packageslug:String)
 GET     /c/:catslug                           controllers.Application.category(catslug:String)

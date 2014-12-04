@@ -88,9 +88,14 @@
 					  </div>
 						<div class="form-group">
 					    <label for="inputEmail3" class="col-sm-2 control-label">Images</label>
-					    <div class="col-sm-10">
+					    <div class="col-sm-10 package-images">
 					    	@if(currentPackage!=null && currentPackage.pictures!="") {
-					    		<img src="@routes.Assets.at("images/packages/"+currentPackage.pictures)" alt="">
+					    		@currentPackage.pictures.split(",").map { file =>
+					    			<div class="package-image col-sm-4">
+					    				<a href="/packagemanagement/removeimage/@file/@currentPackage.id">&times;</a>
+					    				<img src="@routes.Assets.at("images/packages/"+file)" alt="">
+					    			</div>
+					    		}
 					    	}
 					      <input type="file" name="image">
 					    </div>

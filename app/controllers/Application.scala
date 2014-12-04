@@ -106,7 +106,7 @@ object Application extends Controller {
 			}
 
 		var sqlQuery4 = "select * from `comment` WHERE `package_id`="+currentPackage.id+" ORDER BY created_at DESC"
-		print(sqlQuery4)
+
 		var comments = SQL(sqlQuery4)
 
 		var packageComments:MutableList[Comment] = MutableList()
@@ -114,7 +114,7 @@ object Application extends Controller {
 		comments().map{ row2 => 
 
 			var theComment = new models.Comment(row2[Int]("id"), row2[Int]("user_id"),row2[Int]("package_id"),row2[Int]("rating"),row2[String]("content"),row2[Option[java.util.Date]]("created_at"))
-			theComment.SetUser(dbCalls.GetUserById(row2[Int]("id")))
+			theComment.SetUser(dbCalls.GetUserById(row2[Int]("user_id")))
 
 			packageComments += theComment
 		}

@@ -13,4 +13,26 @@
 	.box li span.success {
 		color: $success;
 	}
+
+	.package-images {
+		.package-image {
+			position: relative;
+
+			a {
+				position: absolute;
+				top: 10;
+				font-size: 16px;
+				right: 10px;
+				z-index: 2;
+			}
+
+			img {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				z-index: 1;
+			}
+		}
+	}
 }

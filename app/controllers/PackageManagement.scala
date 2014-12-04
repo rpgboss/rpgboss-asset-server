@@ -20,6 +20,8 @@ import util._
 import org.jsoup._
 import org.jsoup.safety._
 
+import java.io.File
+
 object PackageManagement extends Controller {
 
 	val packageForm = Form(
@@ -31,6 +33,33 @@ object PackageManagement extends Controller {
 	    "version" -> text
 	  )
 	)
+
+	def removefile(file:String, packageid:Int) = AuthAction {
+	  	// Authed
+		var isAuthed = Auth.IsAuthed
+		var user = Auth.GetUser
+
+		if(!isAuthed) {
+			Redirect("/")
+		} else {
+			var cf = Play.current.configuration
+			var path = cf.getString("upload.path").getOrElse("")
+			new File(path+"/"+file).delete()
+
+			var dbCalls = new FrontendDbCalls()
+			var currentPackage:AssetPackage = dbCalls.GetPackageById(packageid)
+			var newPictures = currentPackage.pictures.replaceAll(","+file,"")
+
+			DB.withConnection { implicit connection =>
+
+	  			var sqlQuery2 = "UPDATE package SET `pictures`=\""+newPictures+"\" WHERE `id`="+packageid+";"
+
+	  			SQL(sqlQuery2).executeUpdate()
+
+				Redirect("/packagemanagement/"+packageid)
+			}
+		}
+	}
 
 	def editpackage(packageid:Int) = AuthAction(parse.multipartFormData) { implicit request =>
 	  	// Authed
@@ -53,28 +82,34 @@ object PackageManagement extends Controller {
 					cuttedText = cuttedText.substring(0, 512)
 				}
 
-	  		var slug = Util.slugify(name)
-	  		var safeDescription = Jsoup.clean(cuttedText, Whitelist.basic());
+		  		var slug = Util.slugify(name)
+		  		var safeDescription = Jsoup.clean(cuttedText, Whitelist.basic());
 
-	  		var imagefile = ""
+		  		var currentPackage:AssetPackage = dbCalls.GetPackageById(packageid)
 
-			request.body.file("image").map { picture =>
-			    import java.io.File
-			    val filename = picture.filename
-			    var x = filename.split('.')
-			    var ext = x(x.size-1)
-			    val contentType = picture.contentType
-			    var cf = Play.current.configuration
-			    imagefile = category_id+"-"+slug+"-"+packageid+"."+ext
-			    var path = cf.getString("upload.path").getOrElse("")
-			    picture.ref.moveTo(new File(path+"/"+imagefile))
-			}.getOrElse {
+		  		var imagefile = ""
+		  		var images = ""
 
-			}
+		  		var timestamp: Long = System.currentTimeMillis / 1000
 
-	  		var sqlQuery2 = "UPDATE package SET `category_id`="+category_id+" , `pictures`=\""+imagefile+"\",`name`='"+name+"', `version`='"+version+"' , `slug`='"+slug+"' ,`url`= '"+url+"',`description`='"+safeDescription+"' WHERE `id`="+packageid+";"
+				request.body.file("image").map { picture =>
+				    import java.io.File
+				    val filename = picture.filename
+				    var x = filename.split('.')
+				    var ext = x(x.size-1)
+				    val contentType = picture.contentType
+				    var cf = Play.current.configuration
+				    imagefile = category_id+"-"+slug+"-"+packageid+"-"+timestamp+"."+ext
+				    var path = cf.getString("upload.path").getOrElse("")
+				    picture.ref.moveTo(new File(path+"/"+imagefile))
+				    images = currentPackage.pictures+","+imagefile
+				}.getOrElse {
 
-	  		SQL(sqlQuery2).executeUpdate()
+				}
+
+		  		var sqlQuery2 = "UPDATE package SET `category_id`="+category_id+" , `pictures`=\""+images+"\",`name`='"+name+"', `version`='"+version+"' , `slug`='"+slug+"' ,`url`= '"+url+"',`description`='"+safeDescription+"' WHERE `id`="+packageid+";"
+
+		  		SQL(sqlQuery2).executeUpdate()
 
 				Redirect("/packagemanagement/"+packageid)
 
@@ -181,25 +216,32 @@ object PackageManagement extends Controller {
 				}
 
 				var safeDescription = Jsoup.clean(cuttedText, Whitelist.basic());
-
+				
 				var sqlQuery2 = "INSERT INTO package values(NULL, "+category_id+", "+user.id+", '"+name+"','"+slug+"', '"+url+"','','"+safeDescription+"',0,'','"+version+"',NULL);"
 				
 				var rowid:Long = 0
 
 				SQL(sqlQuery2).executeInsert().map(id => rowid = id)
-				
-				/*
+
+		  		var imagefile = ""
+
 				request.body.file("image").map { picture =>
 				    import java.io.File
 				    val filename = picture.filename
+				    var x = filename.split('.')
+				    var ext = x(x.size-1)
 				    val contentType = picture.contentType
-						var dir = new File(routes.Assets.at(s"uploads/package/"));
-						dir.mkdir();
-				    picture.ref.moveTo(new File(routes.Assets.at(s"uploads/package/")))
+				    var cf = Play.current.configuration
+				    imagefile = category_id+"-"+slug+"-"+rowid+"."+ext
+				    var path = cf.getString("upload.path").getOrElse("")
+				    picture.ref.moveTo(new File(path+"/"+imagefile))
 				}.getOrElse {
 
 				}
-				*/
+
+		  		var sqlQuery3 = "UPDATE package SET `pictures`=\""+imagefile+"\" WHERE `id`="+rowid+";"
+
+		  		SQL(sqlQuery3).executeUpdate()
 
 				redirectUrl = "/packagemanagement/"+rowid.toString()
 
