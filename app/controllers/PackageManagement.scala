@@ -61,6 +61,29 @@ object PackageManagement extends Controller {
 		}
 	}
 
+	def updateimageorder(packageid:Int, imageorder:String) = AuthAction {
+		
+	  	// Authed
+		var isAuthed = Auth.IsAuthed
+		var user = Auth.GetUser
+
+		if(!isAuthed) {
+			Redirect("/")
+		} else {
+
+			DB.withConnection { implicit connection =>
+
+	  			var sqlQuery2 = "UPDATE package SET `pictures`=\""+imageorder+"\" WHERE `id`="+packageid+";"
+
+	  			SQL(sqlQuery2).executeUpdate()
+
+	  			Ok("1")
+			}
+
+		}
+
+	}
+
 	def editpackage(packageid:Int) = AuthAction(parse.multipartFormData) { implicit request =>
 	  	// Authed
 		var isAuthed = Auth.IsAuthed

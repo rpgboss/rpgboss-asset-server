@@ -6,10 +6,18 @@
     @leftcol(categories, currentCategory)
     <div class="col-xs-9">
         <h1>@currentPackage.name</h1>
-        <h4>@currentPackage.version</h4>
-        @if(currentPackage.pictures!="") {
-            <img src="@routes.Assets.at("images/packages/"+currentPackage.pictures)" alt="">
-        }
+        <h4>Version: @currentPackage.version</h4>
+        <div class="images-area">
+            <div class="row">
+            @if(currentPackage.pictures!="") {
+                @currentPackage.getAllImages().map { file:String =>
+                    <div class="image-view col-xs-4"> 
+                        <img src="@routes.Assets.at("images/packages/"+file)" alt="">
+                    </div>
+                }
+            }
+            </div>
+        </div>
         <br><br>
         <p>@Html(currentPackage.description)</p>
         @if(isAuthed) {
@@ -57,6 +65,8 @@
         CKEDITOR.instances['text'].on('blur', UpdateTextLength);
         CKEDITOR.instances['text'].on('change', UpdateTextLength);
         UpdateTextLength();
+
+
     </script>
 
 }

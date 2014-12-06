@@ -19,6 +19,8 @@ GET     /logout                               controllers.Login.logout()
 GET     /profile                              controllers.Application.profile(messageType:Int ?= 0)
 POST    /profile/save                         controllers.Profile.save()
 
+
+GET     /packagemanagement/updateimageorder/:packageid/:imageorder         controllers.PackageManagement.updateimageorder(packageid:Int, imageorder:String)
 POST    /packagemanagement/edit/:packageid    controllers.PackageManagement.editpackage(packageid:Int)
 POST    /packagemanagement/submit             controllers.PackageManagement.submit()
 GET     /packagemanagement/removeimage/:imagefile/:packageid         controllers.PackageManagement.removefile(imagefile:String, packageid:Int)

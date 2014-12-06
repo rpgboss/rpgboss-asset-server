@@ -15,11 +15,13 @@
                 @if(packages(category.name).size!=0) {
                  @packages(category.name).map { row:AssetPackage =>
                   <a href="/c/@category.slug/@row.slug">
-                    <div class="box gap col-md-4">
+                    <div class="box package gap col-md-4">
                       <h1>@row.name</h1>
+                      <div class="image-view">
                       @if(row.pictures!="") {
-                          <img src="@routes.Assets.at("images/packages/"+row.pictures)" alt="">
+                        <img src="@routes.Assets.at("images/packages/"+row.getMainImage())" alt="">
                       }
+                      </div>
                     </div>
                   </a>
                  }

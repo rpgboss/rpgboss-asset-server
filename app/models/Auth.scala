@@ -39,7 +39,7 @@ object Auth {
 
 		var date = new java.util.Date()
 
-		User = new models.User(0,"","",0,"","",0,Option(date))		
+		User = new models.User(0,"","",0,"","",0,"",Option(date))		
 
 		DB.withConnection { implicit connection =>
 
@@ -56,6 +56,7 @@ object Auth {
 					row2[String]("session"),
 					row2[String]("password"),
 					row2[Int]("activated"),
+					row2[String]("activateHash"),
 					row2[Option[java.util.Date]]("created_at")
 				) 
 			}

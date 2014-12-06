@@ -57,6 +57,7 @@ object Login extends Controller {
 					row2[String]("session"),
 					row2[String]("password"),
 					row2[Int]("activated"),
+					row2[String]("activateHash"),
 					row2[Option[java.util.Date]]("created_at")
 				)
 

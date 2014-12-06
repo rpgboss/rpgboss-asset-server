@@ -80,7 +80,7 @@ class FrontendDbCalls {
 			var sqlQuery5 = "select * from `user` WHERE `id`="+id
 
 			SQL(sqlQuery5)().map{ row2 => 
-				theUser = new User(row2[Int]("id"),row2[String]("email"),row2[String]("display_name"),row2[Int]("admin"),row2[String]("session"),row2[String]("password"),row2[Int]("activated"),row2[Option[java.util.Date]]("created_at")) 
+				theUser = new User(row2[Int]("id"),row2[String]("email"),row2[String]("display_name"),row2[Int]("admin"),row2[String]("session"),row2[String]("password"),row2[Int]("activated"),row2[String]("activateHash"),row2[Option[java.util.Date]]("created_at")) 
 			}
 
 			return theUser

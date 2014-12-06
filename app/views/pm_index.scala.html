@@ -90,12 +90,17 @@
 					    <label for="inputEmail3" class="col-sm-2 control-label">Images</label>
 					    <div class="col-sm-10 package-images">
 					    	@if(currentPackage!=null && currentPackage.pictures!="") {
-					    		@currentPackage.pictures.split(",").map { file =>
-					    			<div class="package-image col-sm-4">
-					    				<a href="/packagemanagement/removeimage/@file/@currentPackage.id">&times;</a>
-					    				<img src="@routes.Assets.at("images/packages/"+file)" alt="">
-					    			</div>
+					    	<ul id="sortable">
+					    		@currentPackage.pictures.split(",").map { file:String =>
+										@if(file!="") {
+					    			<li>
+						    			<div data-file="@file" class="package-image" style="background:url(@routes.Assets.at("images/packages/"+file))">
+						    				<a href="/packagemanagement/removeimage/@file/@currentPackage.id">&times;</a>
+						    			</div>
+					    			</li>
+					    			}
 					    		}
+					    	</ul>
 					    	}
 					      <input type="file" name="image">
 					    </div>
@@ -130,6 +135,22 @@
 		CKEDITOR.instances['text'].on('blur', UpdateTextLength);
 		CKEDITOR.instances['text'].on('change', UpdateTextLength);
 		UpdateTextLength();
+
+		$( "#sortable" ).sortable({
+			update: function( event, ui ) {
+				var images = $( "#sortable .package-image" ),
+						imageorder = "";
+				images.each(function() {
+					var file = $(this).attr('data-file');
+
+					imageorder += ','+file;
+				});
+
+				$.get('/packagemanagement/updateimageorder/@currentPackage.id/'+imageorder, function(result) {
+					console.log(result);
+				});
+			}
+		});
     </script>
 
 }
