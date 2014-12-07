@@ -136,21 +136,25 @@
 		CKEDITOR.instances['text'].on('change', UpdateTextLength);
 		UpdateTextLength();
 
-		$( "#sortable" ).sortable({
-			update: function( event, ui ) {
-				var images = $( "#sortable .package-image" ),
-						imageorder = "";
-				images.each(function() {
-					var file = $(this).attr('data-file');
+		@if(currentPackage!=null){
 
-					imageorder += ','+file;
-				});
+			$( "#sortable" ).sortable({
+				update: function( event, ui ) {
+					var images = $( "#sortable .package-image" ),
+							imageorder = "";
+					images.each(function() {
+						var file = $(this).attr('data-file');
 
-				$.get('/packagemanagement/updateimageorder/@currentPackage.id/'+imageorder, function(result) {
-					console.log(result);
-				});
-			}
-		});
+						imageorder += ','+file;
+					});
+
+					$.get('/packagemanagement/updateimageorder/@currentPackage.id/'+imageorder, function(result) {
+						console.log(result);
+					});
+				}
+			});
+
+		}
     </script>
 
 }

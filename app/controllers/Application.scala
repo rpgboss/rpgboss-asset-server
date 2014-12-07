@@ -105,14 +105,13 @@ object Application extends Controller {
 				currentPackage = new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"),row2[String]("version"),row2[Int]("category_id"),row2[Int]("user_id"))
 			}
 
-		var sqlQuery4 = "select * from `comment` WHERE `package_id`="+currentPackage.id+" ORDER BY created_at DESC"
+		var sqlQuery5 = "select * from `comment` WHERE `package_id`="+currentPackage.id+" ORDER BY created_at DESC"
 
-		var allComments = SQL(sqlQuery4)
+		var allComments = SQL(sqlQuery5)
 
 		var packageComments:MutableList[Comment] = MutableList()
 
-		allComments().map{ row2 => 
-			println("asd")
+		allComments.apply().foreach{ row2 => 
 
 			var theComment = new models.Comment(row2[Int]("id"), row2[Int]("user_id"),row2[Int]("package_id"),row2[Int]("rating"),row2[String]("content"),row2[Option[java.util.Date]]("created_at"))
 			theComment.SetUser(dbCalls.GetUserById(row2[Int]("user_id")))

@@ -1,6 +1,6 @@
 name := """RPGBOSS Asset Server"""
 
-version := "1.0"
+version := "0.5"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala, net.litola.SassPlugin)
 
@@ -14,6 +14,5 @@ libraryDependencies ++= Seq(
   cache,
   ws,
   "mysql" % "mysql-connector-java" % "5.1.18",
-  "org.jsoup" % "jsoup" % "1.7.2",
-  "com.typesafe.play.plugins" %% "play-plugins-mailer" % "2.3.1"
+  "org.jsoup" % "jsoup" % "1.7.2"
 )

@@ -19,6 +19,7 @@ GET     /logout                               controllers.Login.logout()
 GET     /profile                              controllers.Application.profile(messageType:Int ?= 0)
 POST    /profile/save                         controllers.Profile.save()
 
+GET     /activate/account/:activationkey      controllers.Register.activate(activationkey:String)
 
 GET     /packagemanagement/updateimageorder/:packageid/:imageorder         controllers.PackageManagement.updateimageorder(packageid:Int, imageorder:String)
 POST    /packagemanagement/edit/:packageid    controllers.PackageManagement.editpackage(packageid:Int)

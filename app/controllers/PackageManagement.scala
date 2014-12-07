@@ -159,6 +159,12 @@ object PackageManagement extends Controller {
 					var sqlQuery2 = "UPDATE package SET `verified`=0 WHERE `id`=\""+packageid+"\";"
 					SQL(sqlQuery2).executeUpdate()
 
+					var host = request.host;
+					var link = "http://" + host + "/adminpanel/unapproved/lookat/" + currentPackage.id
+
+					var mails = new Mails()
+					mails.OnAllAdmins("<p>An user requests approval for his package by an admin.</p><a href=\""+link+"\"></a>","RPGBOSS Asset Server - RequestApproval")
+
 				}
 
 			}
@@ -261,6 +267,12 @@ object PackageManagement extends Controller {
 				}.getOrElse {
 
 				}
+
+					var host = request.host;
+					var link = "http://" + host + "/adminpanel/unapproved/lookat/" + rowid
+
+					var mails = new Mails()
+					mails.OnAllAdmins("<p>An user submitted a package, it needs to be approved.</p><a href=\""+link+"\"></a>","RPGBOSS Asset Server - Submit Package")
 
 		  		var sqlQuery3 = "UPDATE package SET `pictures`=\""+imagefile+"\" WHERE `id`="+rowid+";"
 

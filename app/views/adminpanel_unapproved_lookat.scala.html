@@ -11,6 +11,17 @@
 	    	<div class="row box notfixed gap">
 					<h1>@currentPackage.name</h1>
 					<div class="description">@Html(currentPackage.description)</div>
+	        <div class="images-area">
+	            <div class="row">
+	            @if(currentPackage.pictures!="") {
+	                @currentPackage.getAllImages().map { file:String =>
+	                    <div class="image-view col-xs-4"> 
+	                        <img src="@routes.Assets.at("images/packages/"+file)" alt="">
+	                    </div>
+	                }
+	            }
+	            </div>
+	        </div>
 					<a href="@currentPackage.url" class="button full">Download Package</a>
 	    	</div>
 			<div class="row box notfixed gap">

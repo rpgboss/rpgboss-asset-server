@@ -15,6 +15,8 @@ import actions._
 import play.api.data._
 import play.api.data.Forms._
 
+import play.api.libs.mailer._
+
 object Register extends Controller {
 
 	val registerForm = Form(
@@ -80,10 +82,23 @@ object Register extends Controller {
 					var hashpassword = md.digest(password.getBytes("UTF-8")).map("%02x".format(_)).mkString
 
 					var random_session = java.util.UUID.randomUUID().toString()
+					var timestamp: Long = System.currentTimeMillis / 1000
+					var random_hashcode = md.digest((email+timestamp.toString()).getBytes("UTF-8")).map("%02x".format(_)).mkString
+					if(random_hashcode.size>32) random_hashcode = random_hashcode.substring(0, 32)
 
-					var sqlQuery2 = "INSERT INTO user values(NULL, \""+email+"\", \""+display_name+"\", '"+hashpassword+"','"+random_session+"', 0,0,NULL);"
+					var sqlQuery2 = "INSERT INTO user values(NULL, \""+email+"\", \""+display_name+"\", '"+hashpassword+"','"+random_session+"', 0,0,\""+random_hashcode+"\",NULL);"
 					SQL(sqlQuery2).executeInsert()
-		    	
+
+					// Send confirmation mail
+					val mail = MailerPlugin.email
+					mail.setSubject("RPGBOSS Asset Server - Confirmation")
+					mail.setRecipient(email)
+					
+					var host = request.host;
+					var link = host + "/activate/account/" + random_hashcode
+
+					mail.setFrom("RPGBOSS Asset Server <assetserver@rpgboss.com>")
+					mail.sendHtml("<html><head></head><body><h1>Confirmation</h1><p>Click on <a href=\"http://"+link+"\">this link</a> to activate your Account.</p></body></html>" )
 
 		    	Redirect("/register/confirmation_notice")
 
@@ -94,6 +109,42 @@ object Register extends Controller {
     	} else {
     		Redirect("/register?error=2")
     	}
+  	}
+  }
+
+  def activate(activationkey: String) = AuthAction {
+
+	  // Authed
+		var isAuthed = Auth.IsAuthed
+		var user = Auth.GetUser
+		/////////////////
+
+		DB.withConnection { implicit connection =>
+
+  		var sqlQuery2 = "SELECT * FROM `user` WHERE `activateHash`=\""+activationkey+"\" AND `activated`=0;"
+  		var dbCalls = new FrontendDbCalls()
+
+  		var currentUser : User = null
+  		var count = 0
+
+  		SQL(sqlQuery2).apply().map { row:Row =>
+  			currentUser = dbCalls.GetUserById(row[Int]("id"))
+  			count = 1
+  		}
+
+  		if(currentUser!=null) {
+
+				var timestamp: Long = System.currentTimeMillis / 1000
+				var activation_random_hashcode = ("activated"+timestamp.toString())
+				if(activation_random_hashcode.size>32) activation_random_hashcode = activation_random_hashcode.substring(0, 32)
+
+	  		var sqlQuery3 = "UPDATE `user` SET `activateHash`=\""+activation_random_hashcode+"\",`activated`=1 WHERE `id`="+currentUser.id+";"
+	  		SQL(sqlQuery3).executeUpdate()
+
+  		}
+
+  		Ok(views.html.activation_notice(activationkey,count, isAuthed, user))
+
   	}
   }
 
