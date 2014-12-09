@@ -12,7 +12,7 @@
             @if(currentPackage.pictures!="") {
                 @currentPackage.getAllImages().map { file:String =>
                     <div class="image-view col-xs-4"> 
-                        <img src="@routes.Assets.at("images/packages/"+file)" alt="">
+                        <img src="/dynimage/@file" alt="">
                     </div>
                 }
             }

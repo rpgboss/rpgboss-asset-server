@@ -14,7 +14,7 @@
               <h1>@row.name</h1>
               <div class="image-view">
               @if(row.pictures!="") {
-                <img src="@routes.Assets.at("images/packages/"+row.getMainImage())" alt="">
+                <img src="/dynimage/@row.getMainImage()" alt="">
               }
               </div>
             </div>

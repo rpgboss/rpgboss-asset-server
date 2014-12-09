@@ -94,7 +94,7 @@
 					    		@currentPackage.pictures.split(",").map { file:String =>
 										@if(file!="") {
 					    			<li>
-						    			<div data-file="@file" class="package-image" style="background:url(@routes.Assets.at("images/packages/"+file))">
+						    			<div data-file="@file" class="package-image" style="background:url(/dynimage/@file);background-repeat:no-repeat;">
 						    				<a href="/packagemanagement/removeimage/@file/@currentPackage.id">&times;</a>
 						    			</div>
 					    			</li>

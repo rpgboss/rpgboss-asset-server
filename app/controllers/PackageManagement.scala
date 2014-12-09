@@ -20,6 +20,7 @@ import util._
 import org.jsoup._
 import org.jsoup.safety._
 
+import javaxt.io._
 import java.io.File
 
 object PackageManagement extends Controller {
@@ -125,7 +126,16 @@ object PackageManagement extends Controller {
 				    imagefile = category_id+"-"+slug+"-"+packageid+"-"+timestamp+"."+ext
 				    var path = cf.getString("upload.path").getOrElse("")
 				    picture.ref.moveTo(new File(path+"/"+imagefile))
-				    images = currentPackage.pictures+","+imagefile
+
+				    /*
+					var image = new javaxt.io.Image(path+"/"+imagefile)
+					image.setWidth(480)
+					image.resize(480,640)
+					image.saveAs(path+"/"+imagefile)
+					*/
+
+					images = currentPackage.pictures+","+imagefile
+
 				}.getOrElse {
 
 				}
