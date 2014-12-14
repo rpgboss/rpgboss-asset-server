@@ -45,10 +45,15 @@ object AdminPanel extends Controller {
 					cuttedText = cuttedText.substring(0, 255)
 				}
 
-		  		var safeRejectionText = Jsoup.clean(cuttedText, Whitelist.basic());
+		  	var safeRejectionText = Jsoup.clean(cuttedText, Whitelist.basic());
 
 				var sqlQuery2 = "UPDATE package SET `verified`=2, `rejection_text`=\""+safeRejectionText+"\" WHERE `id`=\""+packageid+"\";"
 				SQL(sqlQuery2).executeUpdate()
+
+		  	var dbCalls = new FrontendDbCalls()
+		  	var thepackage:AssetPackage = dbCalls.GetPackageById(packageid)
+				var mails = new Mails()
+				mails.OnAUser(user,"<p>The package \""+thepackage.name+"\" was rejected by an admin.</p><br><br><h1>Reason</h1>"+safeRejectionText,"RPGBOSS Asset Server - Rejection: "+thepackage.name)
 
 				Redirect("/adminpanel/unapproved")
 
@@ -70,6 +75,11 @@ object AdminPanel extends Controller {
 
 				var sqlQuery2 = "UPDATE package SET `verified`=1, `rejection_text`=\"\" WHERE `id`=\""+packageid+"\";"
 				SQL(sqlQuery2).executeUpdate()
+
+		  	var dbCalls = new FrontendDbCalls()
+		  	var thepackage:AssetPackage = dbCalls.GetPackageById(packageid)
+				var mails = new Mails()
+				mails.OnAUser(user,"<p>The package \""+thepackage.name+"\" was accepted by an admin.</p>","RPGBOSS Asset Server - "+thepackage.name+" accepted")
 
 				Redirect("/adminpanel/unapproved")
 

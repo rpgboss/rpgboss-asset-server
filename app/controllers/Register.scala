@@ -78,8 +78,11 @@ object Register extends Controller {
 				// Check all requirements for a successful register
 				if(password == password_repeat && isValid(email) && nameDoesExist==false && emailDoesExist==false) {
 
+					var cf = Play.current.configuration
+					var salt = cf.getString("login.salt").getOrElse("")
+
 					val md = java.security.MessageDigest.getInstance("SHA-1")
-					var hashpassword = md.digest(password.getBytes("UTF-8")).map("%02x".format(_)).mkString
+					var hashpassword = md.digest( (password+salt).getBytes("UTF-8")).map("%02x".format(_)).mkString
 
 					var random_session = java.util.UUID.randomUUID().toString()
 					var timestamp: Long = System.currentTimeMillis / 1000

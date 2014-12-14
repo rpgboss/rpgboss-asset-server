@@ -40,15 +40,18 @@ object Profile extends Controller {
 
 				val (old_password, new_password) = profileForm.bindFromRequest.get
 
+				var cf = Play.current.configuration
+				var salt = cf.getString("login.salt").getOrElse("")
+
 				val md = java.security.MessageDigest.getInstance("SHA-1")
-				var hashpassword = md.digest(old_password.getBytes("UTF-8")).map("%02x".format(_)).mkString
+				var hashpassword = md.digest( (old_password+salt).getBytes("UTF-8")).map("%02x".format(_)).mkString
 
 				var sqlQuery2 = "select * from user WHERE `email`=\""+user.email+"\" AND `password`=\""+hashpassword+"\" AND `activated`=1;"
 				SQL(sqlQuery2)().map { row =>
 
 					if(new_password.size >= 6) {
 
-						var new_hashpassword = md.digest(new_password.getBytes("UTF-8")).map("%02x".format(_)).mkString
+						var new_hashpassword = md.digest( (new_password+salt).getBytes("UTF-8")).map("%02x".format(_)).mkString
 
 						var sqlQuery3 = "UPDATE user SET `password`=\""+new_hashpassword+"\" WHERE `id`="+user.id+";"
 

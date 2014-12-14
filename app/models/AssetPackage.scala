@@ -6,6 +6,10 @@ class AssetPackage(val name:String,val slug:String, val id:Int, val description:
 	def getMainImage():String = {
 		var images = this.pictures.split(",")
 
+		if(images.size==1){
+			return images(0)
+		}
+
 		return images(1)
 	}
 

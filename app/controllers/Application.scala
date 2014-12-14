@@ -38,7 +38,7 @@ object Application extends Controller {
 
 		
 		selectCategories().foreach { row =>
-			var sqlQuery = "select `id`,`name`,`slug` from package WHERE `id`="+row[Int]("id")+" AND `verified`=1 ORDER BY created_at DESC LIMIT 3"
+			var sqlQuery = "select `id`,`name`,`slug` from package WHERE `category_id`="+row[Int]("id")+" AND `verified`=1 ORDER BY created_at DESC LIMIT 3"
 
 			selectedPackages = SQL(sqlQuery)
 
@@ -105,21 +105,31 @@ object Application extends Controller {
 				currentPackage = new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"),row2[String]("version"),row2[Int]("category_id"),row2[Int]("user_id"))
 			}
 
-		var sqlQuery5 = "select * from `comment` WHERE `package_id`="+currentPackage.id+" ORDER BY created_at DESC"
+			if(currentPackage!=null) {
 
-		var allComments = SQL(sqlQuery5)
+				var sqlQuery5 = "select * from `comment` WHERE `package_id`="+currentPackage.id+" ORDER BY created_at DESC"
 
-		var packageComments:MutableList[Comment] = MutableList()
+				var allComments = SQL(sqlQuery5)
 
-		allComments.apply().foreach{ row2 => 
+				var packageComments:MutableList[Comment] = MutableList()
 
-			var theComment = new models.Comment(row2[Int]("id"), row2[Int]("user_id"),row2[Int]("package_id"),row2[Int]("rating"),row2[String]("content"),row2[Option[java.util.Date]]("created_at"))
-			theComment.SetUser(dbCalls.GetUserById(row2[Int]("user_id")))
+				allComments.apply().foreach{ row2 => 
 
-			packageComments += theComment
-		}
+					var theComment = new models.Comment(row2[Int]("id"), row2[Int]("user_id"),row2[Int]("package_id"),row2[Int]("rating"),row2[String]("content"),row2[Option[java.util.Date]]("created_at"))
+					theComment.SetUser(dbCalls.GetUserById(row2[Int]("user_id")))
 
-  		Ok(views.html.assetpackage(categories,currentCategory,currentPackage, isAuthed, user, packageComments))
+					packageComments += theComment
+				}
+
+		  		Ok(views.html.assetpackage(categories,currentCategory,currentPackage, isAuthed, user, packageComments))
+
+  		} else {
+
+  				Ok(views.html.nopackage(categories,currentCategory, isAuthed, user))
+
+  		}
+
+
 
   	}
   }

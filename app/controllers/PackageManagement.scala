@@ -116,25 +116,37 @@ object PackageManagement extends Controller {
 
 		  		var timestamp: Long = System.currentTimeMillis / 1000
 
+		  		var redirectUrl = "/packagemanagement/"+packageid
+
 				request.body.file("image").map { picture =>
 				    import java.io.File
 				    val filename = picture.filename
 				    var x = filename.split('.')
-				    var ext = x(x.size-1)
+				    var ext = x(x.size-1).toLowerCase
+
+				    if(ext != "png" && ext != "jpg" && ext != "jpeg") {
+				    	images = currentPackage.pictures
+				    	redirectUrl += "?error=1"
+				    } else {
+
 				    val contentType = picture.contentType
 				    var cf = Play.current.configuration
 				    imagefile = category_id+"-"+slug+"-"+packageid+"-"+timestamp+"."+ext
 				    var path = cf.getString("upload.path").getOrElse("")
 				    picture.ref.moveTo(new File(path+"/"+imagefile))
 
-				    /*
-					var image = new javaxt.io.Image(path+"/"+imagefile)
-					image.setWidth(480)
-					image.resize(480,640)
-					image.saveAs(path+"/"+imagefile)
-					*/
+					   
+						var image = new javaxt.io.Image(path+"/"+imagefile)
+						if(image.getHeight()>640) {
+							image.setWidth(480)
+							image.resize(480,640)
+							image.saveAs(path+"/"+imagefile)
+						}
+						
 
-					images = currentPackage.pictures+","+imagefile
+						images = currentPackage.pictures+","+imagefile
+
+					}
 
 				}.getOrElse {
 
@@ -144,7 +156,7 @@ object PackageManagement extends Controller {
 
 		  		SQL(sqlQuery2).executeUpdate()
 
-				Redirect("/packagemanagement/"+packageid)
+					Redirect(redirectUrl)
 
 			}
 		}
@@ -183,7 +195,7 @@ object PackageManagement extends Controller {
 		}
 	}
 
-	def editindex(packageid:Int) = AuthAction { implicit request =>
+	def editindex(packageid:Int, error:Int) = AuthAction { implicit request =>
 	  	// Authed
 		var isAuthed = Auth.IsAuthed
 		var user = Auth.GetUser
@@ -201,13 +213,13 @@ object PackageManagement extends Controller {
 	  		var currentPackage = dbCalls.GetPackageById(packageid)
 	  		var mypackages = dbCalls.GetPackagesByUserId(user.id)
 
-				Ok(views.html.pm_index(isAuthed, user, mypackages,categories,currentPackage))
+				Ok(views.html.pm_index(isAuthed, user, mypackages,categories,currentPackage, error))
 
 			}
 		}
 	}
 
-	def index = AuthAction { implicit request =>
+	def index(error:Int) = AuthAction { implicit request =>
 	  // Authed
 		var isAuthed = Auth.IsAuthed
 		var user = Auth.GetUser
@@ -225,7 +237,7 @@ object PackageManagement extends Controller {
 				var mypackages = dbCalls.GetPackagesByUserId(user.id)
 				var currentPackage = dbCalls.GetPackageById(0)
 
-				Ok(views.html.pm_index(isAuthed, user, mypackages,categories,currentPackage))
+				Ok(views.html.pm_index(isAuthed, user, mypackages,categories,currentPackage,error))
 
 			}
 		}
@@ -242,6 +254,7 @@ object PackageManagement extends Controller {
 		/////////////////
 
 			var redirectUrl = "/packagemanagement"
+			var wrongimage=""
 
 			DB.withConnection { implicit connection =>
 
@@ -268,12 +281,26 @@ object PackageManagement extends Controller {
 				    import java.io.File
 				    val filename = picture.filename
 				    var x = filename.split('.')
-				    var ext = x(x.size-1)
-				    val contentType = picture.contentType
-				    var cf = Play.current.configuration
-				    imagefile = category_id+"-"+slug+"-"+rowid+"."+ext
-				    var path = cf.getString("upload.path").getOrElse("")
-				    picture.ref.moveTo(new File(path+"/"+imagefile))
+				    var ext = x(x.size-1).toLowerCase
+
+				    if(ext != "png" || ext != "jpg" != ext != "jpeg") {
+				    	wrongimage += "?error=1"
+				    } else {
+
+					    val contentType = picture.contentType
+					    var cf = Play.current.configuration
+					    imagefile = category_id+"-"+slug+"-"+rowid+"."+ext
+					    var path = cf.getString("upload.path").getOrElse("")
+					    picture.ref.moveTo(new File(path+"/"+imagefile))
+
+							var image = new javaxt.io.Image(path+"/"+imagefile)
+							if(image.getHeight()>640) {
+								image.setWidth(480)
+								image.resize(480,640)
+								image.saveAs(path+"/"+imagefile)
+							}
+
+				    }
 				}.getOrElse {
 
 				}
@@ -288,7 +315,7 @@ object PackageManagement extends Controller {
 
 		  		SQL(sqlQuery3).executeUpdate()
 
-				redirectUrl = "/packagemanagement/"+rowid.toString()
+				redirectUrl = "/packagemanagement/"+rowid.toString() + wrongimage
 
 			}
 

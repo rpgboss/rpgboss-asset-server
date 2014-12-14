@@ -36,8 +36,12 @@ object Login extends Controller {
 
 			val (email, password) = loginForm.bindFromRequest.get
 
+			var cf = Play.current.configuration
+			var salt = cf.getString("login.salt").getOrElse("")
+
+
 			val md = java.security.MessageDigest.getInstance("SHA-1")
-			var hashpassword = md.digest(password.getBytes("UTF-8")).map("%02x".format(_)).mkString
+			var hashpassword = md.digest( (password+salt).getBytes("UTF-8")).map("%02x".format(_)).mkString
 
 			var sqlQuery2 = "select * from user WHERE `email`=\""+email+"\" AND `password`=\""+hashpassword+"\" AND `activated`=1;"
 

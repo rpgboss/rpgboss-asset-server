@@ -26,8 +26,8 @@ POST    /packagemanagement/edit/:packageid    controllers.PackageManagement.edit
 POST    /packagemanagement/submit             controllers.PackageManagement.submit()
 GET     /packagemanagement/removeimage/:imagefile/:packageid         controllers.PackageManagement.removefile(imagefile:String, packageid:Int)
 GET     /packagemanagement/:packageid/requestapproval         controllers.PackageManagement.requestapproval(packageid:Int)
-GET     /packagemanagement/:packageid         controllers.PackageManagement.editindex(packageid:Int)
-GET     /packagemanagement                    controllers.PackageManagement.index()
+GET     /packagemanagement/:packageid         controllers.PackageManagement.editindex(packageid:Int,error:Int ?= 0)
+GET     /packagemanagement                    controllers.PackageManagement.index(error:Int ?= 0)
 
 GET    /adminpanel/unapproved/lookat/:packageid/approve    controllers.AdminPanel.approvepackage(packageid:Int)
 POST    /adminpanel/unapproved/lookat/:packageid/reject    controllers.AdminPanel.rejectpackage(packageid:Int)

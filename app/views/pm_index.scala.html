@@ -1,5 +1,5 @@
 @import scala.collection.mutable._ 
-@(isAuthed:Boolean, user:models.User, mypackages:MutableList[AssetPackage], categories:MutableList[Category], currentPackage:models.AssetPackage)
+@(isAuthed:Boolean, user:models.User, mypackages:MutableList[AssetPackage], categories:MutableList[Category], currentPackage:models.AssetPackage, error:Int)
 
 @main("RPGBOSS Asset Server - Package Management",isAuthed, user,1) {
 		
@@ -103,6 +103,11 @@
 					    	</ul>
 					    	}
 					      <input type="file" name="image">
+					      @if(error==1) {
+					      	<div class="notice error">
+					      		Only png or jpg files can be uploaded.
+					      	</div>
+					      }
 					    </div>
 					  </div>	
 						<div class="form-group">

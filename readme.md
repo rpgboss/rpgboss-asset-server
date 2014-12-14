@@ -77,6 +77,12 @@ Edit the application.conf in rpgboss-asset-server-x.x/conf folder
 
 Make sure that you have a mysql server installed and a assetserver database created.
 
+Uploading images:
+Set the path to your folder
+	```
+	upload.path = "/rpgboss-asset-server/imagepackages"
+	```
+
 Make the run-asset-server.sh executable
 
 	```

@@ -15,8 +15,8 @@ CREATE TABLE user (
   PRIMARY KEY (id)
 ) ENGINE=INNODB;
 
-INSERT INTO user VALUES (NULL, "info@rpgboss.com","The Admin","a94a8fe5ccb19ba61c4c0873d391e987982fbbd3","f6b970054ea32e1d87bb26f3076980cdc51255a8", 1,1,"", NULL);
-INSERT INTO user VALUES (NULL, "test@rpgboss.com","The User","a94a8fe5ccb19ba61c4c0873d391e987982fbbd3","f6b970054ea32e1d87bb26f3076980cdc51255a8", 1,0,"", NULL);
+INSERT INTO user VALUES (NULL, "info@rpgboss.com","The Admin","04bc6402c64c46773100d42a7799e934f59f88b3","f6b970054ea32e1d87bb26f3076980cdc51255a8", 1,1,"", NULL);
+INSERT INTO user VALUES (NULL, "test@rpgboss.com","The User","04bc6402c64c46773100d42a7799e934f59f88b3","f6b970054ea32e1d87bb26f3076980cdc51255a8", 1,0,"", NULL);
 
 CREATE TABLE category (
   id INT NOT NULL AUTO_INCREMENT,
