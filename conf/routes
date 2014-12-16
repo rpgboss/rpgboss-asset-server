@@ -44,3 +44,11 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # Map dynamic images
 GET     /dynimage/:imagename                           controllers.ServeDynamicImage.serve(imagename:String)
+
+# API
+GET     /api/v1/login                           controllers.Api1.login(email:String ?= "", password:String ?= "")
+GET     /api/v1/logout                          controllers.Api1.logout(session:String ?= "")
+GET     /api/v1/get_user                  		controllers.Api1.get_user(session:String ?= "")
+GET     /api/v1/get_categories                  controllers.Api1.get_categories(session:String ?= "")
+GET     /api/v1/get_packages_from_category      controllers.Api1.get_packages_from_category(session:String ?= "", category_id:Int ?= 0)
+GET     /api/v1/get_package                  	controllers.Api1.get_package(session:String ?= "", package_id:Int ?= 0)
