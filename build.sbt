@@ -1,6 +1,6 @@
 name := """RPGBOSS Asset Server"""
 
-version := "0.5"
+version := "0.5.1"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala, net.litola.SassPlugin)
 

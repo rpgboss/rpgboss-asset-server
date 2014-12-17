@@ -7,7 +7,7 @@ import scala.concurrent._
 import models._
 
 object AuthAction extends ActionBuilder[Request] {
-  def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[SimpleResult]) = {
+  def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[Result]) = {
   	var sessionCookie = request.cookies.get("session")
   	var sessionValue = ""
   	if(sessionCookie==None) {

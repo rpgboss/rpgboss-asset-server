@@ -156,7 +156,7 @@ object Application extends Controller {
 				currentCategory = new models.Category(row2[String]("name"), row2[String]("slug"),row2[Int]("id"))
 			}
 
-			var sqlQuery = "select * from package WHERE `category_id`="+currentCategory.id+" AND `verified`=1 ORDER BY created_at DESC LIMIT 3"
+			var sqlQuery = "select * from package WHERE `category_id`="+currentCategory.id+" AND `verified`=1 ORDER BY created_at DESC"
 			var selectedPackages:anorm.SqlQuery = null
 			var packageList:Stream[Any] = Stream();
 			selectedPackages = SQL(sqlQuery)
