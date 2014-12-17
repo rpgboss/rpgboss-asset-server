@@ -9,3 +9,16 @@
 	}
 
 }
+
+.comment-section {
+
+	.icon-star {
+		font-size: 20px;
+		color: $gray;
+
+		&.active {
+			color: $yellow;
+		}
+	}
+
+}

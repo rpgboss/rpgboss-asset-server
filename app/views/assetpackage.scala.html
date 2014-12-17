@@ -25,11 +25,20 @@
         } else {
         	<a href="/login" class="button full">Login to download</a>
         }
-        <div class="box notfixed gap">
+        <div class="box notfixed gap comment-section">
             <h1>User Comments</h1>
             @packageComments.map { row:Comment =>
             <div class="comment">
                 <h4>@row.User.display_name</h4>
+                <p>
+                    @for( a <- 1 to 5) {
+                        @if(row.rating>=a) {
+                            <span class="icon-star active"></span>
+                        } else {
+                            <span class="icon-star"></span>
+                        }
+                    }
+                </p>
                 <p>@Html(row.content)</p>
                 <div class="line"></div>
                 <span class="date">@row.created_at</span>
@@ -38,9 +47,18 @@
         </div>
         @if(isAuthed) {
             <h3>Comment</h3>
-            <form method="post" action="/comment/add/@currentPackage.id?redirect=/c/@currentCategory.slug/@currentPackage.slug">
+            <form class="comment-section" method="post" action="/comment/add/@currentPackage.id?redirect=/c/@currentCategory.slug/@currentPackage.slug">
+                <span>Rate this package</span>
+                <div class="stars-selection">
+                    <span data-value="1" class="icon-star"></span>
+                    <span data-value="2" class="icon-star"></span>
+                    <span data-value="3" class="icon-star"></span>
+                    <span data-value="4" class="icon-star"></span>
+                    <span data-value="5" class="icon-star"></span>
+                </div>
+                <input type="hidden" value="3" id="rating" name="rating">
+                <br>
                 <span>You have <strong><span id="charsleft">0 / 255</span></strong> of characters left.</span>
-                <input type="hidden" value="0" name="rating">
                 <textarea name="text" id="" cols="30" rows="10"></textarea>
                 <br>
                 <input type="submit" class="button" value="Make a Comment">
@@ -50,6 +68,28 @@
 
         <script src="@routes.Assets.at("javascripts/ckeditor/ckeditor.js")"></script>
         <script>
+
+        function paintStars(value) {
+            $('.stars-selection span').removeClass('active');
+            for (var i = value - 1; i >= 0; i--) {
+                $('.stars-selection span').eq(i).addClass('active');
+            };
+        }
+
+        $('.stars-selection span').mouseover(function() {
+            var value = $(this).attr('data-value');
+            paintStars(value);
+            $(this).addClass('active');
+        }).mouseout(function() {
+            var originalVal = $('#rating').val();
+            paintStars(originalVal);
+            
+        }).click(function() {
+            var value = $(this).attr('data-value');
+            $('#rating').val(value);
+            paintStars(value);
+        });
+        paintStars(3);
 
         function UpdateTextLength() {
             var current = CKEDITOR.instances['text'].getData().length,
