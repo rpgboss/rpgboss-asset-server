@@ -36,8 +36,10 @@ GET     /adminpanel/unapproved                    controllers.AdminPanel.unappro
 
 POST     /comment/add/:packageid              controllers.Comment.addComment(packageid:Int, redirect:String ?= "")
 
-GET     /c/:catslug/:packageslug              controllers.Application.assetpackage(catslug:String,packageslug:String)
+GET     /c/:catslug/:packageid/:packageslug              controllers.Application.assetpackage(catslug:String,packageid:Int,packageslug:String)
 GET     /c/:catslug                           controllers.Application.category(catslug:String)
+
+GET     /user/:userid                              controllers.PublicUser.index(userid:Int)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
@@ -45,7 +47,7 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 # Map dynamic images
 GET     /dynimage/:imagename                           controllers.ServeDynamicImage.serve(imagename:String)
 
-# API
+# API v1
 GET     /api/v1/login                           controllers.Api1.login(email:String ?= "", password:String ?= "")
 GET     /api/v1/logout                          controllers.Api1.logout(session:String ?= "")
 GET     /api/v1/get_user                  		controllers.Api1.get_user(session:String ?= "")

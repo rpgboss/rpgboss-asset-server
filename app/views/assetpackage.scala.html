@@ -1,5 +1,5 @@
 @import scala.collection.mutable._ 
-@(categories: MutableList[Category],currentCategory:models.Category, currentPackage:models.AssetPackage, isAuthed:Boolean, user:models.User, packageComments:MutableList[Comment])
+@(categories: MutableList[Category],currentCategory:models.Category, currentPackage:models.AssetPackage, isAuthed:Boolean, user:models.User, packageComments:MutableList[Comment], currentPackageUser:models.User)
 
 @main("RPGBOSS Asset Server - "+currentCategory.name,isAuthed, user) {
 
@@ -20,6 +20,26 @@
         </div>
         <br><br>
         <p>@Html(currentPackage.description)</p>
+        <div class="row line">
+            <div class="col-xs-6">
+                <h4>This package is lincensed as</h4>
+                
+                @if(currentPackage.license==0) {
+                    <a target="_blank" href="http://creativecommons.org/publicdomain/zero/1.0/">Free</a>
+                }
+                @if(currentPackage.license==1) {
+                    <a target="_blank" href="http://creativecommons.org/licenses/by/4.0/">Free (author in credits)</a>
+                }
+                @if(currentPackage.license==2) {
+                    <a target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/">Free (author in credits, remix same license)</a>
+                }
+            </div>
+            <div class="col-xs-6">
+                <h4>From user</h4>
+                <a href="/user/@currentPackageUser.id">@currentPackageUser.display_name</a>
+            </div>
+           
+        </div>
         @if(isAuthed) {
         	<a href="@currentPackage.url" class="button full">Download</a>
         } else {
@@ -47,7 +67,7 @@
         </div>
         @if(isAuthed) {
             <h3>Comment</h3>
-            <form class="comment-section" method="post" action="/comment/add/@currentPackage.id?redirect=/c/@currentCategory.slug/@currentPackage.slug">
+            <form class="comment-section" method="post" action="/comment/add/@currentPackage.id?redirect=/c/@currentCategory.slug/@currentPackage.id/@currentPackage.slug">
                 <span>Rate this package</span>
                 <div class="stars-selection">
                     <span data-value="1" class="icon-star"></span>

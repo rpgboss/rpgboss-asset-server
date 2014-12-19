@@ -68,7 +68,7 @@ class FrontendDbCalls {
 			val query = SQL("select * from `package` WHERE id="+id+";")
 			
 			query().map { row2 =>
-				thepackage = new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"),row2[String]("version"),row2[Int]("category_id"),row2[Int]("user_id"))
+				thepackage = new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"),row2[String]("version"),row2[Int]("category_id"),row2[Int]("user_id"),row2[Int]("license"))
 			}
 		}
 		return thepackage
@@ -87,13 +87,19 @@ class FrontendDbCalls {
 		}
 	}
 
-	def GetPackagesByUserId(id:Int):MutableList[AssetPackage] = {
+	def GetPackagesByUserId(id:Int, onlyVerified:Boolean=false):MutableList[AssetPackage] = {
 		var mypackages:MutableList[AssetPackage] = MutableList()
 
 		DB.withConnection { implicit connection =>
-			var sqlQuery2 = "SELECT * from package WHERE `user_id`="+id+" ORDER BY `created_at` DESC;"
+			var sqlQuery2 = ""
+			if(onlyVerified) {
+				sqlQuery2 = "SELECT * from package WHERE `user_id`="+id+" AND `verified`=1 ORDER BY `created_at` DESC;"
+			}
+			else {
+				sqlQuery2 = "SELECT * from package WHERE `user_id`="+id+" ORDER BY `created_at` DESC;"
+			}
 			SQL(sqlQuery2)().foreach { row2 =>
-				mypackages += new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"),row2[String]("version"),row2[Int]("category_id"),row2[Int]("user_id"))
+				mypackages += new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"),row2[String]("version"),row2[Int]("category_id"),row2[Int]("user_id"),row2[Int]("license"))
 			}
 		}
 

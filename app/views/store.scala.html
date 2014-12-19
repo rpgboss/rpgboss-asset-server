@@ -6,7 +6,12 @@
     @leftcol(categories, currentCategory)
     <div class="col-xs-9">
         <h1>Latest Packages</h1>
-        <br><br>
+        <br>
+        <div class="notice">
+          This is a testrun. There might be problems here and there. If you find something report it one the repository:
+          <a href="https://github.com/rpgboss/rpgboss-asset-server/issues">Klick me</a>
+        </div>
+        <br>
         @categories.map { category:models.Category =>
           <div class="category-list">
               <h2>@category.name</h2>
@@ -14,16 +19,18 @@
               <div class="row">
                 @if(packages(category.name).size!=0) {
                  @packages(category.name).map { row:AssetPackage =>
-                  <a href="/c/@category.slug/@row.slug">
-                    <div class="box package gap col-md-4">
-                      <h1>@row.name</h1>
-                      <div class="image-view">
-                      @if(row.pictures!="") {
-                        <img src="/dynimage/@row.getMainImage()" alt="">
-                      }
+                  <div class="col-md-4">
+                    <a href="/c/@category.slug/@row.id/@row.slug">
+                      <div class="box package gap">
+                        <h1>@row.name</h1>
+                        <div class="image-view">
+                        @if(row.pictures!="") {
+                          <img src="/dynimage/@row.getMainImage()" alt="">
+                        }
+                        </div>
                       </div>
-                    </div>
-                  </a>
+                    </a>
+                  </div>
                  }
                 } else {
                   <div class="notice">

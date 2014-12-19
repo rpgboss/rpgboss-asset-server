@@ -9,7 +9,7 @@
         <br><br>
         @if(packages.size!=0) {
         @packages.map { row:AssetPackage =>
-          <a href="/c/@currentCategory.slug/@row.slug">
+          <a href="/c/@currentCategory.slug/@row.id/@row.slug">
             <div class="box package gap col-md-4">
               <h1>@row.name</h1>
               <div class="image-view">

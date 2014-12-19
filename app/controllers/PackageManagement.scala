@@ -31,7 +31,8 @@ object PackageManagement extends Controller {
 	    "url" -> text,
 	    "text" -> text,
 	    "category_id" -> number,
-	    "version" -> text
+	    "version" -> text,
+	    "license" -> number
 	  )
 	)
 
@@ -97,7 +98,7 @@ object PackageManagement extends Controller {
 
 			DB.withConnection { implicit connection =>
 
-				val (name, url, text, category_id, version) = packageForm.bindFromRequest.get
+				val (name, url, text, category_id, version, license) = packageForm.bindFromRequest.get
 
 				var dbCalls = new FrontendDbCalls()
 
@@ -112,7 +113,7 @@ object PackageManagement extends Controller {
 		  		var currentPackage:AssetPackage = dbCalls.GetPackageById(packageid)
 
 		  		var imagefile = ""
-		  		var images = ""
+		  		var images = currentPackage.pictures
 
 		  		var timestamp: Long = System.currentTimeMillis / 1000
 
@@ -152,7 +153,7 @@ object PackageManagement extends Controller {
 
 				}
 
-		  		var sqlQuery2 = "UPDATE package SET `category_id`="+category_id+" , `pictures`=\""+images+"\",`name`='"+name+"', `version`='"+version+"' , `slug`='"+slug+"' ,`url`= '"+url+"',`description`='"+safeDescription+"' WHERE `id`="+packageid+";"
+		  		var sqlQuery2 = "UPDATE package SET `category_id`="+category_id+" , `pictures`=\""+images+"\",`name`='"+name+"', `version`='"+version+"' , `slug`='"+slug+"' ,`url`= '"+url+"',`description`='"+safeDescription+"', `license`="+license+" WHERE `id`="+packageid+";"
 
 		  		SQL(sqlQuery2).executeUpdate()
 
@@ -258,7 +259,7 @@ object PackageManagement extends Controller {
 
 			DB.withConnection { implicit connection =>
 
-				val (name, url, text, category_id, version) = packageForm.bindFromRequest.get
+				val (name, url, text, category_id, version, license) = packageForm.bindFromRequest.get
 
 				var slug = Util.slugify(name)
 
@@ -269,7 +270,7 @@ object PackageManagement extends Controller {
 
 				var safeDescription = Jsoup.clean(cuttedText, Whitelist.basic());
 				
-				var sqlQuery2 = "INSERT INTO package values(NULL, "+category_id+", "+user.id+", '"+name+"','"+slug+"', '"+url+"','','"+safeDescription+"',0,'','"+version+"',NULL);"
+				var sqlQuery2 = "INSERT INTO package values(NULL, "+category_id+", "+user.id+", '"+name+"','"+slug+"', '"+url+"','','"+safeDescription+"',0,'','"+version+"',NULL,"+license+");"
 				
 				var rowid:Long = 0
 

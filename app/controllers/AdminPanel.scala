@@ -125,7 +125,7 @@ object AdminPanel extends Controller {
 				var sqlQuery2 = "select * from package WHERE `verified`=0 ORDER BY `created_at` DESC;"
 				SQL(sqlQuery2)().foreach { row2 =>
 
-					packages += new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"),row2[String]("version"),row2[Int]("category_id"),row2[Int]("user_id"))
+					packages += new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"),row2[String]("version"),row2[Int]("category_id"),row2[Int]("user_id"),row2[Int]("license"))
 				}
 
 				Ok(views.html.adminpanel_unapproved(isAuthed, user, packages))

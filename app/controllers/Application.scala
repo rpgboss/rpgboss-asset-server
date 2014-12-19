@@ -77,7 +77,7 @@ object Application extends Controller {
     Ok(views.html.login(messageType, isAuthed, user))
   }
 
-  def assetpackage(catslug:String,packageslug:String) = AuthAction { implicit request =>
+  def assetpackage(catslug:String,packageid:Int,packageslug:String) = AuthAction { implicit request =>
 
 	  // Authed
 		var isAuthed = Auth.IsAuthed
@@ -97,12 +97,13 @@ object Application extends Controller {
 				currentCategory = new models.Category(row2[String]("name"), row2[String]("slug"),row2[Int]("id"))
 			}
 
-	  	var sqlQuery3 = "select * from package WHERE `slug`=\""+packageslug+"\" AND `verified`=1 AND `category_id`="+currentCategory.id
+	  	var sqlQuery3 = "select * from package WHERE `id`=\""+packageid+"\" AND `verified`=1 AND `category_id`="+currentCategory.id
 
   		var currentPackage:AssetPackage = null
+  		var currentPackageUser:User = null
  			SQL(sqlQuery3)().map{ row2 => 
-
-				currentPackage = new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"),row2[String]("version"),row2[Int]("category_id"),row2[Int]("user_id"))
+ 				currentPackageUser = dbCalls.GetUserById(row2[Int]("user_id"))
+				currentPackage = new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"),row2[String]("version"),row2[Int]("category_id"),row2[Int]("user_id"),row2[Int]("license"))
 			}
 
 			if(currentPackage!=null) {
@@ -121,7 +122,7 @@ object Application extends Controller {
 					packageComments += theComment
 				}
 
-		  		Ok(views.html.assetpackage(categories,currentCategory,currentPackage, isAuthed, user, packageComments))
+		  		Ok(views.html.assetpackage(categories,currentCategory,currentPackage, isAuthed, user, packageComments,currentPackageUser))
 
   		} else {
 
@@ -165,7 +166,7 @@ object Application extends Controller {
 
 			packageList = selectedPackages().map{ row2 => 
 
-				packagesContainer += new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"),row2[String]("version"),row2[Int]("category_id"),row2[Int]("user_id"))
+				packagesContainer += new AssetPackage(row2[String]("name"), row2[String]("slug"),row2[Int]("id"),row2[String]("description"),row2[String]("url"),row2[String]("pictures"),row2[Int]("verified"),row2[String]("rejection_text"),row2[String]("version"),row2[Int]("category_id"),row2[Int]("user_id"),row2[Int]("license"))
 			}
 
   		Ok(views.html.category(categories,packagesContainer,currentCategory, isAuthed, user))
