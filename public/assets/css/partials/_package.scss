@@ -1,0 +1,30 @@
+.package {
+  margin: 20px 0;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+
+  h2 {
+    font-size:18px;
+    color: $gray;
+    margin:0;
+    padding:0;
+  }
+
+  img {
+    width:100%;
+  }
+
+  .image-view {
+    width:100%;
+    height:180px;
+    overflow:hidden;
+  }
+
+  &:hover {
+    text-decoration: none;
+    .box {
+      border: 1px solid $orange;
+    }
+  }
+
+}

@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+
+$orange: #FF9B14;
+$lightorange: #FFB13B;
+$yellow: #E3E800;
+$lightgray: #E9E9E9;
+$gray: #545454;
+$black: #000;
+$white: #fff;
+$error: #DB002F;
+$success: #29E646;
+
+
+// Import partials from `sass_dir` (defaults to `_sass`)
+@import "partials/base",
+"partials/layout"
+
+;

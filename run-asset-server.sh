@@ -1,1 +1,0 @@
-bin/rpgboss-asset-server -J-server -J-Xms32M -J-Xmx64M -Dhttp.port=80 -Dconfig.file=conf/application.conf -DapplyEvolutions.default=true -DapplyDownEvolutions.default=true

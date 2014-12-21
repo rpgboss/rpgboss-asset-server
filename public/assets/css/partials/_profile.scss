@@ -1,0 +1,21 @@
+.profile-area {
+	margin-top: 15vh;
+	height:auto;
+
+	.fixed {
+		height:auto;
+		padding:8px;
+		@extend .box
+	}
+
+	@extend .box
+}
+
+.dangerzone {
+  border:2px solid $error;
+
+  h5 {
+	color: $error;
+	text-transform: uppercase;
+  }
+}
