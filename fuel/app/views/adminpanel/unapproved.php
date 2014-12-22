@@ -5,6 +5,7 @@
     <div class="col-md-8">
         <div class="row box notfixed gap">
             <h1>Unapproved Packages</h1>
+            <?php if(count($packages)!=0): ?>
             <?php foreach($packages as $package): ?>
             <div class="col-md-4">
                 <div class="box package gap">
@@ -14,6 +15,11 @@
                 </div>
             </div>
             <?php endforeach; ?>
+            <?php else: ?>
+                <div class="notice">
+                    Nothing to review here.
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

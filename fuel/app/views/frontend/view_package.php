@@ -17,25 +17,27 @@
     </div>
     <br><br>
     <p><?php print html_entity_decode( $currentPackage->description ) ?></p>
-    <div class="row line">
+    <div class="line smallmargin"></div>
+    <div class="row infosection">
         <div class="col-xs-6">
             <h4>This package is lincensed as</h4>
 
             <?php if($currentPackage->license==0): ?>
-            <a target="_blank" href="http://creativecommons.org/publicdomain/zero/1.0/">Free</a>
+            <a target="_blank" href="http://creativecommons.org/publicdomain/zero/1.0/"> <span class="icon-license"></span> Free</a>
             <?php endif; ?>
             <?php if($currentPackage->license==1): ?>
-            <a target="_blank" href="http://creativecommons.org/licenses/by/4.0/">Free (author in credits)</a>
+            <a target="_blank" href="http://creativecommons.org/licenses/by/4.0/"> <span class="icon-license"></span> Free (author in credits)</a>
             <?php endif; ?>
             <?php if($currentPackage->license==2): ?>
-            <a target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/">Free (author in credits, remix same license)</a>
+            <a target="_blank" href="http://creativecommons.org/licenses/by-sa/4.0/"> <span class="icon-license"></span> Free (author in credits, remix same license)</a>
             <?php endif; ?>
         </div>
         <div class="col-xs-6">
             <h4>From user</h4>
-            <a href="/user/<?php print $currentPackage->user->id ?>"><?php print $currentPackage->user->profile()->displayed_name ?></a>
+            <a href="/user/<?php print $currentPackage->user->id ?>"> <span class="icon-profile"></span> <?php print $currentPackage->user->profile()->displayed_name ?></a>
         </div>
     </div>
+    <div class="line smallmargin"></div>
     <?php if($isAuthed): ?>
     <a href="<?php print $currentPackage->url ?>" class="button full">Download</a>
     <?php else: ?>

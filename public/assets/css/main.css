@@ -346,6 +346,9 @@ input.button.full {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
+.icon-license:before {
+  content: "\e607"; }
+
 .icon-back:before {
   content: "\e605"; }
 
@@ -438,6 +441,18 @@ input.button.full {
     margin: 10px; }
     .images-area .image-view img {
       width: 100%; }
+
+.infosection a {
+  font-size: 18px;
+  color: #545454;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease; }
+  .infosection a:hover {
+    text-decoration: none;
+    color: #ffb13b; }
+.infosection h4 {
+  text-transform: uppercase;
+  font-size: 14px; }
 
 body {
   font-family: 'Open Sans', sans-serif;

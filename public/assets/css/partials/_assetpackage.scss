@@ -18,3 +18,22 @@
 		}
 	}
 }
+
+.infosection {
+  a {
+	font-size: 18px;
+	color: $gray;
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+
+	&:hover {
+	  text-decoration: none;
+	  color: $lightorange;
+	}
+  }
+
+  h4 {
+	text-transform: uppercase;
+	font-size: 14px;
+  }
+}

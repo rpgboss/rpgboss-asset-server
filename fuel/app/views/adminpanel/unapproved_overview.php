@@ -31,6 +31,9 @@
         </div>
         <?php endif; ?>
         <div class="row box notfixed gap">
+            <div class="notice">
+                Packages must atleast have one image and a description.
+            </div>
             <div class="col-md-12">
                 <form method="post" action="/adminpanel/unapproved/lookat/<?php print $currentPackage->id ?>/reject">
                     <h1>Reason for Rejection</h1>

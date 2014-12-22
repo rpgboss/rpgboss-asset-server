@@ -134,6 +134,8 @@ class Controller_Packagemanagement extends LayoutController {
 // Custom configuration for this upload
         $config = array(
             'path' => DOCROOT.'uploads',
+            'randomize' => true,
+
             'ext_whitelist' => array('jpg', 'jpeg', 'png'),
         );
 
@@ -218,6 +220,7 @@ class Controller_Packagemanagement extends LayoutController {
 // Custom configuration for this upload
         $config = array(
             'path' => DOCROOT.'uploads',
+            'randomize' => true,
             'ext_whitelist' => array('jpg', 'jpeg', 'png'),
         );
 

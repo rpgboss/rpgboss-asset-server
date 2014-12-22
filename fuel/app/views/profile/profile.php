@@ -28,6 +28,12 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Username</label>
+            <div class="col-sm-10">
+                <div class="fixed"><?php print \Auth\Auth::get("username") ?></div>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Display Name</label>
             <div class="col-sm-10">
                 <div class="fixed"><?php print \Auth\Auth::get("displayed_name") ?></div>
