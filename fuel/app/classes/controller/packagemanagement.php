@@ -8,6 +8,14 @@
 
 class Controller_Packagemanagement extends LayoutController {
 
+    private function string512($str) {
+        if(strlen($str)>512) {
+            $str = str_split($str, 512);
+            $str = $str[0];
+        }
+        return $str;
+    }
+
     public function before()
     {
         parent::before();
@@ -126,7 +134,7 @@ class Controller_Packagemanagement extends LayoutController {
         $package->name = $name;
         $package->slug = \Fuel\Core\Inflector::friendly_title($name);
         $package->url = $url;
-        $package->description = $description;
+        $package->description = $this->string512($description);
         $package->license = $license;
         $package->version = $version;
         $package->save();
@@ -206,7 +214,7 @@ class Controller_Packagemanagement extends LayoutController {
         $package->slug = \Fuel\Core\Inflector::friendly_title($name);
         $package->url = $url;
         $package->pictures = '';
-        $package->description = $description;
+        $package->description = $this->string512($description);
         $package->verified = 0;
         $package->license = $license;
         $package->rejection_text = '';

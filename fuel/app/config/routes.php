@@ -42,6 +42,7 @@ return array(
 	'adminpanel/unapproved' => 'adminpanel/unapproved',
 
 	'comment/add/:packageid' => 'comment/add',
+	'comment/remove/:packageid' => 'comment/remove',
 
 	'c/:catslug/:packageid/:packageslug' => 'frontend/view_package',
 	'c/:catslug' => 'frontend/view_category',

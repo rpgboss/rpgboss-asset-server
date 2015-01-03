@@ -38,11 +38,12 @@
         </div>
     </div>
     <div class="line smallmargin"></div>
-    <?php if($isAuthed): ?>
+
     <a href="<?php print $currentPackage->url ?>" class="button full">Download</a>
-    <?php else: ?>
-    <a href="/login" class="button full">Login to download</a>
-    <?php endif; ?>
+    <!--
+    <br/>
+    <a href="jtlc://package-<?php print $currentPackage->id ?>" class="button full">Download into program</a>
+    -->
     <div class="box notfixed gap comment-section">
         <h1>User Comments</h1>
         <?php if($currentPackage->comments!=null): ?>
@@ -61,6 +62,10 @@
             <p><?php print html_entity_decode($comment->content) ?></p>
             <div class="line"></div>
             <span class="date"><?php print date('Y-m-d H:i',$comment->created_at) ?></span>
+            <?php if($isAuthed && \Auth\Auth::get("group")==1): ?>
+                <div class="line"></div>
+                <a href="/comment/remove/<?php print $comment->id ?>?redirect=<?php print \Fuel\Core\Uri::current() ?>">Remove comment</a>
+            <?php endif; ?>
         </div>
         <?php endforeach; ?>
         <?php else: ?>
