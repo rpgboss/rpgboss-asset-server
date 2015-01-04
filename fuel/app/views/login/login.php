@@ -12,7 +12,11 @@
         </div>
         <br>
     <?php endif; ?>
-    <form class="form-horizontal" method="post" role="form" action="/login/attempt">
+    <form class="form-horizontal" method="post" role="form" action="/login/attempt<?php
+    if(\Fuel\Core\Input::get('type')!='') {
+        print '?type='.\Fuel\Core\Input::get('type');
+    }
+    ?>">
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Username</label>
             <div class="col-sm-10">

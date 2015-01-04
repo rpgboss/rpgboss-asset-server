@@ -64,6 +64,133 @@
     2014 © rpgboss.com
     </div>
     </footer>
+    <?php if($isAuthed): ?>
+    <div class="chat row">
+        <div class="headline row">
+            <h1>Community Chat</h1>
+        </div>
+        <div class="body row">
+            <div class="users col-xs-4">
+                <span class="online"></span>
+                <ul id="userlist"></ul>
+            </div>
+            <div class="messages col-xs-8"></div>
+        </div>
+        <div class="inputmessage row">
+            <input type="text" placeholder="Write a message..."/>
+            <a class="send" href="#">Send</a>
+        </div>
+    </div>
+        <script>
+            $('.chat').hide();
+            var username = "<?php print \Auth\Auth::get('displayed_name') ?>",
+                chatBody = $('.chat .body, .chat .body, .chat .inputmessage'),
+                chatTrigger = true,
+                chatMessageOdd=false,
+                onlineInteravl = -1;
+
+            function addMessage(msg) {
+                var data = msg.split(';');
+                var name = $('<strong>').text(data[0]);
+
+                var stamp = new Date(data[2]*1000);
+                var date = $('<span>').text('('+stamp.getHours()+':'+stamp.getMinutes()+')');
+
+                var text = ': '+data[1];
+                var classname = 'message';
+                if(chatMessageOdd) {
+                    classname = 'message odd';
+                    chatMessageOdd = false;
+                } else {
+                    chatMessageOdd = true;
+                }
+
+
+                $('.chat .messages').append($('<p>',{'class':classname}).append(name, ' ', date, text));
+            }
+
+            if(("WebSocket" in window)){
+
+                var socket = new WebSocket("ws://assets.rpgboss.com:8080/");
+                socket.onopen = function(){
+                    $('.chat').show();
+                    socket.send('me<>add-user:'+username);
+                }
+                socket.onmessage = function(msg){
+
+                    var split = msg.data.split('<>'),
+                        type = parseInt(split[0]),
+                        message = split[1];
+
+                    switch(type) {
+                        case 1:
+                            addMessage(message);
+                            break;
+                        case 2:
+                            $('.online').text('('+message+' User)');
+                            break;
+                        case 4:
+                            var names = message.split(',');
+                            $('#userlist').empty();
+                            $.each(names, function(key, name) {
+                                $('#userlist').append($('<li>').append($('<span>',{'class':'icon-profile'}),' ',name));
+                            });
+                            break;
+                        case 5:
+                            var messages = atob(message).split('^^^');
+                            $.each(messages, function(key, message) {
+                                if(message!='') {
+                                    addMessage(message.replace('1<>',''));
+                                }
+                            });
+                            $('.chat .messages').append($('<div class="previousbreak">').text('last messages'));
+                            break;
+                    }
+
+                }
+                $('.chat .headline').click(function() {
+                    if(!chatTrigger) {
+                        chatBody.show();
+                        chatTrigger = true;
+                    } else {
+                        chatBody.hide();
+                        chatTrigger = false;
+                    }
+                });
+                $('.chat input').keypress(function(event) {
+                    if (event.keyCode == '13') {
+                        $('.chat .send').trigger('click');
+                    }
+                });
+                $('.chat .send').click(function() {
+                    var text = $('.chat input').val();
+                    if(text==""){
+                        alert('Please enter a message');
+                        return ;
+                    }
+                    try{
+                        var textMessage = username+';'+text;
+                        socket.send("msg<>"+textMessage);
+                    } catch(exception){
+
+                    }
+
+                    $('.chat input').val("");
+                });
+                onlineInteravl = setInterval(function() {
+                    socket.send("me<>get-users");
+                    socket.send("me<>get-usernames");
+                },3000);
+
+                $('.chat .headline').trigger('click');
+
+                if(location.hash=='#showchat') {
+                    $('.chat .headline').trigger('click');
+                    location.hash = '';
+                }
+            }
+        </script>
+    <?php endif; ?>
     <script type="text/javascript">
     $(document).ready(function() {
         var bodyHeight = $("body").height();

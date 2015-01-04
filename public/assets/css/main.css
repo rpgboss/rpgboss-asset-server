@@ -454,6 +454,65 @@ input.button.full {
   text-transform: uppercase;
   font-size: 14px; }
 
+.chat {
+  width: 500px;
+  position: fixed;
+  right: 10%;
+  bottom: 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); }
+  .chat .headline {
+    background: #ff9b14;
+    padding: 10px;
+    cursor: pointer; }
+    .chat .headline h1 {
+      color: white;
+      margin: 0;
+      padding: 0; }
+  .chat .body {
+    border: 1px solid #e9e9e9;
+    height: 300px;
+    overflow: auto;
+    background: white; }
+    .chat .body .users {
+      background: #e9e9e9; }
+      .chat .body .users #userlist {
+        list-style: none;
+        padding: 0;
+        margin: 0; }
+    .chat .body .previousbreak {
+      font-size: 10px;
+      color: #ffb13b;
+      border-top: 1px solid #ffb13b;
+      margin: 5px 0; }
+    .chat .body .message {
+      padding: 5px; }
+      .chat .body .message.odd {
+        background: #e9e9e9; }
+  .chat .inputmessage {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 42px; }
+    .chat .inputmessage .send {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      border-radius: 5px;
+      background: #e9e9e9;
+      padding: 5px;
+      color: #ff9b14;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      -webkit-transition: all 0.3s ease; }
+      .chat .inputmessage .send:hover {
+        text-decoration: none;
+        background: #ff9b14;
+        color: #545454; }
+    .chat .inputmessage input {
+      position: absolute;
+      top: 0%;
+      left: 0; }
+
 body {
   font-family: 'Open Sans', sans-serif;
   font-weight: 300; }

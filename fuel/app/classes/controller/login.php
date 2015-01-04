@@ -30,6 +30,10 @@ class Controller_Login extends \LayoutController
 
     public function action_login()
     {
+        if(\Fuel\Core\Input::get('type')!='') {
+            return \Fuel\Core\Response::redirect('/#'.\Fuel\Core\Input::get('type'));
+        }
+
         $this->data->view = View::forge('login/login');
     }
 
@@ -51,7 +55,11 @@ class Controller_Login extends \LayoutController
                 \Auth\Auth::logout();
                 return Response::redirect('/login?error=2');
             }
-            return Response::redirect('/');
+            $hash ='';
+            if(\Fuel\Core\Input::get('type')) {
+                $hash = '#'.\Fuel\Core\Input::get('type');
+            }
+            return Response::redirect('/'.$hash);
         } else {
             return Response::redirect('/login?error=1');
         }

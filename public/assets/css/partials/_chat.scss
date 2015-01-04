@@ -1,0 +1,87 @@
+.chat {
+
+  width: 500px;
+  position: fixed;
+  right: 10%;
+  bottom: 0;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+
+  .headline {
+    background: $orange;
+    padding: 10px;
+    cursor: pointer;
+
+    h1 {
+      color:$white;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .body {
+    border: 1px solid $lightgray;
+    height: 300px;
+    overflow: auto;
+    background: $white;
+
+    .users {
+      background: $lightgray;
+
+      #userlist {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+    }
+
+    .previousbreak {
+      font-size: 10px;
+      color: $lightorange;
+      border-top: 1px solid $lightorange;
+      margin: 5px 0;
+    }
+
+    .message {
+      padding: 5px;
+
+
+
+      &.odd {
+        background: $lightgray;
+      }
+    }
+  }
+
+ .inputmessage {
+   position: relative;
+   top: 0;
+   left: 0;
+   height: 42px;
+
+   .send {
+     position: absolute;
+     right: 5px;
+     top: 5px;
+     border-radius: 5px;
+     background: $lightgray;
+     padding: 5px;
+     color: $orange;
+     text-decoration: none;
+     transition: all 0.3s ease;
+     -webkit-transition: all 0.3s ease;
+
+     &:hover {
+       text-decoration: none;
+       background: $orange;
+       color: $gray;
+     }
+   }
+
+   input {
+     position: absolute;
+     top: 0%;
+     left: 0;
+   }
+ }
+
+}
