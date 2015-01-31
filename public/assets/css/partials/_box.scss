@@ -36,6 +36,11 @@
 	list-style-type: none;
 }
 
+.box ul.list {
+  list-style-type: square;
+  margin-left: 20px;
+}
+
 .box a {
 	color: $gray;
 	text-decoration: none;

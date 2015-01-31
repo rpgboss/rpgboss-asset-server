@@ -26,7 +26,7 @@
     <li><a href="https://github.com/rpgboss/rpgboss">Get the Source</a></li>
     <li><a href="https://github.com/rpgboss/rpgboss/issues">BugTracker</a></li>
     <li><a href="http://rpgboss.forumatic.com/">Community Forum</a></li>
-    <li><a class="active" href="http://assets.rpgboss.com/">Asset Store</a></li>
+    <li><a class="active" href="http://assets.rpgboss.com/">Assets & Games</a></li>
     <li><a href="https://github.com/rpgboss/rpgboss/wiki">Tutorials</a></li>
     </ul>
     </div>

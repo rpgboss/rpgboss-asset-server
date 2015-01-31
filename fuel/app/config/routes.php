@@ -35,11 +35,12 @@ return array(
 	'packagemanagement/:packageid' => 'packagemanagement/edit_package',
 	'packagemanagement' => 'packagemanagement/create_package',
 
+	'projectmanagement/create' => 'projectmanagement/project_create',
+	'projectmanagement/:projectid/delete' => 'projectmanagement/delete_project',
 	'projectmanagement/removeimage/:imagefile/:projectid' => 'projectmanagement/remove_image',
 	'projectmanagement/:projectid/update' => 'projectmanagement/project_update',
 	'projectmanagement/updateimageorder/:projectid/:imageorder' => 'projectmanagement/update_image_order',
 	'projectmanagement/:projectid' => 'projectmanagement/project_edit',
-	'projectmanagement/create' => 'projectmanagement/project_create',
 	'projectmanagement' => 'projectmanagement/projects',
 
 	'adminpanel/unapproved/lookat/:packageid/approve' => 'adminpanel/unapproved_approve_package',

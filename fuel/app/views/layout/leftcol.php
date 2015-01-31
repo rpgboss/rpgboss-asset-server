@@ -8,6 +8,16 @@
         </form>
     </div>
     <div class="box notfixed gap">
+        <h1>Sign Up</h1>
+        <p>Register to be able to
+        <ul class="list">
+            <li>publish assets</li>
+            <li>publish your own games</li>
+        </ul>
+        </p>
+        <a href="/register" class="button full">Sign Up</a>
+    </div>
+    <div class="box notfixed gap">
         <h1>Games</h1>
         <ul>
             <?php if($currentProjectCategory->slug=="home"): ?>
@@ -22,7 +32,7 @@
         </ul>
     </div>
     <div class="box notfixed gap">
-        <h1>Ressources</h1>
+        <h1>Assets</h1>
         <ul>
             <?php if($currentCategory->slug==""): ?>
             <li><a class="active" href="/">Home</a></li>
@@ -34,10 +44,5 @@
             <li><a <?php print $category->slug==$currentCategory->slug ? 'class="active"' : '' ?> href="/c/<?php print $category->slug ?>"><?php print $category->name ?></a></li>
             <?php endforeach; ?>
         </ul>
-    </div>
-    <div class="box notfixed gap">
-        <h1>Sign Up</h1>
-        <p>Register to be able to import directly into your editor.</p>
-        <a href="/register" class="button full">Sign Up</a>
     </div>
 </div>

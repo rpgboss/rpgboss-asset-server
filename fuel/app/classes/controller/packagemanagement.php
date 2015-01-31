@@ -186,6 +186,15 @@ class Controller_Packagemanagement extends LayoutController {
         if($package==null) return \Fuel\Core\Response::forge('');
 
         try {
+            if($package->pictures != '') {
+                $imagearray = \Fuel\Core\Format::forge($package->pictures,'json')->to_array();
+                foreach($imagearray as $image) {
+                    if(\Fuel\Core\File::exists(DOCROOT.'uploads/'.$image)) {
+                        \Fuel\Core\File::delete(DOCROOT.'uploads/'.$image);
+                        \Fuel\Core\File::delete(DOCROOT.'uploads/'.str_replace('re_','re_th_',$image));
+                    }
+                }
+            }
             $package->delete();
         } catch(Exception $e) {
 

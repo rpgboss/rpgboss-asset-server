@@ -80,6 +80,10 @@
     <input class="button full" type="submit" name="submit" value="Update">
 </form>
 </div>
+    <div class="box notfixed gap dangerzone">
+        <h5>Dangerzone</h5>
+        <a class="button" href="/projectmanagement/<?php print $currentProject->id ?>/delete">Delete this Project</a>
+    </div>
 </div>
 
 <script src="<?php print \Fuel\Core\Uri::create("assets/js/ckeditor/ckeditor.js"); ?>"></script>

@@ -165,8 +165,12 @@ class Controller_Projectmanagement extends LayoutController
         $this->no_render();
 
         $name = \Fuel\Core\Input::post('name');
+
+        if($name=='') return \Fuel\Core\Response::redirect('projectmanagement');
+
         $project = new Model_Project();
         $project->user_id = $this->data->userid;
+        $project->category_id = 1;
         $project->name = $name;
         $project->slug = \Fuel\Core\Inflector::friendly_title($name);
         $project->downloadlink = "";
@@ -177,11 +181,48 @@ class Controller_Projectmanagement extends LayoutController
         $project->rejection_text = '';
         $project->version = 0;
         $project->created_at = time();
+        $project->style = '';
+        $project->bigpicture = '';
         $project->save();
 
         $lastid = Model_Project::find('last')->id;
 
         return \Fuel\Core\Response::redirect('projectmanagement/'.$lastid);
+    }
+
+    public function action_delete_project()
+    {
+        $this->no_render();
+
+        $package = Model_Project::find('first',array(
+            'where' => array('id'=>$this->param('projectid'), 'user_id'=> $this->data->userid)
+        ));
+
+        if($package==null) return \Fuel\Core\Response::forge('');
+
+        try {
+            if($package->pictures != '') {
+                $imagearray = \Fuel\Core\Format::forge($package->pictures,'json')->to_array();
+                foreach($imagearray as $image) {
+                    if(\Fuel\Core\File::exists(DOCROOT.'uploads2/'.$image)) {
+                        \Fuel\Core\File::delete(DOCROOT.'uploads2/'.$image);
+                        \Fuel\Core\File::delete(DOCROOT.'uploads2/'.str_replace('re_','re_th_',$image));
+                    }
+                }
+            }
+            if($package->bigpicture != '') {
+                if(\Fuel\Core\File::exists(DOCROOT.'uploads2/'.$package->bigpicture)) {
+                    \Fuel\Core\File::delete(DOCROOT.'uploads2/'.$package->bigpicture);
+                    \Fuel\Core\File::delete(DOCROOT.'uploads2/'.str_replace('projectbig_','projectbig_th_',$package->bigpicture));
+                }
+            }
+            $package->delete();
+        } catch(Exception $e) {
+
+        }
+
+        //return \Fuel\Core\Response::forge("");
+        return \Fuel\Core\Response::redirect('/projectmanagement');
     }
 
     public function action_update_image_order()

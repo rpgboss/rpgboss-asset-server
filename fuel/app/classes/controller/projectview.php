@@ -68,6 +68,11 @@ class Controller_Projectview extends LayoutController
         $data = array();
         $data['project'] = Model_Project::find($projectid);
 
-        $this->data->view = \Fuel\Core\View::forge('projectview/view', $data);
+        if($data['project']==null) {
+            $this->data->view = \Fuel\Core\View::forge('projectview/not_found', $data);
+        } else {
+            $this->data->view = \Fuel\Core\View::forge('projectview/view', $data);
+        }
+
     }
 }

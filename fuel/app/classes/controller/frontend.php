@@ -48,8 +48,6 @@ class Controller_Frontend extends \LayoutController
 	{
 		$term = \Fuel\Core\Input::get('term');
 
-		$this->data->leftcol= '';
-
 		$data = array();
 		$data['term'] = $term;
 
@@ -62,6 +60,17 @@ class Controller_Frontend extends \LayoutController
 		));
 
 		$data['packages'] = $packages;
+
+		$projects = Model_Project::find('all', array(
+			'where' => array(
+				array('name','like','%'.$term.'%'),
+				'verified'=>0
+			),
+			'order_by' => array('created_at' =>'DESC')
+		));
+
+		$data['projects'] = $projects;
+
 		$this->data->view = View::forge('frontend/search',$data);
 	}
 

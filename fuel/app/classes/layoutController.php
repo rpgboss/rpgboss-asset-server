@@ -50,9 +50,11 @@ class LayoutController extends \Fuel\Core\Controller {
         $catslug = $this->param('catslug');
 
         $data = array();
-        if($catslug==null) {
-            $data['currentCategory'] = new Model_Category();
-        } else {
+
+        $data['currentProjectCategory'] = new Model_Project_Category();
+        $data['currentCategory'] = new Model_Category();
+
+        if($catslug!=null) {
             $data['currentCategory'] = Model_Category::find('first',array(
                 'where' => array('slug'=>$catslug)
             ));
@@ -60,20 +62,24 @@ class LayoutController extends \Fuel\Core\Controller {
                 $data['currentCategory'] = new Model_Category();
             }
         }
-        if(preg_match("#project/category/home#i",\Fuel\Core\Uri::current())) {
-            $data['currentProjectCategory'] = new Model_Project_Category();
-            $data['currentProjectCategory']->slug = "home";
 
-            $data['currentCategory']->slug = "undefined";
-        } else {
-            $data['currentProjectCategory'] = Model_Project_Category::find('first',array(
-                'where' => array('slug'=>$catslug)
-            ));
-            if($data['currentProjectCategory']==null) {
+        $inCategory = preg_match("#project/category/#i",\Fuel\Core\Uri::current());
+        if($inCategory) {
+            if($catslug == "home") {
                 $data['currentProjectCategory'] = new Model_Project_Category();
                 $data['currentProjectCategory']->slug = "home";
+
+                $data['currentCategory']->slug = "undefined";
+            } else {
+                $data['currentProjectCategory'] = Model_Project_Category::find('first',array(
+                    'where' => array('slug'=>$catslug)
+                ));
+                if($data['currentProjectCategory']==null) {
+                    $data['currentProjectCategory'] = new Model_Project_Category();
+                    $data['currentProjectCategory']->slug = "home";
+                }
+                $data['currentCategory']->slug = "undefined";
             }
-            $data['currentCategory']->slug = "undefined";
         }
 
         $data["categories"] =	Model_Category::find("all");

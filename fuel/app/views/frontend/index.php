@@ -2,8 +2,8 @@
     <h1>Latest Packages</h1>
     <br>
     <div class="notice">
-        This is a testrun. There might be problems here and there. If you find something report it one the repository:
-        <a href="https://github.com/rpgboss/rpgboss-asset-server/issues">Klick me</a>
+        If you find bugs or have ideas for improvement tell us:
+        <a href="https://github.com/rpgboss/rpgboss-asset-server/issues">Click me</a>
     </div>
     <br>
     <?php foreach($categories as $cat): ?>
