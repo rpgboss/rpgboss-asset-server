@@ -27,7 +27,7 @@ return array(
 	'activate/account/:activationkey' => 'register/activate_account',
 
 	'packagemanagement/removeimage/:imagefile/:packageid' => 'packagemanagement/remove_image',
-	'packagemanagement/:updateimageorder/:packageid/:imageorder' => 'packagemanagement/update_image_order',
+	'packagemanagement/updateimageorder/:packageid/:imageorder' => 'packagemanagement/update_image_order',
 	'packagemanagement/edit/:packageid' => 'packagemanagement/update_package',
 	'packagemanagement/submit' => 'packagemanagement/submit_package',
 	'packagemanagement/:packageid/requestapproval' => 'packagemanagement/request_approval',
@@ -35,11 +35,20 @@ return array(
 	'packagemanagement/:packageid' => 'packagemanagement/edit_package',
 	'packagemanagement' => 'packagemanagement/create_package',
 
+	'projectmanagement/removeimage/:imagefile/:projectid' => 'projectmanagement/remove_image',
+	'projectmanagement/:projectid/update' => 'projectmanagement/project_update',
+	'projectmanagement/updateimageorder/:projectid/:imageorder' => 'projectmanagement/update_image_order',
+	'projectmanagement/:projectid' => 'projectmanagement/project_edit',
+	'projectmanagement/create' => 'projectmanagement/project_create',
+	'projectmanagement' => 'projectmanagement/projects',
 
 	'adminpanel/unapproved/lookat/:packageid/approve' => 'adminpanel/unapproved_approve_package',
 	'adminpanel/unapproved/lookat/:packageid/reject' => 'adminpanel/unapproved_reject_package',
 	'adminpanel/unapproved/lookat/:packageid' => 'adminpanel/unapproved_view_package',
 	'adminpanel/unapproved' => 'adminpanel/unapproved',
+
+	'project/category/:catslug' => 'projectview/view_category',
+	'project/:projectid/:projectname' => 'projectview/view',
 
 	'comment/add/:packageid' => 'comment/add',
 	'comment/remove/:packageid' => 'comment/remove',

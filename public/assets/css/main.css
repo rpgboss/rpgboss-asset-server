@@ -72,7 +72,8 @@
 .box, .profile-area .fixed, .profile-area {
   border: 1px solid #e9e9e9;
   padding: 15px;
-  height: 260px; }
+  height: 260px;
+  background: white; }
 
 .box.notfixed, .profile-area .notfixed.fixed, .notfixed.profile-area {
   height: auto; }
@@ -234,7 +235,8 @@
 
 .userheader {
   border-bottom: 1px solid #e9e9e9;
-  padding: 10px 0; }
+  padding: 10px 0;
+  background: white; }
   .userheader .hello-col {
     text-align: right; }
 
@@ -346,6 +348,9 @@ input.button.full {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
+.icon-game:before {
+  content: "\e608"; }
+
 .icon-license:before {
   content: "\e607"; }
 
@@ -370,22 +375,22 @@ input.button.full {
 .icon-settings:before {
   content: "\e602"; }
 
-.pm-area .box a, .profile-area .pm-area .fixed a, .pm-area .profile-area a {
+.pm-area .box a, .profile-area .pm-area .fixed a, .pm-area .profile-area a, .proj-area .box a, .profile-area .proj-area .fixed a, .proj-area .profile-area a {
   display: inline; }
-.pm-area .box a.button, .profile-area .pm-area .fixed a.button, .pm-area .profile-area a.button {
+.pm-area .box a.button, .profile-area .pm-area .fixed a.button, .pm-area .profile-area a.button, .proj-area .box a.button, .profile-area .proj-area .fixed a.button, .proj-area .profile-area a.button {
   display: block; }
-.pm-area .box li span.error, .profile-area .pm-area .fixed li span.error, .pm-area .profile-area li span.error {
+.pm-area .box li span.error, .profile-area .pm-area .fixed li span.error, .pm-area .profile-area li span.error, .proj-area .box li span.error, .profile-area .proj-area .fixed li span.error, .proj-area .profile-area li span.error {
   color: #db002f; }
-.pm-area .box li span.success, .profile-area .pm-area .fixed li span.success, .pm-area .profile-area li span.success {
+.pm-area .box li span.success, .profile-area .pm-area .fixed li span.success, .pm-area .profile-area li span.success, .proj-area .box li span.success, .profile-area .proj-area .fixed li span.success, .proj-area .profile-area li span.success {
   color: #29e646; }
-.pm-area .package-images .package-image {
+.pm-area .package-images .package-image, .proj-area .package-images .package-image {
   position: relative;
   cursor: move;
   width: 100px;
   height: 100px;
   overflow: hidden;
   background-size: 100% 100%; }
-  .pm-area .package-images .package-image a {
+  .pm-area .package-images .package-image a, .proj-area .package-images .package-image a {
     position: absolute;
     top: 10;
     font-size: 16px;
@@ -408,25 +413,37 @@ input.button.full {
   .comment-section .icon-star.active {
     color: #e3e800; }
 
-.package {
+.package,
+.project {
   margin: 20px 0;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease; }
-  .package h2 {
+  .package h2,
+  .project h2 {
     font-size: 18px;
     color: #545454;
     margin: 0;
     padding: 0; }
-  .package img {
+  .package img,
+  .project img {
     width: 100%; }
-  .package .image-view {
+  .package .image-view,
+  .project .image-view {
     width: 100%;
     height: 180px;
     overflow: hidden; }
-  .package:hover {
+  .package:hover,
+  .project:hover {
     text-decoration: none; }
-    .package:hover .box, .package:hover .profile-area .fixed, .profile-area .package:hover .fixed, .package:hover .profile-area {
+    .package:hover .box, .package:hover .profile-area .fixed, .profile-area .package:hover .fixed, .package:hover .profile-area,
+    .project:hover .box,
+    .project:hover .profile-area .fixed,
+    .profile-area .project:hover .fixed,
+    .project:hover .profile-area {
       border: 1px solid #ff9b14; }
+
+.project .image-view {
+  height: auto; }
 
 .images-area {
   overflow: hidden;
@@ -464,14 +481,14 @@ input.button.full {
     background: #ff9b14;
     padding: 10px;
     cursor: pointer; }
+    .chat .headline.blink {
+      background: #ffb13b; }
     .chat .headline h1 {
       color: white;
       margin: 0;
       padding: 0; }
   .chat .body {
     border: 1px solid #e9e9e9;
-    height: 300px;
-    overflow: auto;
     background: white; }
     .chat .body .users {
       background: #e9e9e9; }
@@ -484,6 +501,9 @@ input.button.full {
       color: #ffb13b;
       border-top: 1px solid #ffb13b;
       margin: 5px 0; }
+    .chat .body .messages {
+      height: 300px;
+      overflow: auto; }
     .chat .body .message {
       padding: 5px; }
       .chat .body .message.odd {
@@ -512,6 +532,16 @@ input.button.full {
       position: absolute;
       top: 0%;
       left: 0; }
+
+.projectview .images img {
+  width: 100%; }
+.projectview .informations {
+  background: #e9e9e9;
+  padding-bottom: 20px; }
+.projectview .crumb {
+  border-top: none; }
+  .projectview .crumb a {
+    display: inline; }
 
 body {
   font-family: 'Open Sans', sans-serif;

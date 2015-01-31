@@ -130,6 +130,10 @@ class Controller_Frontend extends \LayoutController
 				'where' => array('user_id'=>$this->param('userid'), 'verified'=>1),
 				'order_by' => array('created_at'=>'DESC')
 			));
+			$data['projects'] = Model_Project::find('all', array(
+				'where' => array('user_id'=>$this->param('userid'), 'verified'=>0),
+				'order_by' => array('created_at'=>'DESC')
+			));
 
 			$this->data->view = View::forge('profile/public', $data);
 		}

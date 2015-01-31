@@ -11,6 +11,10 @@
     padding: 10px;
     cursor: pointer;
 
+    &.blink {
+      background: $lightorange;
+    }
+
     h1 {
       color:$white;
       margin: 0;
@@ -20,8 +24,6 @@
 
   .body {
     border: 1px solid $lightgray;
-    height: 300px;
-    overflow: auto;
     background: $white;
 
     .users {
@@ -39,6 +41,11 @@
       color: $lightorange;
       border-top: 1px solid $lightorange;
       margin: 5px 0;
+    }
+
+    .messages {
+      height: 300px;
+      overflow: auto;
     }
 
     .message {

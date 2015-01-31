@@ -8,6 +8,20 @@
         </form>
     </div>
     <div class="box notfixed gap">
+        <h1>Games</h1>
+        <ul>
+            <?php if($currentProjectCategory->slug=="home"): ?>
+                <li><a class="active" href="/project/category/home">Home</a></li>
+            <?php else: ?>
+                <li><a href="/project/category/home">Home</a></li>
+            <?php endif; ?>
+
+            <?php foreach ($projectcategories as $projectcategory): ?>
+                <li><a <?php print $projectcategory->slug==$currentProjectCategory->slug ? 'class="active"' : '' ?> href="/project/category/<?php print $projectcategory->slug ?>"><?php print $projectcategory->name ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <div class="box notfixed gap">
         <h1>Ressources</h1>
         <ul>
             <?php if($currentCategory->slug==""): ?>

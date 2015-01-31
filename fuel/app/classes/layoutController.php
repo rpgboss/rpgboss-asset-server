@@ -60,7 +60,26 @@ class LayoutController extends \Fuel\Core\Controller {
                 $data['currentCategory'] = new Model_Category();
             }
         }
+        if(preg_match("#project/category/home#i",\Fuel\Core\Uri::current())) {
+            $data['currentProjectCategory'] = new Model_Project_Category();
+            $data['currentProjectCategory']->slug = "home";
+
+            $data['currentCategory']->slug = "undefined";
+        } else {
+            $data['currentProjectCategory'] = Model_Project_Category::find('first',array(
+                'where' => array('slug'=>$catslug)
+            ));
+            if($data['currentProjectCategory']==null) {
+                $data['currentProjectCategory'] = new Model_Project_Category();
+                $data['currentProjectCategory']->slug = "home";
+            }
+            $data['currentCategory']->slug = "undefined";
+        }
+
         $data["categories"] =	Model_Category::find("all");
+        $data["projectcategories"] = Model_Project_Category::find("all");
+
+        $this->data->contentCustomClass = '';
 
         $this->data->userpanel = 0;
         $this->data->leftcol = View::forge('layout/leftcol', $data);

@@ -38,7 +38,7 @@
     <?php if($isAuthed): ?>
         <a class="<?php print $userpanel==-1 ? 'active' : '' ?>" href="/"><span class="icon-home"></span>Home</a>
     <a class="<?php print $userpanel==1 ? 'active' : '' ?>" href="/packagemanagement"><span class="icon-package"></span>Packagemanagement</a>
-
+        <a class="<?php print $userpanel==4 ? 'active' : '' ?>" href="/projectmanagement"><span class="icon-game"></span>Projectmanagement</a>
         <a class="<?php print $userpanel==2 ? 'active' : '' ?>" href="/profile"><span class="icon-profile"></span>Profile</a>
         <?php if(\Auth\Auth::get("group")==1): ?>
             <a class="<?php print $userpanel==3 ? 'active' : '' ?>" href="/adminpanel/unapproved"><span class="icon-settings"></span>Admin</a>
@@ -55,7 +55,7 @@
     </div>
     </div>
     </div>
-    <div class="container">
+    <div class="container <?php print $contentCustomClass; ?>">
         <?php print $leftcol ?>
         <?php print $view ?>
     </div>
@@ -65,6 +65,7 @@
     </div>
     </footer>
     <?php if($isAuthed): ?>
+        <audio id="ccsound" src="<?php print \Fuel\Core\Uri::create('assets/sound/cc-sound.wav') ?>" preload="auto"></audio>
     <div class="chat row">
         <div class="headline row">
             <h1>Community Chat</h1>
@@ -96,7 +97,7 @@
                 var stamp = new Date(data[2]*1000);
                 var date = $('<span>').text('('+stamp.getHours()+':'+stamp.getMinutes()+')');
 
-                var text = ': '+data[1];
+                var text = $('<span>').text(': '+data[1]);
                 var classname = 'message';
                 if(chatMessageOdd) {
                     classname = 'message odd';
@@ -107,6 +108,23 @@
 
 
                 $('.chat .messages').append($('<p>',{'class':classname}).append(name, ' ', date, text));
+
+                $('.chat .messages').scrollTop($('.chat .messages')[0].scrollHeight);
+
+            }
+
+            function blink() {
+
+                setTimeout(function() {
+                    $('.chat .headline').addClass('blink');
+                    setTimeout(function() {
+                        $('.chat .headline').removeClass('blink');
+
+                        if(!chatTrigger) {
+                            blink();
+                        }
+                    },800);}
+                ,800);
             }
 
             if(("WebSocket" in window)){
@@ -125,6 +143,10 @@
                     switch(type) {
                         case 1:
                             addMessage(message);
+                            if(!chatTrigger) {
+                                document.getElementById('ccsound').play();
+                                blink();
+                            }
                             break;
                         case 2:
                             $('.online').text('('+message+' User)');
@@ -151,6 +173,7 @@
                 $('.chat .headline').click(function() {
                     if(!chatTrigger) {
                         chatBody.show();
+                        $('.chat .messages').scrollTop($('.chat .messages')[0].scrollHeight);
                         chatTrigger = true;
                     } else {
                         chatBody.hide();
@@ -162,7 +185,8 @@
                         $('.chat .send').trigger('click');
                     }
                 });
-                $('.chat .send').click(function() {
+                $('.chat .send').click(function(e) {
+                    e.preventDefault();
                     var text = $('.chat input').val();
                     if(text==""){
                         alert('Please enter a message');
@@ -176,6 +200,8 @@
                     }
 
                     $('.chat input').val("");
+
+                    return false;
                 });
                 onlineInteravl = setInterval(function() {
                     socket.send("me<>get-users");
@@ -188,6 +214,7 @@
                     $('.chat .headline').trigger('click');
                     location.hash = '';
                 }
+
             }
         </script>
     <?php endif; ?>

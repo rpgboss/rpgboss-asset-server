@@ -34,4 +34,8 @@
             <a href="/forgot-password">Forgot password?</a>
         </div>
     </form>
+    <div class="line"></div>
+    <h1>Want to connect to the community chat?</h1>
+    <p>you have to register an account to do so.</p>
+    <a href="/register">Sign Up now!</a>
 </div>

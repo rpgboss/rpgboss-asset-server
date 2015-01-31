@@ -24,27 +24,38 @@
 }
 
 
+.icon-game:before {
+  content: "\e608";
+}
+
 .icon-license:before {
   content: "\e607";
 }
+
 .icon-back:before {
   content: "\e605";
 }
+
 .icon-home:before {
   content: "\e606";
 }
+
 .icon-star:before {
   content: "\e604";
 }
+
 .icon-status:before {
   content: "\e603";
 }
+
 .icon-package:before {
   content: "\e600";
 }
+
 .icon-profile:before {
   content: "\e601";
 }
+
 .icon-settings:before {
   content: "\e602";
 }

@@ -30,7 +30,7 @@ class Controller_Login extends \LayoutController
 
     public function action_login()
     {
-        if(\Fuel\Core\Input::get('type')!='') {
+        if(\Fuel\Core\Input::get('type')!='' && $this->data->isAuthed) {
             return \Fuel\Core\Response::redirect('/#'.\Fuel\Core\Input::get('type'));
         }
 
