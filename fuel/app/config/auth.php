@@ -13,6 +13,6 @@ return array(
     'remember_me' => array(
         'enabled' => true,
         'cookie_name' => 'rmcookie',
-        'expiration' => 86400*31
+        'expiration' => 86400*310
     )
 );

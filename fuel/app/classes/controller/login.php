@@ -59,6 +59,7 @@ class Controller_Login extends \LayoutController
             if(\Fuel\Core\Input::get('type')) {
                 $hash = '#'.\Fuel\Core\Input::get('type');
             }
+            \Auth\Auth::remember_me(\Auth\Auth::get("id"));
             return Response::redirect('/'.$hash);
         } else {
             return Response::redirect('/login?error=1');

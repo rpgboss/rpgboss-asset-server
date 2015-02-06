@@ -91,7 +91,11 @@
   color: #ff9b14;
   margin: 0;
   padding: 0;
-  padding-bottom: 15px; }
+  padding-bottom: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden; }
 
 .box ul, .profile-area .fixed ul, .profile-area ul {
   padding: 0;

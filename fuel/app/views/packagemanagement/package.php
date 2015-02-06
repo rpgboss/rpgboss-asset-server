@@ -149,7 +149,7 @@
 
 function UpdateTextLength() {
     var current = CKEDITOR.instances['text'].getData().length,
-        maxlength = 512;
+        maxlength = 1024;
 
     document.getElementById('charsleft').innerHTML = (maxlength-current) + " / " + maxlength;
 }

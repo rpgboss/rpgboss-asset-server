@@ -8,9 +8,9 @@
 
 class Controller_Packagemanagement extends LayoutController {
 
-    private function string512($str) {
-        if(strlen($str)>512) {
-            $str = str_split($str, 512);
+    private function string1024($str) {
+        if(strlen($str)>1024) {
+            $str = str_split($str, 1024);
             $str = $str[0];
         }
         return $str;
@@ -50,6 +50,7 @@ class Controller_Packagemanagement extends LayoutController {
         $data['currentPackage'] = Model_Package::find('first', array(
             'where' => array('id'=>$this->param('packageid'), 'user_id'=>$this->data->userid)
         ));
+        if($data['currentPackage']->category_id==0) $data['currentPackage']->category_id = 1;
 
         if($data['currentPackage']==null) \Fuel\Core\Response::redirect('/');
 
@@ -134,7 +135,7 @@ class Controller_Packagemanagement extends LayoutController {
         $package->name = $name;
         $package->slug = \Fuel\Core\Inflector::friendly_title($name);
         $package->url = $url;
-        $package->description = $this->string512($description);
+        $package->description = $this->string1024($description);
         $package->license = $license;
         $package->version = $version;
         $package->save();
@@ -223,7 +224,7 @@ class Controller_Packagemanagement extends LayoutController {
         $package->slug = \Fuel\Core\Inflector::friendly_title($name);
         $package->url = $url;
         $package->pictures = '';
-        $package->description = $this->string512($description);
+        $package->description = $this->string1024($description);
         $package->verified = 0;
         $package->license = $license;
         $package->rejection_text = '';
