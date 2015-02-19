@@ -129,7 +129,7 @@
 
             if(("WebSocket" in window)){
 
-                var socket = new WebSocket("ws://assets.rpgboss.com:8080/");
+                var socket = new WebSocket("ws://assets.rpgboss.com:8080/chat");
                 socket.onopen = function(){
                     $('.chat').show();
                     socket.send('me<>add-user:'+username);
