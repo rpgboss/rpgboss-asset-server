@@ -1,3 +1,7 @@
+<script>
+    var packageid = <?php print $currentPackage->id ?>;
+    var packagename = "<?php print $currentPackage->name ?>";
+</script>
 <div class="col-xs-9">
     <div class="line smallmargin"></div>
     <a class="back" href="<?php print $currentPackage->GetCategoryLink() ?>"> <span class="icon-back"></span> <?php print $currentPackage->category->name ?></a>
@@ -39,11 +43,10 @@
     </div>
     <div class="line smallmargin"></div>
 
-    <a href="<?php print $currentPackage->url ?>" class="button full">Download</a>
-    <!--
+    <a id="downloadbutton" href="<?php print $currentPackage->url ?>" class="button full">Download</a>
     <br/>
-    <a href="jtlc://package-<?php print $currentPackage->id ?>" class="button full">Download into program</a>
-    -->
+    <div id="commander"></div>
+
     <div class="box notfixed gap comment-section">
         <h1>User Comments</h1>
         <?php if($currentPackage->comments!=null): ?>

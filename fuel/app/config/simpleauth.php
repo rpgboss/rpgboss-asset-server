@@ -5,7 +5,8 @@ return array(
     'table_name' => 'user',
     'table_columns' => array('*'),
 
-    'login_hash_salt' => 'as0dasdka0sfka0sfk120312o30$§%"'
+    'login_hash_salt' => 'as0dasdka0sfka0sfk120312o30$§%"',
+    'multiple_logins' => true
 
 
 );

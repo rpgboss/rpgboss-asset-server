@@ -59,12 +59,9 @@ return array(
 
 	'user/:userid' => 'frontend/show_user',
 
-	'api/v1/login' => 'apiv1/login',
-	'api/v1/logout' => 'apiv1/logout',
-	'api/v1/get_user' => 'apiv1/get_user',
-	'api/v1/get_user_by_id' => 'apiv1/get_user_by_id',
-	'api/v1/get_categories' => 'apiv1/get_categories',
-	'api/v1/get_packages_from_category' => 'apiv1/get_packages_from_category',
-	'api/v1/get_package' => 'apiv1/get_package',
+	'api/v1/login/with/redirect/:username/:password' => 'apiv1/login_with_redirect',
+	'api/v1/login/:username/:password' => 'apiv1/login',
+	'api/v1/checkpackagedownload/:id' => 'apiv1/checkpackagedownload',
+	'api/v1/downloadpackage/:id' => 'apiv1/downloadpackage',
 
 );

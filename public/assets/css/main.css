@@ -48,7 +48,7 @@
   display: block;
   font-size: 18px;
   font-weight: 400;
-  color: #545454;
+  color: white;
   text-decoration: none;
   padding: 22px 20px;
   -webkit-transition: all 0.3s ease;
@@ -56,15 +56,26 @@
 
 .header li a.active,
 .header li a:hover {
-  color: #ff9b14; }
+  text-decoration: underline; }
 
 .header .logo {
   vertical-align: middle; }
 
+.header .logo img {
+  width: 50px; }
+
 .header .logo a {
-  font-size: 30px;
+  font-size: 28px;
+  text-transform: uppercase;
   text-decoration: none;
-  color: #ff9b14; }
+  color: white;
+  padding-top: 5px;
+  display: block; }
+
+.header .logo span {
+  display: block;
+  margin-top: -52px;
+  margin-left: 65px; }
 
 .box-container {
   margin: 30px auto; }
@@ -242,9 +253,9 @@
   float: right; }
 
 .userheader {
-  border-bottom: 1px solid #e9e9e9;
   padding: 10px 0;
-  background: white; }
+  background: #e9e9e9;
+  border: none; }
   .userheader .hello-col {
     text-align: right; }
 
@@ -574,7 +585,7 @@ h1 {
 
 .footer {
   width: 100%;
-  background-color: #ff9b14;
+  background-color: #545454;
   color: white;
   text-align: center;
   padding: 20px 0;
@@ -589,3 +600,29 @@ h1 {
   .back:hover {
     color: #ffb13b;
     text-decoration: none; }
+
+.backgroundimage {
+  background: url(../img/screen.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 80px; }
+
+.layer {
+  background: #ff9b14;
+  opacity: 0.9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 80px;
+  width: 100%;
+  z-index: 2; }
+
+.layer2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 80px;
+  width: 100%;
+  z-index: 3; }

@@ -46,7 +46,7 @@ h1 {
 
 .footer {
     width: 100%;
-    background-color: $orange;
+    background-color: $gray;
     color: $white;
     text-align: center;
     padding: 20px 0;
@@ -64,4 +64,33 @@ h1 {
         color:$lightorange;
         text-decoration: none;
     }
+}
+
+.backgroundimage {
+    background: url(../img/screen.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 80px
+}
+
+.layer {
+    background:$orange;
+    opacity:0.9;
+    position:absolute;
+    top:0;
+    left:0;
+    height:80px;
+    width:100%;
+    z-index:2;
+}
+
+.layer2 {
+    position:absolute;
+    top:0;
+    left:0;
+    height:80px;
+    width:100%;
+    z-index:3;
 }

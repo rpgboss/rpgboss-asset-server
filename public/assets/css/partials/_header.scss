@@ -12,7 +12,7 @@
     display:block;
     font-size: 18px;
     font-weight:400;
-    color: $gray;
+    color: $white;
     text-decoration: none;
     padding: 22px 20px;
     -webkit-transition: all 0.3s ease;
@@ -21,15 +21,30 @@
 
 .header li a.active,
 .header li a:hover {
-    color: $orange;
+    text-decoration: underline;
 }
 
 .header .logo {
     vertical-align:middle;
 }
 
+.header .logo img {
+    width: 50px;
+}
+
 .header .logo a {
-    font-size:30px;
+    font-size:28px;
+    text-transform: uppercase;
     text-decoration: none;
-    color: $orange;
+    color: $white;
+    padding-top: 5px;
+    display: block;
+
+}
+
+
+.header .logo span {
+    display: block;
+    margin-top: -52px;
+    margin-left: 65px;
 }

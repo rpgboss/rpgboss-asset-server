@@ -79,6 +79,7 @@
                     <label for="inputEmail3" class="col-sm-2 control-label">Download Link</label>
                     <div class="col-sm-10">
                         <input type="text" name="url" value="<?php if($currentPackage!=null){print $currentPackage->url;} ?>" class="form-control" id="inputEmail3" placeholder="Your package link">
+                        <div id="urlcheck"></div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -177,6 +178,17 @@ UpdateTextLength();
             $.get('/packagemanagement/updateimageorder/<?php print $currentPackage->id; ?>/'+btoa(JSON.stringify(imageorder)), function(result) {
                 console.log(result);
             });
+        }
+    });
+
+    $.get('/api/v1/checkpackagedownload/<?php print $currentPackage->id ?>', function(data) {
+        var check = $('#urlcheck').addClass('notice');
+        if(data==1) {
+            check.addClass('success');
+            check.text("This package can be downloaded directly into the editor.");
+        } else {
+            check.addClass('error');
+            check.text("This package can not be downloaded directly into the editor.");
         }
     });
 
