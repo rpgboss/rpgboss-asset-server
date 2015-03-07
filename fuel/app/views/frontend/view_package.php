@@ -1,6 +1,8 @@
 <script>
     var packageid = <?php print $currentPackage->id ?>;
     var packagename = "<?php print $currentPackage->name ?>";
+    var packagetype = "<?php print $currentPackage->category_id ?>";
+    var packageversion = "<?php print $currentPackage->version ?>";
 </script>
 <div class="col-xs-9">
     <div class="line smallmargin"></div>
@@ -43,9 +45,43 @@
     </div>
     <div class="line smallmargin"></div>
 
-    <a id="downloadbutton" href="<?php print $currentPackage->url ?>" class="button full">Download</a>
+    <a id="downloadbutton" href="<?php print \Fuel\Core\Uri::create('package/download/'.$currentPackage->id) ?>" class="button full">Download</a>
     <br/>
-    <div id="commander"></div>
+
+    <div class="hide" id="commander">
+        <h3>Download to the editor</h3>
+        <div class="row">
+            <div class="col-xs-6">
+                <strong>Project to be imported in</strong><br/>
+                <span id="path"></span>
+            </div>
+            <div class="col-xs-6">
+                <a id="importButton" class="hide button full" href="#">Import</a>
+                <a id="updateButton" class="hide button full" href="#">Update</a>
+            </div>
+        </div>
+        <div class="row hide" id="importStatus">
+            <div class="col-xs-3">
+                <div id="status"></div>
+            </div>
+            <div class="col-xs-9">
+                <div class="statusbar">
+                    <div class="statusbar-inner"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="hide" id="commanderExist">
+        <div class="notice">
+            This package is already in your project.
+        </div>
+    </div>
+    <div class="hide" id="commanderFail">
+        <div class="notice">
+            This package can not be directly imported to the editor.
+        </div>
+    </div>
 
     <div class="box notfixed gap comment-section">
         <h1>User Comments</h1>

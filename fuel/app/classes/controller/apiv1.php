@@ -133,10 +133,18 @@ class Controller_ApiV1 extends \LayoutController
 
             $filename = basename($package->url);
 
-            $urlDownloadFilePath = "./" . $time . '/' . $filename;
-            $urlDownloadVersion = "./" . $time . '/version';
+            if(!is_dir(DOCROOT.'/'.$package->id)) {
+                \Fuel\Core\File::create_dir(DOCROOT,$package->id);
+            }
+
+            \Fuel\Core\File::delete_dir(DOCROOT.'/'.$package->id, true);
+            \Fuel\Core\File::create_dir(DOCROOT,$package->id);
+
+
+            $urlDownloadFilePath = "./" . $package->id . '/' . $filename;
+            $urlDownloadVersion = "./" . $package->id . '/version';
             $urlDownloadZipFilename = $package->id . ".zip";
-            $urlDownloadZipPath = "./" . $time . "/" . $urlDownloadZipFilename;
+            $urlDownloadZipPath = "./" . $package->id . "/" . $urlDownloadZipFilename;
 
             file_put_contents($urlDownloadFilePath, $file);
             file_put_contents($urlDownloadVersion, $package->version);

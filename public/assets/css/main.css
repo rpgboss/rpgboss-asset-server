@@ -464,6 +464,14 @@ input.button.full {
 .project .image-view {
   height: auto; }
 
+.statusbar {
+  width: 100%;
+  border: 1px solid #e9e9e9; }
+  .statusbar .statusbar-inner {
+    height: 20px;
+    width: 0;
+    background: #ffb13b; }
+
 .images-area {
   overflow: hidden;
   width: 100%;

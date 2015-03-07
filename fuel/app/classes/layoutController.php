@@ -91,8 +91,10 @@ class LayoutController extends \Fuel\Core\Controller {
         $this->data->leftcol = View::forge('layout/leftcol', $data);
 
         $this->data->isAuthed = false;
+        $this->data->user_id = 0;
         if (Auth::check()) {
             $this->data->isAuthed = true;
+            $this->data->user_id = $sessionid = \Auth\Auth::get('id');
         }
     }
 

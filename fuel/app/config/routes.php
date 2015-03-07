@@ -57,6 +57,8 @@ return array(
 	'c/:catslug/:packageid/:packageslug' => 'frontend/view_package',
 	'c/:catslug' => 'frontend/view_category',
 
+	'package/download/:packageid' => 'frontend/download_package',
+
 	'user/:userid' => 'frontend/show_user',
 
 	'api/v1/login/with/redirect/:username/:password' => 'apiv1/login_with_redirect',

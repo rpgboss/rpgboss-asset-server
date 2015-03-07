@@ -35,3 +35,14 @@
     height: auto;
   }
 }
+
+.statusbar {
+  width: 100%;
+  border:1px solid $lightgray;
+
+  .statusbar-inner {
+    height:20px;
+    width: 0;
+    background: $lightorange;
+  }
+}

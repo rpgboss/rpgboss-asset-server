@@ -85,7 +85,7 @@
                 <div class="form-group">
                     <label for="" class="col-sm-2 control-label">License</label>
                     <div class="col-sm-10">
-                        <select name="license" id="">
+                        <select class="form-control" name="license" id="">
                             <option <?php if($currentPackage!=null && $currentPackage->license==0){print 'selected="selected"';} ?> value="0">Free (Creative Commons License Public Domain)</option>
                             <option <?php if($currentPackage!=null && $currentPackage->license==1){print 'selected="selected"';} ?> value="1">Free with attribution (Creative Commons License 4.0)</option>
                             <option <?php if($currentPackage!=null && $currentPackage->license==2){print 'selected="selected"';} ?> value="2">Free with attribution and remix with same license (Creative Commons License 4.0, Share-Alike)</option>
@@ -137,6 +137,44 @@
             </form>
         </div>
         <?php if($currentPackage!=null): ?>
+        <div class="box notfixed gap">
+            <h3>Statistics</h3>
+            <h5>Package visits</h5>
+            <div id="chart1" class="ct-chart"></div>
+            <script>
+                new Chartist.Line('#chart1', {
+                    labels: <?php print Model_Utils_Statistics::getLast7DaysAsJSON() ?>,
+                    series: [
+                        <?php print Model_Utils_Statistics::getLast7DaysVisits($currentPackage->user->id, $currentPackage->id) ?>
+                    ]
+                }, {
+                    low: 0,
+                    showArea: true
+                });
+            </script>
+
+            <h5>Package downloads</h5>
+            <div id="chart2" class="ct-chart"></div>
+            <script>
+                new Chartist.Line('#chart2', {
+                    labels: <?php print Model_Utils_Statistics::getLast7DaysAsJSON() ?>,
+                    series: [
+                        <?php print Model_Utils_Statistics::getLast7DaysDownloads($currentPackage->user->id, $currentPackage->id) ?>
+                    ]
+                }, {
+                    low: 0,
+                    showArea: true
+                });
+            </script>
+            <style>
+                .ct-chart .ct-label.ct-vertical,
+                .ct-chart .ct-label, .ct-chart .ct-label.ct-horizontal {
+                    font-size: 1em;
+                }
+            </style>
+        </div>
+
+
         <div class="box notfixed gap dangerzone">
             <h5>Dangerzone</h5>
             <a class="button" href="/packagemanagement/<?php print $currentPackage->id ?>/delete">Delete this Package</a>

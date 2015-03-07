@@ -84,12 +84,42 @@ class Controller_Frontend extends \LayoutController
 			$this->data->view = View::forge('frontend/no_package');
 		} else {
 			if($data['currentPackage']->verified==1) {
+
+				if($data['currentPackage']->user_id != $this->data->user_id) {
+					$visit_statistic = new Model_Statistic();
+					$visit_statistic->user_id = $data['currentPackage']->user_id;
+					$visit_statistic->type = 0;
+					$visit_statistic->package_id = $data['currentPackage']->id;
+					$visit_statistic->created_at = time();
+					$visit_statistic->save();
+				}
+
 				$this->data->view = View::forge('frontend/view_package', $data);
 			}
 			else {
 				$this->data->view = View::forge('frontend/no_package');
 			}
 		}
+	}
+
+	public function action_download_package()
+	{
+		$this->no_render();
+
+		$currentPackage = Model_Package::find($this->param('packageid'));
+
+		if($currentPackage->user_id != $this->data->user_id) {
+
+			$visit_statistic = new Model_Statistic();
+			$visit_statistic->user_id = $currentPackage->user_id;
+			$visit_statistic->type = 1;
+			$visit_statistic->package_id = $currentPackage->id;
+			$visit_statistic->created_at = time();
+			$visit_statistic->save();
+
+		}
+
+		return \Fuel\Core\Response::redirect($currentPackage->url);
 	}
 
 	public function action_lost_password()
