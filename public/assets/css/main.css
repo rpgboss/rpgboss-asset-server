@@ -462,7 +462,8 @@ input.button.full {
       border: 1px solid #ff9b14; }
 
 .project .image-view {
-  height: auto; }
+  height: 200px;
+  overflow: auto; }
 
 .statusbar {
   width: 100%;

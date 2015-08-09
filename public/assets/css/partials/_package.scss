@@ -32,7 +32,8 @@
 
 .project {
   .image-view {
-    height: auto;
+    height: 200px;
+    overflow: auto;
   }
 }
 

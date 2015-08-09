@@ -15,7 +15,7 @@
             <?php if( $currentPackage->pictures !=''): ?>
             <?php foreach($currentPackage->getImages() as $image): ?>
             <div class="image-view col-xs-4">
-                <img src="<?php print \Fuel\Core\Uri::create('uploads/'.$image) ?>" alt="">
+                <a class="imagelink" rel="gal" href="<?php print \Fuel\Core\Uri::create('uploads/'.$image) ?>"><img src="<?php print \Fuel\Core\Uri::create('uploads/'.$image) ?>" alt=""></a>
             </div>
             <?php endforeach; ?>
             <?php endif; ?>
@@ -173,4 +173,9 @@ CKEDITOR.instances['text'].on('change', UpdateTextLength);
 UpdateTextLength();
 
 
+</script>
+<link rel="stylesheet" href="/assets/css/colorbox.css"/>
+<script src="/assets/js/jquery.colorbox-min.js"></script>
+<script>
+    $('a.imagelink').colorbox({rel:'gal'});
 </script>

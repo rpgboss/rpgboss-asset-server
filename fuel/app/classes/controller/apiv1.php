@@ -106,10 +106,20 @@ class Controller_ApiV1 extends \LayoutController
         $headers = get_headers($url, 1);
         $type = $headers["Content-Type"];
 
+        $allHeaders = array();
+
+        if(is_array($type)) {
+            $allHeaders = $type;
+        } else {
+            $allHeaders[] = $type;
+        }
+
         $result = 0;
 
-        if(preg_match('#png|jpg|jpeg|mp3|zip|octet-stream|audio/mpeg3|audio/x-mpeg-3|text/javascript|application/javascript#i', $type)) {
-            $result = 1;
+        foreach($allHeaders as $header) {
+            if(preg_match('#png|jpg|jpeg|mp3|zip|octet-stream|audio/mpeg3|audio/x-mpeg-3|text/javascript|application/javascript#i', $header)) {
+                $result = 1;
+            }
         }
 
         return \Fuel\Core\Response::forge($result);
